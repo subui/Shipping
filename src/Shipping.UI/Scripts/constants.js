@@ -1,9 +1,12 @@
 ﻿var constants = {
-    title_sign_up: "Dang ky thanh vien",
-    label_full_name: "Full Name",
-    label_username: "Username",
-    label_password: "Password",
-    label_repassword: "Re-password",
     label_email: "Email",
-    label_phone: "Phone Number"
+    label_fullName: "Họ tên",
+    label_password: "Mật khẩu",
+    label_phoneNumber: "Số điện thoại",
+    label_rePassword: "Nhập lại mật khẩu",
+    label_shipper: "Shipper",
+    label_shopManager: "Chủ cửa hàng",
+    label_signUp: "Đăng ký",
+    label_username: "Tài khoản",
+    title_signUp: "Đăng ký thành viên"
 };

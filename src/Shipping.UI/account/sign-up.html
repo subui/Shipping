@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html ng-app="account" ng-controller="sign-up" ng-cloak>
 <head>
-  <title>{{consts.title_sign_up}}</title>
+  <title>{{consts.title_signUp}}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- GoogleApis fonts -->
@@ -18,27 +18,32 @@
   <!-- JavaScript app -->
   <script src="../Scripts/app.js"></script>
   <script src="../Scripts/constants.js"></script>
+  <style>
+    md-input-container {
+      margin-bottom: 0;
+    }
+  </style>
 </head>
 <body>
   <md-content style="max-width: 500px; margin: auto">
-    <h1 align="center" style="margin-top: 100px">{{consts.title_sign_up}}</h1>
+    <h1 align="center" style="margin-top: 100px">{{consts.title_signUp}}</h1>
     <form name="signup" layout="column" layout-padding>
       <md-radio-group ng-model="type" layout="row">
         <md-radio-button ng-value="1" flex="50">
-          chu cua hang
+          {{consts.label_shopManager}}
         </md-radio-button>
         <md-radio-button ng-value="2" flex="50">
-          shipper
+          {{consts.label_shipper}}
         </md-radio-button>
       </md-radio-group>
       <md-input-container class="md-block">
-        <label>{{consts.label_full_name}}</label>
+        <label>{{consts.label_fullName}}</label>
         <input type="text" name="fullname" ng-model="fullName" required autofocus />
         <div ng-messages="signup.fullname.$error">
           <div ng-message="required">This field is required.</div>
         </div>
       </md-input-container>
-      <md-input-container>
+      <md-input-container class="md-block">
         <label>{{consts.label_username}}</label>
         <input type="text" ng-model="username" required md-minlength="32" />
       </md-input-container>
@@ -47,7 +52,7 @@
         <input type="password" ng-model="password" required />
       </md-input-container>
       <md-input-container>
-        <label>{{consts.label_repassword}}</label>
+        <label>{{consts.label_rePassword}}</label>
         <input type="password" name="repassword" ng-model="repassword" required ng-pattern="password" />
         <div ng-messages="signup.repassword.$error">
           <div ng-message="required">This field is required.</div>
@@ -63,14 +68,14 @@
         </div>
       </md-input-container>
       <md-input-container>
-        <label>{{consts.label_phone}}</label>
+        <label>{{consts.label_phoneNumber}}</label>
         <input type="tel" name="phone" ng-model="phone" required />
         <div ng-messages="signup.phone.$error">
           <div ng-message="required">This field is required.</div>
           <div ng-message="tel">Invalid phone.</div>
         </div>
       </md-input-container>
-      <md-button type="submit" class="md-primary md-raised">111</md-button>
+      <md-button type="submit" class="md-primary md-raised">{{consts.label_signUp}}</md-button>
     </form>
     <div>Lorem ipsum? <a href="#">Dolor sit amet</a></div>
   </md-content>
