@@ -1,4 +1,4 @@
-﻿var app = angular.module('account', ['ngMaterial', 'ngMessages']);
+﻿var app = angular.module('account', ['ngMaterial', 'ngMessages', 'ngSanitize']);
 
 app.run(function($rootScope) {
     $rootScope.consts = constants;
