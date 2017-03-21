@@ -94,7 +94,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="account\login.html" />
     <Content Include="account\sign-up.html" />
+    <Content Include="app\index.html" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -109,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\account.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\constants.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />
