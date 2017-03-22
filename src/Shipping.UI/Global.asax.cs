@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 
@@ -11,6 +12,12 @@ namespace Shipping.UI
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            RegisterRoutes(RouteTable.Routes);
+        }
+
+        void RegisterRoutes(RouteCollection route)
+        {
+            route.MapPageRoute("", "app", "~/app/index.html");
         }
     }
 }
