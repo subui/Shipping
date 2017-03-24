@@ -22,7 +22,12 @@
   <script src="../Scripts/constants.js"></script>
   <style>
       body > md-content, #content {
-        height: 100%;
+        height: 100% !important;
+      }
+
+      ._md._md-toolbar-transitions {
+        position: fixed;
+        z-index: 2;
       }
   </style>
 </head>
@@ -70,16 +75,66 @@
 
       <md-grid-list id="content"
                     md-colors="{background: 'amber-50'}"
-                    md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-                    md-row-height-gt-md="1:1" md-row-height="2:2"
-                    md-gutter="12px" md-gutter-gt-sm="8px">
-        <md-grid-tile md-colors="{background: 'yellow'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'red'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'green'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'lime'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'grey'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'orange'}">YELLOW</md-grid-tile>
-        <md-grid-tile md-colors="{background: 'light-green'}">YELLOW</md-grid-tile>
+                    md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+                    md-row-height="300px"
+                    md-gutter="15px">
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
+        <md-grid-tile>
+          <ng-include src="'../Templates/order-item.html'" flex></ng-include>
+        </md-grid-tile>
       </md-grid-list>
     </div>
   </md-content>
