@@ -29,11 +29,28 @@ app.controller('main', function ($scope, $timeout, $mdSidenav, $mdDialog, $mdToa
         });
     };
 
+    $scope.create = function (e) {
+        $mdDialog.show({
+            controller: dialogController,
+            templateUrl: 'create-order.html',
+            parent: angular.element(document.body),
+            targetEvent: e,
+            clickOutsideToClose: true,
+            fullscreen: true
+        })
+        .then(function () {
+            showToast();
+        }, function () {
+
+        });
+    }
+
     function showToast() {
         $mdToast.show(
             $mdToast.simple()
                 .textContent('Simple Toast')
                 .hideDelay(3000)
+                .position('bottom right')
         );
     };
 

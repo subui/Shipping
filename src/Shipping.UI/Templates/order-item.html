@@ -1,14 +1,14 @@
 ﻿<md-card md-theme-watch md-whiteframe="5" ng-click="showDetail($event)" style="min-width: 350px; cursor: pointer">
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">order.OrderName</span>
+      <span class="md-headline" ng-non-bindable>{{order.OrderName}}</span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content layout="column">
     <div layout="row">
-      <div flex="45">order.StartingPoint</div>
+      <div flex="45" ng-non-bindable>{{order.StartingPoint}}</div>
       <md-icon flex="10">arrow_forward</md-icon>
-      <div flex="45">order.Destination</div>
+      <div flex="45" ng-non-bindable>{{order.Destination}}</div>
     </div>
   </md-card-content>
 </md-card>

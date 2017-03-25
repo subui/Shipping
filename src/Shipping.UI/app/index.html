@@ -43,7 +43,7 @@
       </md-toolbar>
       <md-content md-colors="{background: 'blue'}" flex>
         <md-list>
-          <md-list-item ng-click="null">abc</md-list-item>
+          <md-list-item ng-click="create($event)">create</md-list-item>
           <md-list-item ng-click="null">abc</md-list-item>
           <md-list-item ng-click="null">abc</md-list-item>
           <md-list-item ng-click="null">abc</md-list-item>
@@ -64,7 +64,7 @@
           </md-button>
           <h2 md-truncate flex hide-gt-md>My App's Title</h2>
           <span flex></span>
-          <h5><a href="#">Xin chào {{username}}</a></h5>
+          <h5><a href="#" ng-non-bindable>Xin chào {{username}}</a></h5>
           <md-button class="md-icon-button">
             <md-icon>more_vert</md-icon>
           </md-button>
