@@ -1,0 +1,31 @@
+﻿<md-dialog style="min-width: 500px">
+  <md-dialog-content layout="column" layout-padding>
+    <span class="md-headline">order.OrderName</span>
+    <span class="md-subhead" md-colors="{color: 'dialogTheme-grey-400'}">Shop: order.ShopName</span>
+    <div>
+      <div>Nơi nhận hàng: order.StartingPoint</div>
+      <div>Nơi giao hàng: order.Destination</div>
+    </div>
+    <div layout="row">
+      <div flex="50">
+        <span md-colors="{color: 'dialogTheme-grey-700'}">Thời gian bắt đầu vận chuyển:</span>
+        <h2 style="margin: 5px 0" md-colors="{color: 'dialogTheme-blue'}">12:34 12/02/2017</h2>
+      </div>
+      <div flex="5"></div>
+      <div flex="45" layout="column" layout-align="center end">
+        <div>
+          <span md-colors="{color: 'dialogTheme-grey-700'}">Đặt cọc:</span>
+          <span style="font-weight: bold; font-size: 1.5em" md-colors="{color: 'dialogTheme-blue'}">1.500K</span>
+        </div>
+        <div>
+          <span md-colors="{color: 'dialogTheme-grey-700'}">Lợi nhuận:</span>
+          <span style="font-weight: bold; font-size: 1.5em" md-colors="{color: 'dialogTheme-blue'}">25K</span>
+        </div>
+      </div>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-align="end center">
+    <md-button class="md-raised md-primary" ng-click="register()" md-colors="{background: 'dialogTheme-green'}">Đăng ký đơn hàng</md-button>
+    <md-button class="md-raised md-primary" ng-click="closeDialog()" md-colors="{background: 'dialogTheme-blue-grey'}">Đóng</md-button>
+  </md-dialog-actions>
+</md-dialog>
