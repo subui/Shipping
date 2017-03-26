@@ -30,14 +30,18 @@
                 clickOutsideToClose: true,
                 fullscreen: true
             })
-            .then(function () {
-                showToast();
-            },
-            function () {
+                .then(function () {
+                    showToast();
+                },
+                function () {
 
-            });
+                });
         }, 0);
-    }
+    };
+
+    $scope.openMenu = function($mdMenu, e) {
+        $mdMenu.open(e);
+    };
 
     function showToast() {
         $mdToast.show(

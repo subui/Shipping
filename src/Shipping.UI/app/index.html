@@ -67,9 +67,22 @@
           <h2 md-truncate flex hide-gt-md>My App's Title</h2>
           <span flex></span>
           <h5><a href="#" ng-non-bindable>Xin chào {{username}}</a></h5>
-          <md-button class="md-icon-button">
-            <md-icon>more_vert</md-icon>
-          </md-button>
+          <md-menu md-position-mode="target-right target" md-offset="0 42">
+            <md-button class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+              <md-icon>more_vert</md-icon>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button>Menu item 1</md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button>Menu item 2</md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button>Menu item 3</md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
         </div>
       </md-toolbar>
 
@@ -137,7 +150,6 @@
             <ng-include src="'../Templates/order-item.html'" flex></ng-include>
           </md-grid-tile>
         </md-grid-list>
-
       </md-content>
     </section>
   </md-content>
