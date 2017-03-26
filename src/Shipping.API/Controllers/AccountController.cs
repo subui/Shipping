@@ -10,6 +10,20 @@ namespace Shipping.API.Controllers
 {
     public class AccountController : ApiController
     {
-//        public 
+        public List<User> Get()
+        {
+            using (var entities = new ShippingEntities())
+            {
+                return entities.Users.ToList();
+            }
+        }
+
+        public void Post(User user)
+        {
+            using (var entities = new ShippingEntities())
+            {
+                
+            }
+        }
     }
 }

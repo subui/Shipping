@@ -20,6 +20,7 @@
   <script src="/Scripts/app.js"></script>
   <script src="/Scripts/account.js"></script>
   <script src="/Scripts/constants.js"></script>
+  <script src="/Vendors/sha256.js"></script>
   <style>
       md-content {
         height: 100%;
@@ -94,8 +95,8 @@
         <!-- Phone number -->
         <md-input-container>
           <label>{{consts.lbl.PHONE_NUMBER}}</label>
-          <input type="tel" name="phone" ng-model="phone" required />
-          <div ng-messages="signup.phone.$error">
+          <input type="tel" name="phoneNumber" ng-model="phoneNumber" required />
+          <div ng-messages="signup.phoneNumber.$error">
             <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>

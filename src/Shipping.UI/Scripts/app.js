@@ -42,8 +42,9 @@ var $app = {
             this.RevTime = null;
         }
     },
-    createNewUser: function($http) {
-        $http.post($app.url + 'signup');
+    createNewUser: function($http, user, onSuccess, onError) {
+        $http.post($app.url + 'account', user)
+            .then(onSuccess, onError);
     },
     loadScript: function (src, type) {
         if (!src) return null;
