@@ -18,7 +18,7 @@ Date: 2017-03-18 09:30:49
 -- ----------------------------
 -- Table structure for Order
 -- ----------------------------
-DROP TABLE [dbo].[Order]
+DROP TABLE IF EXISTS [dbo].[Order]
 GO
 CREATE TABLE [dbo].[Order] (
 [OrderId] int NOT NULL IDENTITY(1,1) ,
@@ -41,7 +41,7 @@ GO
 -- ----------------------------
 -- Table structure for ReviewsShipper
 -- ----------------------------
-DROP TABLE [dbo].[ReviewsShipper]
+DROP TABLE IF EXISTS [dbo].[ReviewsShipper]
 GO
 CREATE TABLE [dbo].[ReviewsShipper] (
 [OrderId] int NOT NULL ,
@@ -56,7 +56,7 @@ GO
 -- ----------------------------
 -- Table structure for ShippingRegistration
 -- ----------------------------
-DROP TABLE [dbo].[ShippingRegistration]
+DROP TABLE IF EXISTS [dbo].[ShippingRegistration]
 GO
 CREATE TABLE [dbo].[ShippingRegistration] (
 [OrderId] int NOT NULL ,
@@ -70,7 +70,7 @@ GO
 -- ----------------------------
 -- Table structure for User
 -- ----------------------------
-DROP TABLE [dbo].[User]
+DROP TABLE IF EXISTS [dbo].[User]
 GO
 CREATE TABLE [dbo].[User] (
 [UserId] int NOT NULL IDENTITY(1,1) ,

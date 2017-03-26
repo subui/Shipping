@@ -115,6 +115,8 @@
     <Content Include="Scripts\account.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\constants.js" />
+    <Content Include="Scripts\createOrder.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Templates\order-item.html" />
     <Content Include="Templates\order-detail.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />

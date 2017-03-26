@@ -1,7 +1,7 @@
-﻿<md-dialog draggable>
+﻿<md-dialog ng-controller="createOrder" style="min-width: 500px">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2 ng-non-bindable>{{consts.title.CREATE_ORDER}}</h2>
+      <h2>{{$root.consts.title.CREATE_ORDER}}</h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="closeDialog()">
         <md-icon>close</md-icon>
@@ -9,14 +9,75 @@
     </div>
   </md-toolbar>
   <md-dialog-content layout="column" layout-padding>
-    <form name="createOrder">
+    <form name="createOrder" layout="column">
       <md-input-container>
-        <label>Name</label>
-        <input />
+        <label>{{$root.consts.lbl.ORDER_NAME}}</label>
+        <input type="text" name="orderName" ng-model="orderName" required autofocus />
+        <div ng-messages="createOrder.orderName.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
       </md-input-container>
+      <md-input-container>
+        <label>{{$root.consts.lbl.STARTING_POINT}}</label>
+        <input type="text" name="startingPoint" ng-model="startingPoint" required />
+        <div ng-messages="createOrder.startingPoint.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{$root.consts.lbl.DESTINATION}}</label>
+        <input type="text" name="destination" ng-model="destination" required />
+        <div ng-messages="createOrder.destination.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{$root.consts.lbl.START_TIME}}</label>
+        <input type="text" name="startTime" ng-model="startTime" required />
+        <div ng-messages="createOrder.startTime.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
+        <input type="text" name="recipientsName" ng-model="recipientsName" required />
+        <div ng-messages="createOrder.recipientsName.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
+        <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required />
+        <div ng-messages="createOrder.recipientsPhoneNumber.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <div layout="row">
+        <md-input-container flex>
+          <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
+          <input type="text" name="advanceDeposit" ng-model="advanceDeposit" required/>
+          <div ng-messages="createOrder.advanceDeposit.$error">
+            <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>{{$root.consts.lbl.PROFIT}}</label>
+          <input type="text" name="profit" ng-model="profit" required/>
+          <div ng-messages="createOrder.profit.$error">
+            <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+          </div>
+        </md-input-container>
+      </div>
     </form>
   </md-dialog-content>
   <md-dialog-actions>
-      
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}">
+      <md-icon style="color: white">save</md-icon>
+      {{$root.consts.btn.SAVE}}
+    </md-button>
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}">
+      <md-icon style="color: white">clear</md-icon>
+      {{$root.consts.btn.CANCEL}}
+    </md-button>
   </md-dialog-actions>
 </md-dialog>
