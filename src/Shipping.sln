@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.API", "Shipping.API\Shipping.API.csproj", "{852BA4D3-6A8F-46ED-B7C5-8BF06F513537}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.UI", "Shipping.UI\Shipping.UI.csproj", "{293F47CD-A066-4076-B583-8FFE0CD36184}"
+	ProjectSection(ProjectDependencies) = postProject
+		{73ECB09B-2FB1-4EAC-B893-6D189E83C952} = {73ECB09B-2FB1-4EAC-B893-6D189E83C952}
+		{852BA4D3-6A8F-46ED-B7C5-8BF06F513537} = {852BA4D3-6A8F-46ED-B7C5-8BF06F513537}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.DataAccess", "Shipping.DataAccess\Shipping.DataAccess.csproj", "{73ECB09B-2FB1-4EAC-B893-6D189E83C952}"
 EndProject
