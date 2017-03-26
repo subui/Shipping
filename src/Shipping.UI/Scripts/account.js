@@ -1,13 +1,17 @@
-﻿var app = angular.module('account', ['ngMaterial', 'ngMessages', 'ngSanitize']);
+﻿var account = angular.module('account', ['ngMaterial', 'ngMessages', 'ngSanitize']);
 
-app.run(function($rootScope) {
+account.run(function ($rootScope) {
     $rootScope.consts = constants;
 });
 
-app.controller('sign-up', function($scope) {
-    $scope.type = 1;
+account.controller('sign-up', function ($scope) {
+    $scope.signUp = function () {
+        if (!$scope.signup.$valid) return;
+        var user = new $app.entities.User($scope.fullName, $scope.username, $scope.password, $scope.email, $scope.phoneNumber, $scope.userType);
+
+    };
 });
 
-app.controller('login', function($scope) {
-    
+account.controller('login', function ($scope) {
+
 });
