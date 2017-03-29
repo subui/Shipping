@@ -9,6 +9,8 @@ namespace Shipping.API.Enums
     {
         Success = 0,
         ErrorUsernameExist = 1,
-        ErrorEmailExist = 2
+        ErrorUsernameNotExist = 2,
+        ErrorEmailExist = 3,
+        PasswordIncorrect = 4
     }
 }

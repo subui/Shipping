@@ -10,16 +10,8 @@ using Shipping.DataAccess;
 
 namespace Shipping.API.Controllers
 {
-    public class AccountController : ApiController
+    public class SignUpController : ApiController
     {
-        public List<User> Get()
-        {
-            using (var entities = new ShippingEntities())
-            {
-                return entities.Users.ToList();
-            }
-        }
-
         public ResponseStatus Post(User user)
         {
             using (var entities = new ShippingEntities())

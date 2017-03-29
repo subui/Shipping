@@ -21,6 +21,7 @@
     $scope.create = function (e) {
         $app.loadScript('/Scripts/createOrder.js');
         $mdSidenav('left').toggle();
+
         $timeout(function () {
             $mdDialog.show({
                 controller: dialogController,
@@ -29,27 +30,16 @@
                 targetEvent: e,
                 clickOutsideToClose: true,
                 fullscreen: true
-            })
-                .then(function () {
-                    showToast();
-                },
-                function () {
+            }).then(function () {
+                $app.showToast($mdToast, 'Simple Toast', 3000, 'bottom right');
+            }, function () {
 
-                });
+            });
         }, 0);
     };
 
-    $scope.openMenu = function($mdMenu, e) {
+    $scope.openMenu = function ($mdMenu, e) {
         $mdMenu.open(e);
-    };
-
-    function showToast() {
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent('Simple Toast')
-                .hideDelay(3000)
-                .position('bottom right')
-        );
     };
 
     function buildToggler(componentId) {

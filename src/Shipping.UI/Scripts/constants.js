@@ -16,6 +16,7 @@
         LOGIN: 'Đăng nhập',
         ORDER_NAME: 'Tên đơn hàng',
         PASSWORD: 'Mật khẩu',
+        PASSWORD_INCORRECT: 'Mật khẩu không đúng.',
         PASSWORD_NOT_MATCH: 'Mật khẩu không khớp.',
         PHONE_NUMBER: 'Số điện thoại',
         PROFIT: 'Lợi nhuận',
@@ -28,7 +29,10 @@
         SIGN_UP: 'Đăng ký tài khoản',
         START_TIME: 'Thời gian giao hàng',
         STARTING_POINT: 'Nơi nhận hàng',
-        USERNAME: 'Tên tài khoản'
+        USERNAME: 'Tên tài khoản',
+        ERROR_EMAIL_EXIST: 'Email đã tồn tại.',
+        ERROR_USERNAME_EXIST: 'Tên tài khoản đã tồn tại.',
+        ERROR_USERNAME_NOT_EXIST: 'Tên tài khoản không đúng.'
     },
     title: {
         CREATE_ORDER: 'Tạo mới đơn hàng',

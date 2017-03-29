@@ -2,11 +2,11 @@
 var $app = {
     url: 'http://localhost:1110/',
     entities: {
-        User: function (fullName, username, password, email, phoneNumber, userType) {
+        User: function (username, password, fullName, email, phoneNumber, userType) {
             this.UserId = null;
-            this.FullName = fullName;
             this.Username = username;
             this.Password = password;
+            this.FullName = fullName;
             this.Email = email;
             this.PhoneNumber = phoneNumber;
             this.BirthDay = null;
@@ -45,10 +45,16 @@ var $app = {
     responseStatus: {
         Success: 0,
         ErrorUsernameExist: 1,
-        ErrorEmailExist: 2
+        ErrorUsernameNotExist: 2,
+        ErrorEmailExist: 3,
+        PasswordIncorrect: 4
     },
-    createNewUser: function($http, user, onSuccess, onError) {
-        $http.post($app.url + 'account', user)
+    requestCreateNewUser: function ($http, user, onSuccess, onError) {
+        $http.post($app.url + 'signup', user)
+            .then(onSuccess, onError);
+    },
+    requestLogin: function ($http, user, onSuccess, onError) {
+        $http.post($app.url + 'login', user)
             .then(onSuccess, onError);
     },
     loadScript: function (src, type) {
@@ -66,13 +72,25 @@ var $app = {
         }
         return script;
     },
-
+    showToast: function($mdToast, textContent, hideDelay, position) {
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(textContent)
+                .hideDelay(hideDelay)
+                .position(position)
+        );
+    }
 };
 
 // angular module
 var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize']);
+var account = angular.module('account', ['ngMaterial', 'ngMessages', 'ngSanitize']);
 
 app.run(function ($rootScope) {
+    $rootScope.consts = constants;
+});
+
+account.run(function ($rootScope) {
     $rootScope.consts = constants;
 });
 
@@ -82,3 +100,6 @@ app.config(function ($mdThemingProvider) {
 
 app.controller('main', function ($scope, $timeout, $mdSidenav, $mdDialog, $mdToast) { main($scope, $timeout, $mdSidenav, $mdDialog, $mdToast) })
     .controller('createOrder', function ($scope) { createOrder($scope) });
+
+account.controller('signUp', function($rootScope, $scope, $http, $window, $mdToast) { signUp($rootScope, $scope, $http, $window, $mdToast) })
+    .controller('login', function ($rootScope, $scope, $http, $window, $mdToast) { login($rootScope, $scope, $http, $window, $mdToast) });

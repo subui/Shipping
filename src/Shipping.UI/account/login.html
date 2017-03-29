@@ -17,33 +17,46 @@
   <!-- Angular Material libary -->
   <script src="../Vendors/angular-material-1.1.3/angular-material.min.js"></script>
   <!-- JavaScript app -->
+  <script src="/Scripts/app.js"></script>
   <script src="../Scripts/account.js"></script>
   <script src="../Scripts/constants.js"></script>
+  <script src="/Vendors/sha256.js"></script>
   <style>
       md-content {
         height: 100%;
       }
 
         md-content > div {
-          max-width: 400px;
-          margin: auto;
+          min-width: 400px;
+/*          margin: auto;*/
         }
 
       md-input-container {
         margin-bottom: 0;
       }
+
+      #circular {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        background-color: rgba(33, 33, 33, 0.48);
+      }
   </style>
 </head>
 <body>
-  <md-content md-colors="{background: 'amber-50'}">
+  <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center">
+    <div id="circular" layout="row" layout-align="center center" ng-show="waiting">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <div>
       <h1 align="center">{{consts.lbl.LOGIN}}</h1>
-      <form name="signup" layout="column" layout-padding>
+      <form name="fLogin" layout="column" layout-padding>
         <!-- Username -->
         <md-input-container>
           <label>{{consts.lbl.USERNAME}}</label>
           <input type="text" name="username" ng-model="username" required />
-          <div ng-messages="signup.username.$error">
+          <div ng-messages="fLogin.username.$error">
             <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
@@ -51,11 +64,11 @@
         <md-input-container>
           <label>{{consts.lbl.PASSWORD}}</label>
           <input type="password" name="password" ng-model="password" required />
-          <div ng-messages="signup.password.$error">
+          <div ng-messages="fLogin.password.$error">
             <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
-        <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}">{{consts.btn.LOGIN}}</md-button>
+        <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}" ng-click="login()">{{consts.btn.LOGIN}}</md-button>
       </form>
       <a href="#" style="float: left">{{consts.lbl.FORGOT_PASSWORD}}</a>
       <a href="sign-up.html" style="float: right">{{consts.lbl.SIGN_UP}}</a>
