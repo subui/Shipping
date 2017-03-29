@@ -42,6 +42,11 @@ var $app = {
             this.RevTime = null;
         }
     },
+    responseStatus: {
+        Success: 0,
+        ErrorUsernameExist: 1,
+        ErrorEmailExist: 2
+    },
     createNewUser: function($http, user, onSuccess, onError) {
         $http.post($app.url + 'account', user)
             .then(onSuccess, onError);

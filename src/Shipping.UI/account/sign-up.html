@@ -34,10 +34,21 @@
       md-input-container {
         margin-bottom: 0;
       }
+
+      #circular {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        background-color: rgba(33, 33, 33, 0.48);
+      }
   </style>
 </head>
 <body>
   <md-content md-colors="{background: 'amber-50'}">
+    <div id="circular" layout="row" layout-align="center center" ng-show="waiting">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <div>
       <h1 align="center">{{consts.lbl.SIGN_UP}}</h1>
       <form name="signup" layout="column" layout-padding>
