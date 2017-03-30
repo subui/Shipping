@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Shipping.API.Enums
+﻿namespace Shipping.API.Enums
 {
     public enum ResponseStatus
     {

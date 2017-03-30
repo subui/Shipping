@@ -13,6 +13,7 @@
   <script src="/Vendors/angular-1.6.3/angular.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-animate.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-aria.min.js"></script>
+  <script src="/Vendors/angular-1.6.3/angular-cookies.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-messages.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-sanitize.min.js"></script>
   <!-- Angular Material libary -->
@@ -69,7 +70,7 @@
           </md-button>
           <h2 md-truncate flex hide-gt-md>My App's Title</h2>
           <span flex></span>
-          <h5><a href="#" ng-non-bindable>Xin chào {{username}}</a></h5>
+          <h5><a href="#">Xin chào {{username}}</a></h5>
           <md-menu md-position-mode="target-right target" md-offset="0 42">
             <md-button class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
               <md-icon>more_vert</md-icon>
@@ -82,7 +83,7 @@
                 <md-button>Menu item 2</md-button>
               </md-menu-item>
               <md-menu-item>
-                <md-button>Menu item 3</md-button>
+                <md-button ng-click="logout()">Thoats</md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>

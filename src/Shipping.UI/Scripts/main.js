@@ -1,6 +1,6 @@
-﻿function main($scope, $timeout, $mdSidenav, $mdDialog, $mdToast) {
+﻿function main($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) {
     $scope.openSidenav = buildToggler('left');
-    $scope.username = '111';
+    $scope.username = cookies.get('userLogin');
 
     $scope.showDetail = function (e) {
         $mdDialog.show({

@@ -72,7 +72,7 @@ var $app = {
         }
         return script;
     },
-    showToast: function($mdToast, textContent, hideDelay, position) {
+    showToast: function ($mdToast, textContent, hideDelay, position) {
         $mdToast.show(
             $mdToast.simple()
                 .textContent(textContent)
@@ -83,23 +83,32 @@ var $app = {
 };
 
 // angular module
-var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize']);
-var account = angular.module('account', ['ngMaterial', 'ngMessages', 'ngSanitize']);
+var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize', 'ngCookies']);
 
 app.run(function ($rootScope) {
     $rootScope.consts = constants;
 });
 
-account.run(function ($rootScope) {
-    $rootScope.consts = constants;
+app.factory('cookies', function ($cookies) {
+    function set(key, value) {
+        $cookies.put(key, value, { path: '/' });
+    }
+
+    function get(key) {
+        return $cookies.get(key, { path: '/' });
+    }
+
+    return {
+        get: get,
+        set: set
+    }
 });
 
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('dialogTheme');
 });
 
-app.controller('main', function ($scope, $timeout, $mdSidenav, $mdDialog, $mdToast) { main($scope, $timeout, $mdSidenav, $mdDialog, $mdToast) })
+app.controller('signUp', function ($rootScope, $scope, $http, $window, $mdToast) { signUp($rootScope, $scope, $http, $window, $mdToast) })
+    .controller('login', function ($rootScope, $scope, $http, $window, $mdToast, cookies) { login($rootScope, $scope, $http, $window, $mdToast, cookies) })
+    .controller('main', function ($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) { main($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) })
     .controller('createOrder', function ($scope) { createOrder($scope) });
-
-account.controller('signUp', function($rootScope, $scope, $http, $window, $mdToast) { signUp($rootScope, $scope, $http, $window, $mdToast) })
-    .controller('login', function ($rootScope, $scope, $http, $window, $mdToast) { login($rootScope, $scope, $http, $window, $mdToast) });

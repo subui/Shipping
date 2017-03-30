@@ -112,7 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\account.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\signUp.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\createOrder.js" />
@@ -123,6 +124,8 @@
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.js" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.min.js" />
+    <Content Include="Vendors\angular-1.6.3\angular-cookies.js" />
+    <Content Include="Vendors\angular-1.6.3\angular-cookies.min.js" />
     <Content Include="Vendors\angular-1.6.3\angular-messages.js" />
     <Content Include="Vendors\angular-1.6.3\angular-messages.min.js" />
     <Content Include="Vendors\angular-1.6.3\angular-sanitize.min.js" />
