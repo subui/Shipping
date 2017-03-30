@@ -7,7 +7,7 @@
   <!-- GoogleApis fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
   <!-- Angular Material style sheet -->
-  <link href="../Vendors/angular-material-1.1.3/angular-material.min.css" rel="stylesheet" />
+  <link href="/Vendors/angular-material-1.1.3/angular-material.min.css" rel="stylesheet" />
   <!-- Angular libaries -->
   <script src="/Vendors/angular-1.6.3/angular.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-animate.min.js"></script>
@@ -16,11 +16,11 @@
   <script src="/Vendors/angular-1.6.3/angular-messages.min.js"></script>
   <script src="/Vendors/angular-1.6.3/angular-sanitize.min.js"></script>
   <!-- Angular Material libary -->
-  <script src="../Vendors/angular-material-1.1.3/angular-material.min.js"></script>
+  <script src="/Vendors/angular-material-1.1.3/angular-material.min.js"></script>
   <!-- JavaScript app -->
   <script src="/Scripts/constants.js"></script>
-  <script src="/Scripts/app.js"></script>
   <script src="/Scripts/login.js"></script>
+  <script src="/Scripts/app.js"></script>
   <script src="/Vendors/sha256.js"></script>
   <style>
       md-content {
@@ -46,18 +46,18 @@
   </style>
 </head>
 <body>
-  <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center" ng-if="!isLogin">
+  <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center" ng-hide="isLogin">
     <div id="circular" layout="row" layout-align="center center" ng-show="waiting">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <div>
       <h1 align="center">{{consts.lbl.LOGIN}}</h1>
-      <form name="fLogin" layout="column" layout-padding>
+      <form name="form.login" layout="column" layout-padding>
         <!-- Username -->
         <md-input-container>
           <label>{{consts.lbl.USERNAME}}</label>
           <input type="text" name="username" ng-model="username" required />
-          <div ng-messages="fLogin.username.$error">
+          <div ng-messages="form.login.username.$error">
             <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
@@ -65,7 +65,7 @@
         <md-input-container>
           <label>{{consts.lbl.PASSWORD}}</label>
           <input type="password" name="password" ng-model="password" required />
-          <div ng-messages="fLogin.password.$error">
+          <div ng-messages="form.login.password.$error">
             <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>

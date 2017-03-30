@@ -1,23 +1,23 @@
-﻿function login($rootScope, $scope, $http, $window, $mdToast, cookies) {
+﻿function login($rootScope, $scope, request, $window, mdToast, cookies) {
     $scope.isLogin = false;
-    if (cookies.get('userLogin')) {
+    if (cookies.getUserLogin()) {
         $scope.isLogin = true;
         $window.location.href = '/app';
         return;
     }
     $scope.waiting = false;
     $scope.login = function () {
-        if (!$scope.fLogin.$valid) return;
+        if (!$scope.form.login.$valid) return;
         $scope.waiting = true;
         var user = new $app.entities.User($scope.username, sha256_digest($scope.password));
-        $app.requestLogin($http, user, onSuccess, onError);
+        request.login(user, onSuccess, onError);
     };
 
     function onSuccess(response) {
         $scope.waiting = false;
         var status = $app.responseStatus;
         if (response.data === status.Success) {
-            cookies.set('userLogin', $scope.username);
+            cookies.setUserLogin($scope.username);
             $window.location.href = '/app';
             return;
         }
@@ -30,7 +30,7 @@
             $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
         }
 
-        $app.showToast($mdToast, $scope.error, 10000, 'top right');
+        mdToast.showToast($scope.error, 10000, 'top right');
     }
 
     function onError(response) {

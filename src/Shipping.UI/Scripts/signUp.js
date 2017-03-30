@@ -1,10 +1,10 @@
-﻿function signUp($rootScope, $scope, $http, $window, $mdToast) {
+﻿function signUp($rootScope, $scope, request, $window, mdToast) {
     $scope.waiting = false;
     $scope.signUp = function () {
         if (!$scope.signup.$valid) return;
         $scope.waiting = true;
         var user = new $app.entities.User($scope.username, sha256_digest($scope.password), $scope.fullName, $scope.email, $scope.phoneNumber, $scope.userType);
-        $app.requestCreateNewUser($http, user, onSuccess, onError);
+        request.createNewUser(user, onSuccess, onError);
     };
 
     function onSuccess(response) {
@@ -22,7 +22,7 @@
             $scope.error = $rootScope.consts.lbl.ERROR_EMAIL_EXIST;
         }
 
-        $app.showToast($mdToast, $scope.error, 10000, 'top right');
+        mdToast.showToast($scope.error, 10000, 'top right');
     }
 
     function onError(response) {

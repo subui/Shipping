@@ -49,14 +49,6 @@ var $app = {
         ErrorEmailExist: 3,
         PasswordIncorrect: 4
     },
-    requestCreateNewUser: function ($http, user, onSuccess, onError) {
-        $http.post($app.url + 'signup', user)
-            .then(onSuccess, onError);
-    },
-    requestLogin: function ($http, user, onSuccess, onError) {
-        $http.post($app.url + 'login', user)
-            .then(onSuccess, onError);
-    },
     loadScript: function (src, type) {
         if (!src) return null;
         var script = document.querySelector('script[src*="' + src + '"]');
@@ -89,26 +81,68 @@ app.run(function ($rootScope) {
     $rootScope.consts = constants;
 });
 
-app.factory('cookies', function ($cookies) {
-    function set(key, value) {
-        $cookies.put(key, value, { path: '/' });
-    }
+app.factory('cookies',
+        function($cookies) {
+            function setUserLogin(username) {
+                $cookies.put('userLogin', username, { path: '/' });
+            }
 
-    function get(key) {
-        return $cookies.get(key, { path: '/' });
-    }
+            function getUserLogin() {
+                return $cookies.get('userLogin', { path: '/' });
+            }
 
-    return {
-        get: get,
-        set: set
-    }
-});
+            function userLogout() {
+                $cookies.remove('userLogin', { path: '/' });
+            }
+
+            return {
+                getUserLogin: getUserLogin,
+                setUserLogin: setUserLogin,
+                userLogout: userLogout
+            }
+        })
+    .factory('mdToast',
+        function($mdToast) {
+            function showToast(textContent, hideDelay, position) {
+                $mdToast.show($mdToast.simple()
+                    .textContent(textContent)
+                    .hideDelay(hideDelay)
+                    .position(position));
+            }
+
+            return {
+                showToast: showToast
+            }
+        })
+    .factory('request',
+        function($http) {
+            function createNewUser(user, onSuccess, onError) {
+                $http.post($app.url + 'signup', user)
+                    .then(onSuccess, onError);
+            }
+
+            function login(user, onSuccess, onError) {
+                $http.post($app.url + 'login', user)
+                    .then(onSuccess, onError);
+            }
+
+            function getListOrders(onSuccess, onError) {
+                $http.get($app.url + 'order')
+                    .then(onSuccess, onError);
+            }
+
+            return {
+                createNewUser: createNewUser,
+                login: login,
+                getListOrders: getListOrders
+            }
+        });
 
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('dialogTheme');
 });
 
-app.controller('signUp', function ($rootScope, $scope, $http, $window, $mdToast) { signUp($rootScope, $scope, $http, $window, $mdToast) })
-    .controller('login', function ($rootScope, $scope, $http, $window, $mdToast, cookies) { login($rootScope, $scope, $http, $window, $mdToast, cookies) })
-    .controller('main', function ($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) { main($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) })
+app.controller('signUp', function ($rootScope, $scope, request, $window, mdToast) { signUp($rootScope, $scope, request, $window, mdToast) })
+    .controller('login', function ($rootScope, $scope, request, $window, mdToast, cookies) { login($rootScope, $scope, request, $window, mdToast, cookies) })
+    .controller('main', function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) { main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) })
     .controller('createOrder', function ($scope) { createOrder($scope) });

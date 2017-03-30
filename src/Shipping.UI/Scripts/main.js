@@ -1,18 +1,35 @@
-﻿function main($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $mdToast, cookies) {
-    $scope.openSidenav = buildToggler('left');
-    $scope.username = cookies.get('userLogin');
+﻿function main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
+    $scope.isLogin = false;
+    if (cookies.getUserLogin()) {
+        $scope.username = cookies.getUserLogin();
+        $scope.isLogin = true;
+    } else {
+        $window.location.href = '/account/login.html';
+        return;
+    }
+    $scope.orders = request.getListOrders(onSuccess, onError);
+    $scope.orders = [new $app.entities.Order()];
 
-    $scope.showDetail = function (e) {
+    $scope.showDetail = function (e, order) {
         $mdDialog.show({
-            controller: dialogController,
-            templateUrl: '../Templates/order-detail.html',
+            controller: function ($scope, $mdDialog) {
+                $scope.order = order;
+                $scope.closeDialog = function () {
+                    $mdDialog.cancel();
+                };
+
+                $scope.register = function () {
+                    $mdDialog.hide();
+                };
+            },
+            templateUrl: '/Templates/order-detail.html',
             parent: angular.element(document.body),
             targetEvent: e,
             clickOutsideToClose: true,
             fullscreen: true
         })
         .then(function () {
-            showToast();
+            mdToast.showToast('Simple Toast', 3000, 'bottom right');
         }, function () {
 
         });
@@ -24,41 +41,40 @@
 
         $timeout(function () {
             $mdDialog.show({
-                controller: dialogController,
+                controller: function() {
+                    
+                },
                 templateUrl: 'create-order.html',
                 parent: angular.element(document.body),
                 targetEvent: e,
                 clickOutsideToClose: true,
                 fullscreen: true
             }).then(function () {
-                $app.showToast($mdToast, 'Simple Toast', 3000, 'bottom right');
+                mdToast.showToast('Simple Toast', 3000, 'bottom right');
             }, function () {
 
             });
         }, 0);
     };
 
+    $scope.logout = function() {
+        cookies.userLogout();
+        $window.location.href = '/';
+    };
+
+    $scope.openSidenav = function() {
+        $mdSidenav('left').toggle();
+    };
+
     $scope.openMenu = function ($mdMenu, e) {
         $mdMenu.open(e);
     };
 
-    function buildToggler(componentId) {
-        return function () {
-            $mdSidenav(componentId).toggle();
-        };
-    };
+    function onSuccess(response) {
+        
+    }
 
-    function dialogController($scope, $mdDialog) {
-        $scope.hide = function () {
-            $mdDialog.hide();
-        };
-
-        $scope.closeDialog = function () {
-            $mdDialog.cancel();
-        };
-
-        $scope.register = function () {
-            $mdDialog.hide();
-        };
+    function onError(response) {
+        
     }
 }
