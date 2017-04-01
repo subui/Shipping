@@ -1,10 +1,15 @@
 ﻿var constants = {
     btn: {
+        ACCOUNT_MANAGEMENT: 'Quản ký tài khoản',
         CANCEL: 'Hủy bỏ',
+        CHANGE_PASSWORD: 'Đổi mật khẩu',
         CLOSE: 'Đóng',
         LOGIN: 'Đăng nhập',
+        LOGOUT: 'Thoát',
+        MY_ORDERS: 'Đơn hàng của tôi',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         ORDER_REGISTER: 'Đăng ký đơn hàng',
+        PROFILE: 'Thông tin cá nhân',
         SAVE: 'Lưu lại',
         SIGN_UP: 'Đăng ký'
     },
@@ -14,8 +19,8 @@
         DESTINATION: 'Nơi giao hàng',
         EMAIL: 'Email',
         ERROR_EMAIL_EXIST: 'Email đã tồn tại.',
-        ERROR_USERNAME_EXIST: 'Tên tài khoản đã tồn tại.',
-        ERROR_USERNAME_NOT_EXIST: 'Tên tài khoản không đúng.',
+        ERROR_USERNAME_EXIST: 'Tài khoản đã tồn tại.',
+        ERROR_USERNAME_NOT_EXIST: 'Tài khoản không tồn tại.',
         FORGOT_PASSWORD: 'Quên mật khẩu?',
         FULL_NAME: 'Họ tên',
         INVALID_EMAIL: 'Email không hợp lệ.',

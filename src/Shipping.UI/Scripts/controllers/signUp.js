@@ -11,7 +11,8 @@
         $scope.waiting = false;
         var status = $app.responseStatus;
         if (response.data === status.Success) {
-            alert('success');
+            $window.location.href = '/account/login.html';
+            return;
         }
 
         if (response.data === status.ErrorUsernameExist) {
@@ -22,7 +23,7 @@
             $scope.error = $rootScope.consts.lbl.ERROR_EMAIL_EXIST;
         }
 
-        mdToast.showToast($scope.error, 10000, 'top right');
+        mdToast.showToast($scope.error, 0, 'top right');
     }
 
     function onError(response) {

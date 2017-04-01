@@ -8,6 +8,11 @@
         return;
     }
     $scope.orders = request.getListOrders(onSuccess, onError);
+    $scope.orders = [new $app.entities.Order()];
+    $scope.rm = function() {
+        var content = document.getElementById('content');
+        content.children[0].remove();
+    }
 
     $scope.showDetail = function (event, order) {
         $mdDialog.show({

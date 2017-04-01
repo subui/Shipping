@@ -118,9 +118,7 @@
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\controllers\createOrder.js" />
     <Content Include="Scripts\controllers\main.js" />
-    <Content Include="Scripts\factories\cookies.js" />
-    <Content Include="Scripts\factories\mdToast.js" />
-    <Content Include="Scripts\factories\request.js" />
+    <Content Include="Styles\app.css" />
     <Content Include="Templates\order-item.html" />
     <Content Include="Templates\order-detail.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />
