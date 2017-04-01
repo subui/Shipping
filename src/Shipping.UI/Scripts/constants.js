@@ -3,6 +3,7 @@
         CANCEL: 'Hủy bỏ',
         CLOSE: 'Đóng',
         LOGIN: 'Đăng nhập',
+        ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         ORDER_REGISTER: 'Đăng ký đơn hàng',
         SAVE: 'Lưu lại',
         SIGN_UP: 'Đăng ký'

@@ -1,16 +1,15 @@
 ﻿function main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
     $scope.isLogin = false;
-    if (cookies.getUserLogin()) {
-        $scope.username = cookies.getUserLogin();
+    $scope.username = cookies.getUserLogin();
+    if ($scope.username) {
         $scope.isLogin = true;
     } else {
         $window.location.href = '/account/login.html';
         return;
     }
     $scope.orders = request.getListOrders(onSuccess, onError);
-    $scope.orders = [new $app.entities.Order()];
 
-    $scope.showDetail = function (e, order) {
+    $scope.showDetail = function (event, order) {
         $mdDialog.show({
             controller: function ($scope, $mdDialog) {
                 $scope.order = order;
@@ -24,7 +23,7 @@
             },
             templateUrl: '/Templates/order-detail.html',
             parent: angular.element(document.body),
-            targetEvent: e,
+            targetEvent: event,
             clickOutsideToClose: true,
             fullscreen: true
         })
@@ -36,7 +35,7 @@
     };
 
     $scope.create = function (e) {
-        $app.loadScript('/Scripts/createOrder.js');
+        $app.loadScript('/Scripts/controllers/createOrder.js');
         $mdSidenav('left').toggle();
 
         $timeout(function () {

@@ -49,6 +49,9 @@ var $app = {
         ErrorEmailExist: 3,
         PasswordIncorrect: 4
     },
+    menu: [
+
+    ],
     loadScript: function (src, type) {
         if (!src) return null;
         var script = document.querySelector('script[src*="' + src + '"]');
@@ -81,8 +84,8 @@ app.run(function ($rootScope) {
     $rootScope.consts = constants;
 });
 
-app.factory('cookies',
-        function($cookies) {
+app.factory('cookies', cookies
+        /*function($cookies) {
             function setUserLogin(username) {
                 $cookies.put('userLogin', username, { path: '/' });
             }
@@ -100,9 +103,9 @@ app.factory('cookies',
                 setUserLogin: setUserLogin,
                 userLogout: userLogout
             }
-        })
-    .factory('mdToast',
-        function($mdToast) {
+        }*/)
+    .factory('mdToast', mdToast
+        /*function($mdToast) {
             function showToast(textContent, hideDelay, position) {
                 $mdToast.show($mdToast.simple()
                     .textContent(textContent)
@@ -113,9 +116,9 @@ app.factory('cookies',
             return {
                 showToast: showToast
             }
-        })
-    .factory('request',
-        function($http) {
+        }*/)
+    .factory('request', request
+        /*function($http) {
             function createNewUser(user, onSuccess, onError) {
                 $http.post($app.url + 'signup', user)
                     .then(onSuccess, onError);
@@ -136,7 +139,7 @@ app.factory('cookies',
                 login: login,
                 getListOrders: getListOrders
             }
-        });
+        }*/);
 
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('dialogTheme');

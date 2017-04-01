@@ -112,12 +112,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\login.js" />
-    <Content Include="Scripts\signUp.js" />
+    <Content Include="Scripts\controllers\login.js" />
+    <Content Include="Scripts\controllers\signUp.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\constants.js" />
-    <Content Include="Scripts\createOrder.js" />
-    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\controllers\createOrder.js" />
+    <Content Include="Scripts\controllers\main.js" />
+    <Content Include="Scripts\factories\cookies.js" />
+    <Content Include="Scripts\factories\mdToast.js" />
+    <Content Include="Scripts\factories\request.js" />
     <Content Include="Templates\order-item.html" />
     <Content Include="Templates\order-detail.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />
