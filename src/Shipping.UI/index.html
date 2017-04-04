@@ -1,40 +1,12 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-  <script type="text/javascript">
-
-        function Card() {
-            this.name = 'Bob';
-            this.phone = '1234567';
-        }
-
-        angular.module('myApp', []);
-
-        angular.module('myApp').controller('CustomerCardController', function ($scope) {
-            $scope.cards = [];
-
-            $scope.addCard = function() {
-                $scope.cards.push(new Card());
-            };
-        });
-
-        angular.module('myApp').directive('myCard', function(){
-            return {
-                restrict: 'A',
-                template: '<div ng-controller="ctrl"><script>angular.module(\'myApp\', []).controller(\'ctrl\', function($scope) {$scope.abc = 123;});<\/script>{{abc}}</div>',
-                replace: false,
-                transclude: false,
-                scope: {
-                    aCard: '=myCard'
-                }
-            };
-        });
-  </script>
+  <title></title>
+  <meta charset="utf-8" />
 </head>
-<body ng-app="myApp">
-  <div ng-controller="CustomerCardController">
-    <div ng-click="addCard()">Add new card</div>
-    <div ng-repeat="card in cards" my-card="card"></div>
-  </div>
+<body>
+  <h1>Homepage</h1>
+  <a href="/account/sign-up.html">Dang ky tai khoan</a>
+  <a href="/account/login.html">Dang nhap</a>
 </body>
 </html>

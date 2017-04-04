@@ -8,8 +8,7 @@
         return;
     }
     $scope.orders = request.getListOrders(onSuccess, onError);
-    $scope.orders = [new $app.entities.Order()];
-    $scope.rm = function() {
+    $scope.rm = function () {
         var content = document.getElementById('content');
         content.children[0].remove();
     }
@@ -29,44 +28,40 @@
             templateUrl: '/Templates/order-detail.html',
             parent: angular.element(document.body),
             targetEvent: event,
-            clickOutsideToClose: true,
-            fullscreen: true
+            clickOutsideToClose: true
         })
         .then(function () {
             mdToast.showToast('Simple Toast', 3000, 'bottom right');
         }, function () {
-
         });
     };
 
-    $scope.create = function (e) {
+    $scope.createOrder = function (event) {
         $app.loadScript('/Scripts/controllers/createOrder.js');
         $mdSidenav('left').toggle();
 
         $timeout(function () {
             $mdDialog.show({
-                controller: function() {
-                    
-                },
-                templateUrl: 'create-order.html',
                 parent: angular.element(document.body),
-                targetEvent: e,
+                targetEvent: event,
+                templateUrl: 'create-order.html',
                 clickOutsideToClose: true,
-                fullscreen: true
+                fullscreen: true,
+                controller: createOrder
             }).then(function () {
                 mdToast.showToast('Simple Toast', 3000, 'bottom right');
             }, function () {
 
             });
-        }, 0);
+        }, 100);
     };
 
-    $scope.logout = function() {
+    $scope.logout = function () {
         cookies.userLogout();
         $window.location.href = '/';
     };
 
-    $scope.openSidenav = function() {
+    $scope.openSidenav = function () {
         $mdSidenav('left').toggle();
     };
 
@@ -75,10 +70,10 @@
     };
 
     function onSuccess(response) {
-        
+
     }
 
     function onError(response) {
-        
+
     }
 }

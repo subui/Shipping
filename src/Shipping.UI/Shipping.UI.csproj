@@ -121,6 +121,7 @@
     <Content Include="Styles\app.css" />
     <Content Include="Templates\order-item.html" />
     <Content Include="Templates\order-detail.html" />
+    <Content Include="Templates\waiting.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.js" />

@@ -29,7 +29,6 @@
 
         md-content > div {
           min-width: 400px;
-          /*          margin: auto;*/
         }
 
       md-input-container {
@@ -47,9 +46,7 @@
 </head>
 <body>
   <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center" ng-hide="isLogin">
-    <div id="circular" layout="row" layout-align="center center" ng-show="waiting">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
+    <ng-include src="Templates/waiting.html"></ng-include>
     <div>
       <h1 align="center">{{consts.lbl.LOGIN}}</h1>
       <form name="form.login" layout="column" layout-padding>

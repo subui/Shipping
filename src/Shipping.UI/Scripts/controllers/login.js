@@ -14,7 +14,7 @@
     };
 
     function onSuccess(response) {
-        $scope.waiting = false;
+//        $scope.waiting = false;
         var status = $app.responseStatus;
         if (response.data === status.Success) {
             cookies.setUserLogin($scope.username);

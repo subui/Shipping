@@ -4,6 +4,7 @@
         CANCEL: 'Hủy bỏ',
         CHANGE_PASSWORD: 'Đổi mật khẩu',
         CLOSE: 'Đóng',
+        CREATE_ORDER: 'Tạo mới đơn hàng',
         LOGIN: 'Đăng nhập',
         LOGOUT: 'Thoát',
         MY_ORDERS: 'Đơn hàng của tôi',

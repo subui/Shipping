@@ -51,13 +51,11 @@
       </md-toolbar>
       <md-content md-colors="{background: 'blue'}" flex>
         <md-list>
-          <md-list-item ng-click="null">{{$root.consts.btn.ORDER_MANAGEMENT}}</md-list-item>
+          <md-list-item ng-click="null" style="font-size: 1.1em">{{$root.consts.btn.ORDER_MANAGEMENT}}</md-list-item>
           <md-list-item>
             <md-list style="width: 100%; margin-left: 25px">
-              <md-list-item ng-click="rm()">{{$root.consts.btn.MY_ORDERS}}</md-list-item>
-              <md-list-item ng-click="null">abc</md-list-item>
-              <md-list-item ng-click="null">abc</md-list-item>
-              <md-list-item ng-click="null">abc</md-list-item>
+              <md-list-item ng-click="null">{{$root.consts.btn.MY_ORDERS}}</md-list-item>
+              <md-list-item ng-click="createOrder()">{{$root.consts.btn.CREATE_ORDER}}</md-list-item>
             </md-list>
           </md-list-item>
           <md-list-item ng-click="null">{{$root.consts.btn.ACCOUNT_MANAGEMENT}}</md-list-item>
@@ -101,14 +99,14 @@
       </md-toolbar>
 
       <md-content md-colors="{background: 'amber-50'}" flex>
-        <md-grid-list id="content"
+        <!--<md-grid-list id="content"
                       md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
                       md-row-height="125px"
                       md-gutter="10px">
           <md-grid-tile ng-repeat="order in orders">
             <ng-include src="'/Templates/order-item.html'" flex></ng-include>
           </md-grid-tile>
-        </md-grid-list>
+        </md-grid-list>-->
       </md-content>
     </section>
   </md-content>

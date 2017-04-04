@@ -71,11 +71,11 @@
     </form>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}">
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="save()">
       <md-icon style="color: white">save</md-icon>
       {{$root.consts.btn.SAVE}}
     </md-button>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}">
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="cancel($event)">
       <md-icon style="color: white">clear</md-icon>
       {{$root.consts.btn.CANCEL}}
     </md-button>
