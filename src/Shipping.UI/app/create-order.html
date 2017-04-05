@@ -1,4 +1,5 @@
 ﻿<md-dialog ng-controller="createOrder" style="min-width: 500px">
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>{{$root.consts.title.CREATE_ORDER}}</h2>
@@ -75,7 +76,7 @@
       <md-icon style="color: white">save</md-icon>
       {{$root.consts.btn.SAVE}}
     </md-button>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="cancel($event)">
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="cancel()">
       <md-icon style="color: white">clear</md-icon>
       {{$root.consts.btn.CANCEL}}
     </md-button>

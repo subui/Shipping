@@ -45,7 +45,6 @@
                 parent: angular.element(document.body),
                 targetEvent: event,
                 templateUrl: 'create-order.html',
-                clickOutsideToClose: true,
                 fullscreen: true,
                 controller: createOrder
             }).then(function () {

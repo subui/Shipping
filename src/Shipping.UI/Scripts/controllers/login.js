@@ -14,13 +14,14 @@
     };
 
     function onSuccess(response) {
-//        $scope.waiting = false;
         var status = $app.responseStatus;
         if (response.data === status.Success) {
             cookies.setUserLogin($scope.username);
             $window.location.href = '/app';
             return;
         }
+
+        $scope.waiting = false;
 
         if (response.data === status.ErrorUsernameNotExist) {
             $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
