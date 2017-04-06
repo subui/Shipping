@@ -99,14 +99,15 @@
       </md-toolbar>
 
       <md-content md-colors="{background: 'amber-50'}" flex>
-        <!--<md-grid-list id="content"
+        <ng-include src="'/Templates/waiting.html'"></ng-include>
+        <md-grid-list id="content"
                       md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
                       md-row-height="125px"
                       md-gutter="10px">
           <md-grid-tile ng-repeat="order in orders">
             <ng-include src="'/Templates/order-item.html'" flex></ng-include>
           </md-grid-tile>
-        </md-grid-list>-->
+        </md-grid-list>
       </md-content>
     </section>
   </md-content>

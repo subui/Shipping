@@ -32,27 +32,48 @@
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <md-input-container>
-        <label>{{$root.consts.lbl.START_TIME}}</label>
-        <input type="text" name="startTime" ng-model="startTime" required />
-        <div ng-messages="createOrder.startTime.$error">
-          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
-        </div>
-      </md-input-container>
-      <md-input-container>
-        <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
-        <input type="text" name="recipientsName" ng-model="recipientsName" required />
-        <div ng-messages="createOrder.recipientsName.$error">
-          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
-        </div>
-      </md-input-container>
-      <md-input-container>
-        <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
-        <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required />
-        <div ng-messages="createOrder.recipientsPhoneNumber.$error">
-          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
-        </div>
-      </md-input-container>
+      <div layout="row">
+        <md-input-container>
+          <label>{{$root.consts.lbl.START_TIME}}</label>
+          <md-datepicker name="startTime" ng-model="startTime" md-min-date="today" md-open-on-focus></md-datepicker>
+          <div ng-messages="createOrder.startTime.$error">
+            <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>{{$root.consts.lbl.HOUR}}</label>
+          <md-select ng-model="hour" ng-init="hour='00'">
+            <md-option ng-repeat="h in hours" value="{{h}}">
+              {{h}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        :
+        <md-input-container>
+          <label>{{$root.consts.lbl.MINUTE}}</label>
+          <md-select ng-model="minute" ng-init="minute='00'">
+            <md-option ng-repeat="m in minutes" value="{{m}}">
+              {{m}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container flex="70">
+          <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
+          <input type="text" name="recipientsName" ng-model="recipientsName" required/>
+          <div ng-messages="createOrder.recipientsName.$error">
+            <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
+          <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required/>
+          <div ng-messages="createOrder.recipientsPhoneNumber.$error">
+            <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+          </div>
+        </md-input-container>
+      </div>
       <div layout="row">
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>

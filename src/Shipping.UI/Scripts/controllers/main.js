@@ -7,7 +7,8 @@
         $window.location.href = '/account/login.html';
         return;
     }
-    $scope.orders = request.getListOrders(onSuccess, onError);
+    $scope.waiting = true;
+    request.getListOrders(onSuccess, onError);
     $scope.rm = function () {
         var content = document.getElementById('content');
         content.children[0].remove();
@@ -69,10 +70,13 @@
     };
 
     function onSuccess(response) {
-
+        $scope.waiting = false;
+        $scope.orders = response.data;
     }
 
     function onError(response) {
-
+        $scope.waiting = false;
+        mdToast.showToast('An error has occurred.', 3000, 'bottom right');
+        console.log(response.data);
     }
 }

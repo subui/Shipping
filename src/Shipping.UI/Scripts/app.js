@@ -1,6 +1,6 @@
 ﻿// ...
 var $app = {
-    url: 'http://localhost:1110/',
+    apiUrl: 'http://localhost:1110/',
     entities: {
         User: function (username, password, fullName, email, phoneNumber, userType) {
             this.UserId = null;
@@ -95,7 +95,7 @@ app.config(function ($mdThemingProvider) {
 app.controller('signUp', function ($rootScope, $scope, request, $window, mdToast) { signUp($rootScope, $scope, request, $window, mdToast) })
     .controller('login', function ($rootScope, $scope, request, $window, mdToast, cookies) { login($rootScope, $scope, request, $window, mdToast, cookies) })
     .controller('main', function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) { main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) })
-    .controller('createOrder', function ($scope) { createOrder($scope) });
+    .controller('createOrder', function ($scope, request, $mdDialog, mdToast) { createOrder($scope, request, $mdDialog, mdToast) });
 
 
 function cookies($cookies) {
@@ -133,23 +133,29 @@ function mdToast($mdToast) {
 
 function request($http) {
     function createNewUser(user, onSuccess, onError) {
-        $http.post($app.url + 'signup', user)
+        $http.post($app.apiUrl + constants.req.SIGN_UP, user)
             .then(onSuccess, onError);
     }
 
     function login(user, onSuccess, onError) {
-        $http.post($app.url + 'login', user)
+        $http.post($app.apiUrl + constants.req.LOGIN, user)
             .then(onSuccess, onError);
     }
 
     function getListOrders(onSuccess, onError) {
-        $http.get($app.url + 'order')
+        $http.get($app.apiUrl + constants.req.ORDER)
+            .then(onSuccess, onError);
+    }
+
+    function createOrder(order, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.ORDER, order)
             .then(onSuccess, onError);
     }
 
     return {
         createNewUser: createNewUser,
         login: login,
-        getListOrders: getListOrders
+        getListOrders: getListOrders,
+        createOrder: createOrder
     }
 }

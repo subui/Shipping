@@ -14,6 +14,11 @@
         SAVE: 'Lưu lại',
         SIGN_UP: 'Đăng ký'
     },
+    req: {
+        LOGIN: 'login',
+        ORDER: 'order',
+        SIGN_UP: 'signup'
+    },
     lbl: {
         ADVANCE_DEPOSIT: 'Đặt cọc',
         ALREADY_HAVE_ACCOUNT: 'Đã có tài khoản? <a href="login.html">Đăng nhập</a>.',
@@ -24,8 +29,10 @@
         ERROR_USERNAME_NOT_EXIST: 'Tài khoản không tồn tại.',
         FORGOT_PASSWORD: 'Quên mật khẩu?',
         FULL_NAME: 'Họ tên',
+        HOUR: 'HH',
         INVALID_EMAIL: 'Email không hợp lệ.',
         LOGIN: 'Đăng nhập',
+        MINUTE: 'MM',
         ORDER_NAME: 'Tên đơn hàng',
         PASSWORD: 'Mật khẩu',
         PASSWORD_INCORRECT: 'Mật khẩu không đúng.',
