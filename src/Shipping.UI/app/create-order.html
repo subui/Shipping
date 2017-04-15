@@ -9,8 +9,8 @@
       </md-button>
     </div>
   </md-toolbar>
-  <md-dialog-content layout="column" layout-padding>
-    <form name="createOrder" layout="column">
+  <form name="createOrder" layout="column">
+    <md-dialog-content layout="column" layout-padding>
       <md-input-container>
         <label>{{$root.consts.lbl.ORDER_NAME}}</label>
         <input type="text" name="orderName" ng-model="orderName" required autofocus />
@@ -32,27 +32,26 @@
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <div layout="row">
+      <label>{{$root.consts.lbl.START_TIME}}</label>
+      <div layout="row" ng-init="startTime=today; hour=currentHour; minute=currentMinute">
         <md-input-container>
-          <label>{{$root.consts.lbl.START_TIME}}</label>
-          <md-datepicker name="startTime" ng-model="startTime" md-min-date="today" md-open-on-focus></md-datepicker>
+          <md-datepicker name="startTime" ng-model="startTime" md-min-date="today" md-open-on-focus aria-label="{{$root.consts.lbl.START_TIME}}" ng-change="onDateChange()"></md-datepicker>
           <div ng-messages="createOrder.startTime.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container>
           <label>{{$root.consts.lbl.HOUR}}</label>
-          <md-select ng-model="hour" ng-init="hour='00'">
-            <md-option ng-repeat="h in hours" value="{{h}}">
+          <md-select ng-model="hour">
+            <md-option ng-repeat="h in hours" value="{{h}}" ng-disabled="startTime.toString() === today.toString() ? $index < currentHour : false">
               {{h}}
             </md-option>
           </md-select>
         </md-input-container>
-        :
         <md-input-container>
           <label>{{$root.consts.lbl.MINUTE}}</label>
-          <md-select ng-model="minute" ng-init="minute='00'">
-            <md-option ng-repeat="m in minutes" value="{{m}}">
+          <md-select ng-model="minute">
+            <md-option ng-repeat="m in minutes" value="{{m}}" ng-disabled="startTime.toString() === today.toString() && hour === currentHour ? $index < currentMinute : false">
               {{m}}
             </md-option>
           </md-select>
@@ -61,14 +60,14 @@
       <div layout="row">
         <md-input-container flex="70">
           <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
-          <input type="text" name="recipientsName" ng-model="recipientsName" required/>
+          <input type="text" name="recipientsName" ng-model="recipientsName" required />
           <div ng-messages="createOrder.recipientsName.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
-          <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required/>
+          <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required />
           <div ng-messages="createOrder.recipientsPhoneNumber.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
@@ -77,29 +76,29 @@
       <div layout="row">
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
-          <input type="text" name="advanceDeposit" ng-model="advanceDeposit" required/>
+          <input type="text" name="advanceDeposit" ng-model="advanceDeposit" required />
           <div ng-messages="createOrder.advanceDeposit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.PROFIT}}</label>
-          <input type="text" name="profit" ng-model="profit" required/>
+          <input type="text" name="profit" ng-model="profit" required />
           <div ng-messages="createOrder.profit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
       </div>
-    </form>
-  </md-dialog-content>
-  <md-dialog-actions>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="save()">
-      <md-icon style="color: white">save</md-icon>
-      {{$root.consts.btn.SAVE}}
-    </md-button>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="cancel()">
-      <md-icon style="color: white">clear</md-icon>
-      {{$root.consts.btn.CANCEL}}
-    </md-button>
-  </md-dialog-actions>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button type="submit" class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="save()">
+        <md-icon style="color: white">save</md-icon>
+        {{$root.consts.btn.SAVE}}
+      </md-button>
+      <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="closeDialog()">
+        <md-icon style="color: white">clear</md-icon>
+        {{$root.consts.btn.CANCEL}}
+      </md-button>
+    </md-dialog-actions>
+  </form>
 </md-dialog>

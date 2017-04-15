@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using Shipping.API.Enums;
 using Shipping.API.Libs;
@@ -12,25 +8,26 @@ namespace Shipping.API.Controllers
 {
     public class LoginController : ApiController
     {
-        public ResponseStatus Post(User user)
+        public object Post(User user)
         {
+            User userLogin;
             using (var entities = new ShippingEntities())
             {
                 var users = entities.Users.Where(u => u.Username.Equals(user.Username));
 
                 if (!users.Any())
                 {
-                    return ResponseStatus.ErrorUsernameNotExist;
+                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.ErrorUsernameNotExist };
                 }
 
-                var userLogin = users.First();
+                userLogin = users.First();
                 if (!App.GetSHA256String(user.Password).Equals(userLogin.Password))
                 {
-                    return ResponseStatus.PasswordIncorrect;
+                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.PasswordIncorrect };
                 }
             }
 
-            return ResponseStatus.Success;
+            return new { UserLogin = userLogin, ResponseStatus = ResponseStatus.Success };
         }
     }
 }

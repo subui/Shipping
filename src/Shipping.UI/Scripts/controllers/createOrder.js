@@ -1,15 +1,18 @@
 ﻿function createOrder($scope, request, $mdDialog, mdToast) {
     $scope.today = new Date();
-    $scope.startTime = new Date();
+    $scope.currentHour = $scope.today.getHours().toString().padStart(2, '0');
+    $scope.currentMinute = $scope.today.getMinutes().toString().padStart(2, '0');
+
+    $scope.today.setHours(0, 0, 0, 0);
 
     $scope.hours = [];
     for (var h = 0; h <= 24; h++) {
-        $scope.hours.push(h < 10 ? '0' + h : h.toString());
+        $scope.hours.push(h.toString().padStart(2, '0'));
     }
 
     $scope.minutes = [];
     for (var m = 0; m <= 60; m++) {
-        $scope.minutes.push(m < 10 ? '0' + m : m.toString());
+        $scope.minutes.push(m.toString().padStart(2, '0'));
     }
 
     $scope.mdDialog = $mdDialog;
@@ -17,9 +20,7 @@
         if (!$scope.createOrder.$valid) return;
         $scope.waiting = true;
 
-        $scope.startTime.setHours($scope.hour);
-        $scope.startTime.setMinutes($scope.minute);
-        $scope.startTime.setSeconds(0);
+        $scope.startTime.setHours($scope.hour, $scope.minute);
 
         var order = new $app.entities.Order();
         order.OrderName = $scope.orderName;
@@ -33,7 +34,7 @@
         request.createOrder(order, onSuccess, onError);
     };
 
-    $scope.cancel = function () {
+    $scope.closeDialog = function () {
         // Show confirm dialog
         $scope.$parent.mdDialog.cancel();
     };

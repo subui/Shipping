@@ -1,14 +1,17 @@
 ﻿function main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
     $scope.isLogin = false;
-    $scope.username = cookies.getUserLogin();
-    if ($scope.username) {
+    $scope.userLogin = cookies.getUserLogin();
+    if ($scope.userLogin) {
         $scope.isLogin = true;
+        $scope.username = $scope.userLogin.FullName;
     } else {
         $window.location.href = '/account/login.html';
         return;
     }
     $scope.waiting = true;
     request.getListOrders(onSuccess, onError);
+    $scope.menu = $app.menu.shopManager;
+    console.log(typeof $scope.menu);
     $scope.rm = function () {
         var content = document.getElementById('content');
         content.children[0].remove();

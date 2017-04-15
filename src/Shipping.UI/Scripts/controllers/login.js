@@ -14,20 +14,20 @@
     };
 
     function onSuccess(response) {
-        var status = $app.responseStatus;
-        if (response.data === status.Success) {
-            cookies.setUserLogin($scope.username);
+        var status = response.data.ResponseStatus;
+        if (status === $app.responseStatus.Success) {
+            cookies.setUserLogin(response.data.UserLogin);
             $window.location.href = '/app';
             return;
         }
 
         $scope.waiting = false;
 
-        if (response.data === status.ErrorUsernameNotExist) {
+        if (status === $app.responseStatus.ErrorUsernameNotExist) {
             $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
         }
 
-        if (response.data === status.PasswordIncorrect) {
+        if (status === $app.responseStatus.PasswordIncorrect) {
             $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
         }
 

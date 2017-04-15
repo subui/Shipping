@@ -49,9 +49,58 @@ var $app = {
         ErrorEmailExist: 3,
         PasswordIncorrect: 4
     },
-    menu: [
-
-    ],
+    menu: {
+        shopManager: [
+            {
+                name: constants.btn.ORDER_MANAGEMENT,
+                children: [
+                    {
+                        name: constants.btn.MY_ORDERS,
+                        action: "myOrder()"
+                    },
+                    {
+                        name: constants.btn.CREATE_ORDER,
+                        action: function() {
+                            createOrder();
+                        }
+                    }
+                ]
+            },
+            {
+                name: constants.btn.ACCOUNT_MANAGEMENT,
+                children: [
+                    {
+                        name: constants.btn.PROFILE,
+                        action: "profile()"
+                    },
+                    {
+                        name: constants.btn.CHANGE_PASSWORD,
+                        action: "changePassword()"
+                    }
+                ]
+            },
+            {
+                name: constants.btn.LOGOUT
+            }
+        ],
+        shipper: [
+            {
+                name: constants.btn.ORDER_MANAGEMENT,
+                child: [
+                    constants.btn.MY_ORDERS,
+                    constants.btn.CREATE_ORDER
+                ]
+            },
+            {
+                name: constants.btn.ACCOUNT_MANAGEMENT,
+                child: [
+                    constants.btn.PROFILE,
+                    constants.btn.CHANGE_PASSWORD
+                ]
+            },
+            constants.btn.LOGOUT
+        ]
+    },
     loadScript: function (src, type) {
         if (!src) return null;
         var script = document.querySelector('script[src*="' + src + '"]');
@@ -82,6 +131,9 @@ var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize', 'ngCo
 
 app.run(function ($rootScope) {
     $rootScope.consts = constants;
+    $rootScope.typeOf = function (obj) {
+        return typeof obj;
+    };
 });
 
 app.factory('cookies', cookies)
@@ -99,12 +151,12 @@ app.controller('signUp', function ($rootScope, $scope, request, $window, mdToast
 
 
 function cookies($cookies) {
-    function setUserLogin(username) {
-        $cookies.put('userLogin', username, { path: '/' });
+    function setUserLogin(user) {
+        $cookies.putObject('userLogin', user, { path: '/' });
     }
 
     function getUserLogin() {
-        return $cookies.get('userLogin', { path: '/' });
+        return $cookies.getObject('userLogin', { path: '/' });
     }
 
     function userLogout() {

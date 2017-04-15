@@ -3,7 +3,11 @@
     $scope.signUp = function () {
         if (!$scope.signup.$valid) return;
         $scope.waiting = true;
-        var user = new $app.entities.User($scope.username, sha256_digest($scope.password), $scope.fullName, $scope.email, $scope.phoneNumber, $scope.userType);
+        var user = new $app.entities.User($scope.username,
+                                          sha256_digest($scope.password),
+                                          $scope.fullName, $scope.email,
+                                          $scope.phoneNumber,
+                                          $scope.userType);
         request.createNewUser(user, onSuccess, onError);
     };
 
