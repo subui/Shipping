@@ -42,64 +42,24 @@ var $app = {
             this.RevTime = null;
         }
     },
-    responseStatus: {
-        Success: 0,
-        ErrorUsernameExist: 1,
-        ErrorUsernameNotExist: 2,
-        ErrorEmailExist: 3,
-        PasswordIncorrect: 4
+    enums: {
+        responseStatus: {
+            Success: 0,
+            ErrorUsernameExist: 1,
+            ErrorUsernameNotExist: 2,
+            ErrorEmailExist: 3,
+            PasswordIncorrect: 4
+        },
+        userType: {
+            Admin: 0,
+            ShopManager: 1,
+            Shipper: 2
+        }
     },
-    menu: {
-        shopManager: [
-            {
-                name: constants.btn.ORDER_MANAGEMENT,
-                children: [
-                    {
-                        name: constants.btn.MY_ORDERS,
-                        action: "myOrder()"
-                    },
-                    {
-                        name: constants.btn.CREATE_ORDER,
-                        action: function() {
-                            createOrder();
-                        }
-                    }
-                ]
-            },
-            {
-                name: constants.btn.ACCOUNT_MANAGEMENT,
-                children: [
-                    {
-                        name: constants.btn.PROFILE,
-                        action: "profile()"
-                    },
-                    {
-                        name: constants.btn.CHANGE_PASSWORD,
-                        action: "changePassword()"
-                    }
-                ]
-            },
-            {
-                name: constants.btn.LOGOUT
-            }
-        ],
-        shipper: [
-            {
-                name: constants.btn.ORDER_MANAGEMENT,
-                child: [
-                    constants.btn.MY_ORDERS,
-                    constants.btn.CREATE_ORDER
-                ]
-            },
-            {
-                name: constants.btn.ACCOUNT_MANAGEMENT,
-                child: [
-                    constants.btn.PROFILE,
-                    constants.btn.CHANGE_PASSWORD
-                ]
-            },
-            constants.btn.LOGOUT
-        ]
+    MenuItem: function (title, children, action) {
+        this.title = title;
+        this.children = children;
+        this.action = action;
     },
     loadScript: function (src, type) {
         if (!src) return null;
@@ -144,10 +104,22 @@ app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('dialogTheme');
 });
 
-app.controller('signUp', function ($rootScope, $scope, request, $window, mdToast) { signUp($rootScope, $scope, request, $window, mdToast) })
-    .controller('login', function ($rootScope, $scope, request, $window, mdToast, cookies) { login($rootScope, $scope, request, $window, mdToast, cookies) })
-    .controller('main', function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) { main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) })
-    .controller('createOrder', function ($scope, request, $mdDialog, mdToast) { createOrder($scope, request, $mdDialog, mdToast) });
+app.controller('signUp',
+        function($rootScope, $scope, request, $window, mdToast) {
+            signUp($rootScope, $scope, request, $window, mdToast);
+        })
+    .controller('login',
+        function($rootScope, $scope, request, $window, mdToast, cookies) {
+            login($rootScope, $scope, request, $window, mdToast, cookies);
+        })
+    .controller('main',
+        function($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
+            main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
+        })
+    .controller('createOrder',
+        function($scope, request, $mdDialog, mdToast) {
+            createOrder($scope, request, $mdDialog, mdToast);
+        });
 
 
 function cookies($cookies) {

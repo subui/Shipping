@@ -10,14 +10,57 @@
     }
     $scope.waiting = true;
     request.getListOrders(onSuccess, onError);
-    $scope.menu = $app.menu.shopManager;
-    console.log(typeof $scope.menu);
+
+    $scope.menu = [];
+
+    $scope.menu.push({
+        title: $rootScope.consts.btn.ORDER_MANAGEMENT,
+        children: [
+            {
+                title: $rootScope.consts.btn.MY_ORDERS
+            },
+            {
+                title: $rootScope.consts.btn.CREATE_ORDER,
+                action: function() {
+                    $scope.createOrder();
+                }
+            }
+        ]
+    });
+
+    $scope.menu.push({
+        title: $rootScope.consts.btn.ACCOUNT_MANAGEMENT,
+        children: [
+            {
+                title: $rootScope.consts.btn.PROFILE
+            },
+            {
+                title: $rootScope.consts.btn.CHANGE_PASSWORD,
+                action: function() {
+                    $scope.createOrder();
+                }
+            }
+        ]
+    });
+
+    $scope.menu.push({
+        title: $rootScope.consts.btn.LOGOUT,
+        action: function() {
+            $scope.logout();
+        }
+    });
+
     $scope.rm = function () {
         var content = document.getElementById('content');
         content.children[0].remove();
     }
 
     $scope.showDetail = function (event, order) {
+        if ($scope.userLogin.UserType === $app.enums.userType.ShopManager) {
+            $scope.createOrder();
+            return;
+        }
+
         $mdDialog.show({
             controller: function ($scope, $mdDialog) {
                 $scope.order = order;
@@ -40,23 +83,23 @@
         });
     };
 
-    $scope.createOrder = function (event) {
-        $app.loadScript('/Scripts/controllers/createOrder.js');
-        $mdSidenav('left').toggle();
+    $scope.createOrder = function (event, order) {
+        if (!order) $mdSidenav('left').toggle();
 
-        $timeout(function () {
-            $mdDialog.show({
-                parent: angular.element(document.body),
-                targetEvent: event,
-                templateUrl: 'create-order.html',
-                fullscreen: true,
-                controller: createOrder
-            }).then(function () {
-                mdToast.showToast('Simple Toast', 3000, 'bottom right');
-            }, function () {
+        $mdDialog.show({
+//            parent: angular.element(document.body),
+            targetEvent: event,
+            templateUrl: 'create-order.html',
+            fullscreen: true,
+            controller: createOrder,
+            locals: {
+                order: order
+            }
+        }).then(function () {
+            mdToast.showToast('Simple Toast', 3000, 'bottom right');
+        }, function () {
 
-            });
-        }, 100);
+        });
     };
 
     $scope.logout = function () {

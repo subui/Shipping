@@ -22,6 +22,7 @@
   <script src="/Scripts/constants.js"></script>
   <script src="/Scripts/app.js"></script>
   <script src="/Scripts/controllers/main.js"></script>
+  <script src="/Scripts/controllers/createOrder.js"></script>
 
   <style>
     body > md-content {
@@ -52,11 +53,11 @@
       <md-content md-colors="{background: 'blue'}" flex>
         <md-list>
           <div ng-repeat="menuItem in menu">
-            <md-list-item ng-click="menuItem.action">{{menuItem.name}}</md-list-item>
+            <md-list-item ng-click="menuItem.action()">{{menuItem.title}}</md-list-item>
             <md-list ng-if="menuItem.children" style="width: 90%; margin-left: 10%">
               <div ng-repeat="subMenuItem in menuItem.children">
-                <md-list-item ng-click="subMenuItem.action">
-                  {{subMenuItem.name}}
+                <md-list-item ng-click="subMenuItem.action()">
+                  {{subMenuItem.title}}
                 </md-list-item>
               </div>
             </md-list>
@@ -95,6 +96,25 @@
 
       <md-content md-colors="{background: 'amber-50'}" flex>
         <ng-include src="'/Templates/waiting.html'"></ng-include>
+        <div style="margin: 10px;">
+        Trạng thái đơn hàng:
+          <md-checkbox ng-model="filter.allItems">
+            {{consts.lbl.ALL_ITEMS}}
+          </md-checkbox>
+          <md-checkbox ng-model="filter.waiting">
+            {{consts.lbl.STATUS_WAITING}}
+          </md-checkbox>
+          <md-checkbox ng-model="filter.shipping">
+            {{consts.lbl.STATUS_SHIPPING}}
+          </md-checkbox>
+          <md-checkbox ng-model="filter.done">
+            {{consts.lbl.STATUS_DONE}}
+          </md-checkbox>
+          <md-checkbox ng-model="filter.canceled">
+            {{consts.lbl.STATUS_CANCELED}}
+          </md-checkbox>
+        </div>
+
         <md-grid-list id="content"
                       md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
                       md-row-height="125px"

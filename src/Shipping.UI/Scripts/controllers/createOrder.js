@@ -1,4 +1,7 @@
-﻿function createOrder($scope, request, $mdDialog, mdToast) {
+﻿function createOrder($scope, request, $mdDialog, mdToast, order) {
+    if ($scope.isCreate === undefined) $scope.isCreate = !order;
+    if ($scope.order === undefined) $scope.order = $scope.isCreate ? $scope.$parent.order : order;
+    
     $scope.today = new Date();
     $scope.currentHour = $scope.today.getHours().toString().padStart(2, '0');
     $scope.currentMinute = $scope.today.getMinutes().toString().padStart(2, '0');

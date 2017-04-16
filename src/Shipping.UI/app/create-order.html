@@ -13,21 +13,21 @@
     <md-dialog-content layout="column" layout-padding>
       <md-input-container>
         <label>{{$root.consts.lbl.ORDER_NAME}}</label>
-        <input type="text" name="orderName" ng-model="orderName" required autofocus />
+        <input type="text" name="orderName" ng-model="order.OrderName" ng-disabled="!isCreate" required autofocus />
         <div ng-messages="createOrder.orderName.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container>
         <label>{{$root.consts.lbl.STARTING_POINT}}</label>
-        <input type="text" name="startingPoint" ng-model="startingPoint" required />
+        <input type="text" name="startingPoint" ng-model="order.StartingPoint" ng-disabled="!isCreate" required />
         <div ng-messages="createOrder.startingPoint.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container>
         <label>{{$root.consts.lbl.DESTINATION}}</label>
-        <input type="text" name="destination" ng-model="destination" required />
+        <input type="text" name="destination" ng-model="order.Destination" ng-disabled="!isCreate" required />
         <div ng-messages="createOrder.destination.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
@@ -60,14 +60,14 @@
       <div layout="row">
         <md-input-container flex="70">
           <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
-          <input type="text" name="recipientsName" ng-model="recipientsName" required />
+          <input type="text" name="recipientsName" ng-model="order.RecipientsName" ng-disabled="!isCreate" required />
           <div ng-messages="createOrder.recipientsName.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
-          <input type="text" name="recipientsPhoneNumber" ng-model="recipientsPhoneNumber" required />
+          <input type="text" name="recipientsPhoneNumber" ng-model="order.RecipientsPhoneNumber" ng-disabled="!isCreate" required />
           <div ng-messages="createOrder.recipientsPhoneNumber.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
@@ -76,14 +76,14 @@
       <div layout="row">
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
-          <input type="text" name="advanceDeposit" ng-model="advanceDeposit" required />
+          <input type="text" name="advanceDeposit" ng-model="order.AdvanceDeposit" ng-disabled="!isCreate" required />
           <div ng-messages="createOrder.advanceDeposit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.PROFIT}}</label>
-          <input type="text" name="profit" ng-model="profit" required />
+          <input type="text" name="profit" ng-model="order.Profit" ng-disabled="!isCreate" required />
           <div ng-messages="createOrder.profit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>

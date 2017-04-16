@@ -21,6 +21,7 @@
     },
     lbl: {
         ADVANCE_DEPOSIT: 'Đặt cọc',
+        ALL_ITEMS: 'Tất cả đơn hàng',
         ALREADY_HAVE_ACCOUNT: 'Đã có tài khoản? <a href="login.html">Đăng nhập</a>.',
         DESTINATION: 'Nơi giao hàng',
         EMAIL: 'Email',
@@ -49,6 +50,10 @@
         SIGN_UP: 'Đăng ký tài khoản',
         START_TIME: 'Thời gian giao hàng',
         STARTING_POINT: 'Nơi nhận hàng',
+        STATUS_DONE: 'Đã hoàn thành',
+        STATUS_CANCELED: 'Đã hủy',
+        STATUS_SHIPPING: 'Đang vận chuyển',
+        STATUS_WAITING: 'Đang chờ',
         USERNAME: 'Tên tài khoản',
         WELCOME: 'Xin chào'
     },
