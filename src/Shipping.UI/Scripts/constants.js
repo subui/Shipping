@@ -5,11 +5,14 @@
         CHANGE_PASSWORD: 'Đổi mật khẩu',
         CLOSE: 'Đóng',
         CREATE_ORDER: 'Tạo mới đơn hàng',
+        EDIT: 'Sửa',
+        LIST_ORDERS: 'Danh sách đơn hàng',
         LOGIN: 'Đăng nhập',
         LOGOUT: 'Thoát',
         MY_ORDERS: 'Đơn hàng của tôi',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         ORDER_REGISTER: 'Đăng ký đơn hàng',
+        ORDER_REGISTERED: 'Đơn hàng đã đăng ký',
         PROFILE: 'Thông tin cá nhân',
         SAVE: 'Lưu lại',
         SIGN_UP: 'Đăng ký'
@@ -17,6 +20,7 @@
     req: {
         LOGIN: 'login',
         ORDER: 'order',
+        REGISTER: 'register',
         SIGN_UP: 'signup'
     },
     lbl: {

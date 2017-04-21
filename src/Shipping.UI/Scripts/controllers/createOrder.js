@@ -1,52 +1,76 @@
-﻿function createOrder($scope, request, $mdDialog, mdToast, order) {
-    if ($scope.isCreate === undefined) $scope.isCreate = !order;
-    if ($scope.order === undefined) $scope.order = $scope.isCreate ? $scope.$parent.order : order;
+﻿function createOrder($scope, request, $mdDialog, mdToast, order, userId) {
+    $scope.isCreate = !order;
+    $scope.isEdit = $scope.isCreate;
+    $scope.order = JSON.parse(JSON.stringify(order));
+    $scope.userId = userId;
     
     $scope.today = new Date();
-    $scope.currentHour = $scope.today.getHours().toString().padStart(2, '0');
-    $scope.currentMinute = $scope.today.getMinutes().toString().padStart(2, '0');
+    $scope.startTime = new Date($scope.order.StartTime);
+    if ($scope.isCreate) {
+        $scope.currentHour = $scope.today.getHours();
+        $scope.currentMinute = $scope.today.getMinutes();
+    } else {
+        $scope.currentHour = $scope.startTime.getHours();
+        $scope.currentMinute = $scope.startTime.getMinutes();
+    }
+
+    $scope.currentHour = $scope.currentHour.toString().padStart(2, '0');
+    $scope.currentMinute = $scope.currentMinute.toString().padStart(2, '0');
 
     $scope.today.setHours(0, 0, 0, 0);
 
     $scope.hours = [];
-    for (var h = 0; h <= 24; h++) {
+    for (var h = 0; h < 24; h++) {
         $scope.hours.push(h.toString().padStart(2, '0'));
     }
 
     $scope.minutes = [];
-    for (var m = 0; m <= 60; m++) {
+    for (var m = 0; m < 60; m++) {
         $scope.minutes.push(m.toString().padStart(2, '0'));
     }
 
     $scope.mdDialog = $mdDialog;
+
+    $scope.edit = function () {
+        $scope.isEdit = !$scope.isEdit;
+        $scope.orderOld = JSON.parse(JSON.stringify($scope.order));
+    }
+
+    $scope.cancel = function() {
+        $scope.isEdit = !$scope.isEdit;
+        $scope.order = $scope.orderOld;
+    }
+
     $scope.save = function () {
         if (!$scope.createOrder.$valid) return;
         $scope.waiting = true;
 
+        $scope.order.ShopId = $scope.userId;
         $scope.startTime.setHours($scope.hour, $scope.minute);
+        $scope.order.StartTime = $scope.startTime;
 
-        var order = new $app.entities.Order();
-        order.OrderName = $scope.orderName;
-        order.StartingPoint = $scope.startingPoint;
-        order.Destination = $scope.destination;
-        order.StartTime = $scope.startTime;
-        order.RecipientsName = $scope.recipientsName;
-        order.RecipientsPhoneNumber = $scope.recipientsPhoneNumber;
-        order.AdvanceDeposit = $scope.advanceDeposit;
-        order.Profit = $scope.profit;
-        request.createOrder(order, onSuccess, onError);
+        console.log($scope.order);
+        $scope.isCreate ? request.createOrder($scope.order, onSuccess, onError)
+                        : request.updateOrder($scope.order, onSuccess, onError);
     };
 
     $scope.closeDialog = function () {
         // Show confirm dialog
-        $scope.$parent.mdDialog.cancel();
+        $scope.mdDialog.cancel();
     };
 
     function onSuccess(response) {
         $scope.waiting = false;
-        var status = $app.responseStatus;
+        var status = $app.enums.responseStatus;
         if (response.data === status.Success) {
             mdToast.showToast('tao moi thanh cong', 0, 'top right');
+            if (!$scope.isCreate) {
+                for (var key in $scope.order) {
+                    if ($scope.order.hasOwnProperty(key)) {
+                        order[key] = $scope.order[key];
+                    }
+                }
+            }
         }
     }
 

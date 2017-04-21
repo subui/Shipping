@@ -23,7 +23,7 @@ namespace Shipping.API.Controllers
                 userLogin = users.First();
                 if (!App.GetSHA256String(user.Password).Equals(userLogin.Password))
                 {
-                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.PasswordIncorrect };
+                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.ErrorPasswordIncorrect };
                 }
             }
 

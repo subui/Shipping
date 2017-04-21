@@ -25,5 +25,28 @@ namespace Shipping.API.Controllers
                 return ResponseStatus.Success;
             }
         }
+
+        public ResponseStatus Put(int id, Order order)
+        {
+            using (var entities = new ShippingEntities())
+            {
+                var orderUpdate = entities.Orders.FirstOrDefault(o => o.OrderId == id);
+                if (orderUpdate == null)
+                    return ResponseStatus.ErrorOrderNotExist;
+
+                orderUpdate.OrderName = order.OrderName;
+                orderUpdate.StartingPoint = order.StartingPoint;
+                orderUpdate.Destination = order.Destination;
+                orderUpdate.StartTime = order.StartTime;
+                orderUpdate.RecipientsName = order.RecipientsName;
+                orderUpdate.RecipientsPhoneNumber = order.RecipientsPhoneNumber;
+                orderUpdate.AdvanceDeposit = order.AdvanceDeposit;
+                orderUpdate.Profit = order.Profit;
+                orderUpdate.Status = order.Status;
+
+                entities.SaveChanges();
+                return ResponseStatus.Success;
+            }
+        }
     }
 }

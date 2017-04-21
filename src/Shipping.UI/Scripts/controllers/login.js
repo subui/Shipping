@@ -14,8 +14,8 @@
     };
 
     function onSuccess(response) {
-        var status = response.data.ResponseStatus;
-        if (status === $app.responseStatus.Success) {
+        var status = $app.enums.responseStatus;
+        if (response.data.ResponseStatus === status.Success) {
             cookies.setUserLogin(response.data.UserLogin);
             $window.location.href = '/app';
             return;
@@ -23,11 +23,11 @@
 
         $scope.waiting = false;
 
-        if (status === $app.responseStatus.ErrorUsernameNotExist) {
+        if (response.data.ResponseStatus === status.ErrorUsernameNotExist) {
             $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
         }
 
-        if (status === $app.responseStatus.PasswordIncorrect) {
+        if (response.data.ResponseStatus === status.PasswordIncorrect) {
             $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
         }
 

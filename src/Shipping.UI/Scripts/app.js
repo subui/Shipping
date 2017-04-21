@@ -30,10 +30,10 @@ var $app = {
             this.SelectedShipperId = null;
             this.Status = null;
         },
-        ShippingRegistration: function () {
-            this.OrderId = null;
-            this.ShipperId = null;
-            this.RegTime = null;
+        ShippingRegistration: function (orderId, shipperId, regTime) {
+            this.OrderId = orderId;
+            this.ShipperId = shipperId;
+            this.RegTime = regTime;
         },
         ReviewsShipper: function () {
             this.OrderId = null;
@@ -48,7 +48,8 @@ var $app = {
             ErrorUsernameExist: 1,
             ErrorUsernameNotExist: 2,
             ErrorEmailExist: 3,
-            PasswordIncorrect: 4
+            ErrorPasswordIncorrect: 4,
+            ErrorOrderNotExist: 5
         },
         userType: {
             Admin: 0,
@@ -115,10 +116,6 @@ app.controller('signUp',
     .controller('main',
         function($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
             main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
-        })
-    .controller('createOrder',
-        function($scope, request, $mdDialog, mdToast) {
-            createOrder($scope, request, $mdDialog, mdToast);
         });
 
 
@@ -176,10 +173,22 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
+    function updateOrder(order, onSuccess, onError) {
+        $http.put($app.apiUrl + constants.req.ORDER + '/' + order.OrderId, order)
+            .then(onSuccess, onError);
+    }
+
+    function registerOrder(reg, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.REGISTER, reg)
+            .then(onSuccess, onError);
+    }
+
     return {
         createNewUser: createNewUser,
         login: login,
         getListOrders: getListOrders,
-        createOrder: createOrder
+        createOrder: createOrder,
+        updateOrder: updateOrder,
+        registerOrder: registerOrder
     }
 }

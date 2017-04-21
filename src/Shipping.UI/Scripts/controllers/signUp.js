@@ -13,7 +13,7 @@
 
     function onSuccess(response) {
         $scope.waiting = false;
-        var status = $app.responseStatus;
+        var status = $app.enums.responseStatus;
         if (response.data === status.Success) {
             $window.location.href = '/account/login.html';
             return;

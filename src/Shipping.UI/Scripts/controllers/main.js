@@ -3,6 +3,7 @@
     $scope.userLogin = cookies.getUserLogin();
     if ($scope.userLogin) {
         $scope.isLogin = true;
+        $scope.userId = $scope.userLogin.UserId;
         $scope.username = $scope.userLogin.FullName;
     } else {
         $window.location.href = '/account/login.html';
@@ -13,20 +14,35 @@
 
     $scope.menu = [];
 
-    $scope.menu.push({
-        title: $rootScope.consts.btn.ORDER_MANAGEMENT,
-        children: [
-            {
-                title: $rootScope.consts.btn.MY_ORDERS
-            },
-            {
-                title: $rootScope.consts.btn.CREATE_ORDER,
-                action: function() {
-                    $scope.createOrder();
-                }
-            }
-        ]
-    });
+    $scope.userLogin.UserType === $app.enums.userType.ShopManager
+            ? $scope.menu.push({
+                title: $rootScope.consts.btn.ORDER_MANAGEMENT,
+                children: [
+                    {
+                        title: $rootScope.consts.btn.MY_ORDERS
+                    },
+                    {
+                        title: $rootScope.consts.btn.CREATE_ORDER,
+                        action: function() {
+                            $scope.createOrder();
+                        }
+                    }
+                ]
+            })
+            : $scope.menu.push({
+                title: $rootScope.consts.btn.ORDER_MANAGEMENT,
+                children: [
+                    {
+                        title: $rootScope.consts.btn.LIST_ORDERS
+                    },
+                    {
+                        title: $rootScope.consts.btn.ORDER_REGISTERED,
+                        action: function () {
+                            $scope.createOrder();
+                        }
+                    }
+                ]
+            });
 
     $scope.menu.push({
         title: $rootScope.consts.btn.ACCOUNT_MANAGEMENT,
@@ -57,28 +73,23 @@
 
     $scope.showDetail = function (event, order) {
         if ($scope.userLogin.UserType === $app.enums.userType.ShopManager) {
-            $scope.createOrder();
+            $scope.createOrder(event, order);
             return;
         }
 
         $mdDialog.show({
-            controller: function ($scope, $mdDialog) {
-                $scope.order = order;
-                $scope.closeDialog = function () {
-                    $mdDialog.cancel();
-                };
-
-                $scope.register = function () {
-                    $mdDialog.hide();
-                };
-            },
-            templateUrl: '/Templates/order-detail.html',
-            parent: angular.element(document.body),
+//            parent: angular.element(document.body),
             targetEvent: event,
-            clickOutsideToClose: true
+            templateUrl: '/Templates/order-detail.html',
+            clickOutsideToClose: true,
+            controller: orderDetail,
+            locals: {
+                order: order,
+                userId: $scope.userId
+    }
         })
         .then(function () {
-            mdToast.showToast('Simple Toast', 3000, 'bottom right');
+            mdToast.showToast('dang ky thanh cong', 3000, 'bottom right');
         }, function () {
         });
     };
@@ -90,11 +101,11 @@
 //            parent: angular.element(document.body),
             targetEvent: event,
             templateUrl: 'create-order.html',
-            fullscreen: true,
             controller: createOrder,
             locals: {
-                order: order
-            }
+                order: order,
+                userId: $scope.userId
+    }
         }).then(function () {
             mdToast.showToast('Simple Toast', 3000, 'bottom right');
         }, function () {

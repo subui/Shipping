@@ -134,6 +134,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Enums\ResponseStatus.cs" />
     <Compile Include="Global.asax.cs">
