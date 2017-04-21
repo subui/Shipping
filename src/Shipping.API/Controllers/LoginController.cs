@@ -2,13 +2,14 @@
 using System.Web.Http;
 using Shipping.API.Enums;
 using Shipping.API.Libs;
+using Shipping.API.Models;
 using Shipping.DataAccess;
 
 namespace Shipping.API.Controllers
 {
     public class LoginController : ApiController
     {
-        public object Post(User user)
+        public ResponseData Post(User user)
         {
             User userLogin;
             using (var entities = new ShippingEntities())
@@ -17,17 +18,17 @@ namespace Shipping.API.Controllers
 
                 if (!users.Any())
                 {
-                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.ErrorUsernameNotExist };
+                    return new ResponseData(ResponseStatus.ErrorUsernameNotExist, RequestType.Login);
                 }
 
                 userLogin = users.First();
                 if (!App.GetSHA256String(user.Password).Equals(userLogin.Password))
                 {
-                    return new { UserLogin = (User)null, ResponseStatus = ResponseStatus.ErrorPasswordIncorrect };
+                    return new ResponseData(ResponseStatus.ErrorPasswordIncorrect, RequestType.Login);
                 }
             }
 
-            return new { UserLogin = userLogin, ResponseStatus = ResponseStatus.Success };
+            return new ResponseData(userLogin, ResponseStatus.Success, RequestType.Login);
         }
     }
 }

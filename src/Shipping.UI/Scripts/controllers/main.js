@@ -38,7 +38,7 @@
                     {
                         title: $rootScope.consts.btn.ORDER_REGISTERED,
                         action: function () {
-                            $scope.createOrder();
+                            $scope.orderRegistered();
                         }
                     }
                 ]
@@ -80,9 +80,9 @@
         $mdDialog.show({
 //            parent: angular.element(document.body),
             targetEvent: event,
-            templateUrl: '/Templates/order-detail.html',
+            templateUrl: 'order-detail.html',
             clickOutsideToClose: true,
-            controller: orderDetail,
+            controller: 'orderDetail',
             locals: {
                 order: order,
                 userId: $scope.userId
@@ -101,17 +101,21 @@
 //            parent: angular.element(document.body),
             targetEvent: event,
             templateUrl: 'create-order.html',
-            controller: createOrder,
+            controller: 'createOrder',
             locals: {
                 order: order,
                 userId: $scope.userId
-    }
+            }
         }).then(function () {
-            mdToast.showToast('Simple Toast', 3000, 'bottom right');
+            request.getListOrders(onSuccess, onError);
         }, function () {
 
         });
     };
+
+    $scope.orderRegistered = function() {
+        
+    }
 
     $scope.logout = function () {
         cookies.userLogout();
@@ -128,7 +132,12 @@
 
     function onSuccess(response) {
         $scope.waiting = false;
-        $scope.orders = response.data;
+
+        var status = $app.enums.responseStatus;
+        var type = $app.enums.requestType;
+
+        if (response.data.RequestType === type.Order && response.data.ResponseStatus === status.Success)
+            $scope.orders = response.data.Data;
     }
 
     function onError(response) {

@@ -1,5 +1,8 @@
 ﻿function orderDetail($scope, request, $mdDialog, order, userId) {
     $scope.order = order;
+
+    request.getShopNameByUserId(order.ShopId, onSuccess, onError);
+
     $scope.closeDialog = function () {
         $mdDialog.cancel();
     };
@@ -12,8 +15,14 @@
 
     function onSuccess(response) {
         $scope.waiting = false;
+
         var status = $app.enums.responseStatus;
-        if (response.data === status.Success) $mdDialog.hide();
+        var type = $app.enums.requestType;
+        if (response.data.RequestType === type.Register && response.data.ResponseStatus === status.Success)
+            $mdDialog.hide();
+
+        if (response.data.RequestType === type.User && response.data.ResponseStatus === status.Success)
+            $scope.shopName = response.data.Data;
     }
 
     function onError() {

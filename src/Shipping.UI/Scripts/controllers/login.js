@@ -14,24 +14,28 @@
     };
 
     function onSuccess(response) {
-        var status = $app.enums.responseStatus;
-        if (response.data.ResponseStatus === status.Success) {
-            cookies.setUserLogin(response.data.UserLogin);
-            $window.location.href = '/app';
-            return;
-        }
-
         $scope.waiting = false;
 
-        if (response.data.ResponseStatus === status.ErrorUsernameNotExist) {
-            $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
-        }
+        var status = $app.enums.responseStatus;
+        var type = $app.enums.requestType;
 
-        if (response.data.ResponseStatus === status.PasswordIncorrect) {
-            $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
-        }
+        if (response.data.RequestType === type.Login) {
+            if (response.data.ResponseStatus === status.Success) {
+                cookies.setUserLogin(response.data.Data);
+                $window.location.href = '/app';
+                return;
+            }
 
-        mdToast.showToast($scope.error, 10000, 'top right');
+            if (response.data.ResponseStatus === status.ErrorUsernameNotExist) {
+                $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
+            }
+
+            if (response.data.ResponseStatus === status.PasswordIncorrect) {
+                $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
+            }
+
+            mdToast.showToast($scope.error, 10000, 'top right');
+        }
     }
 
     function onError(response) {

@@ -2,7 +2,7 @@
   <ng-include src="'/Templates/waiting.html'"></ng-include>
   <md-dialog-content layout="column" layout-padding>
     <span class="md-headline">{{order.OrderName}}</span>
-    <span class="md-subhead" md-colors="{color: 'dialogTheme-grey-400'}">{{$root.consts.lbl.SHOP + ': ' + order.ShopName}}</span>
+    <span class="md-subhead" md-colors="{color: 'dialogTheme-grey-400'}">{{$root.consts.lbl.SHOP + ': ' + shopName}}</span>
     <div>
       <div>{{$root.consts.lbl.STARTING_POINT + ': ' + order.StartingPoint}}</div>
       <div>{{$root.consts.lbl.DESTINATION + ': ' + order.Destination}}</div>

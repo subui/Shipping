@@ -51,6 +51,13 @@ var $app = {
             ErrorPasswordIncorrect: 4,
             ErrorOrderNotExist: 5
         },
+        requestType: {
+            Login: 1,
+            SignUp: 2,
+            User: 3,
+            Order: 4,
+            Register: 5
+        },
         userType: {
             Admin: 0,
             ShopManager: 1,
@@ -116,6 +123,18 @@ app.controller('signUp',
     .controller('main',
         function($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
             main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
+        })
+    .controller('createOrder',
+        function($scope, request, $mdDialog, mdToast, order, userId) {
+            createOrder($scope, request, $mdDialog, mdToast, order, userId);
+        })
+    .controller('orderDetail',
+        function($scope, request, $mdDialog, order, userId) {
+            orderDetail($scope, request, $mdDialog, order, userId);
+        })
+    .controller('toastTemplate',
+        function($scope, $mdToast, textContent) {
+            toastTemplate($scope, $mdToast, textContent);
         });
 
 
@@ -147,8 +166,21 @@ function mdToast($mdToast) {
             .position(position));
     }
 
+    function showToastTemplate(textContent, hideDelay, position) {
+        $mdToast.show({
+            templateUrl: '/Templates/toast-template.html',
+            controller: 'toastTemplate',
+            hideDelay: hideDelay,
+            position: position,
+            locals: {
+                textContent: textContent
+            }
+        });
+    }
+
     return {
-        showToast: showToast
+        showToast: showToast,
+        showToastTemplate: showToastTemplate
     }
 }
 
@@ -183,12 +215,18 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
+    function getShopNameByUserId(userId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.USER + '/' + userId)
+            .then(onSuccess, onError);
+    }
+
     return {
         createNewUser: createNewUser,
         login: login,
         getListOrders: getListOrders,
         createOrder: createOrder,
         updateOrder: updateOrder,
-        registerOrder: registerOrder
+        registerOrder: registerOrder,
+        getShopNameByUserId: getShopNameByUserId
     }
 }

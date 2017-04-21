@@ -2,24 +2,25 @@
 using System.Web.Http;
 using Shipping.API.Enums;
 using Shipping.API.Libs;
+using Shipping.API.Models;
 using Shipping.DataAccess;
 
 namespace Shipping.API.Controllers
 {
     public class SignUpController : ApiController
     {
-        public ResponseStatus Post(User user)
+        public ResponseData Post(User user)
         {
             using (var entities = new ShippingEntities())
             {
                 if (entities.Users.Any(u => u.Username.Equals(user.Username)))
                 {
-                    return ResponseStatus.ErrorUsernameExist;
+                    return new ResponseData(ResponseStatus.ErrorUsernameExist, RequestType.SignUp);
                 }
 
                 if (entities.Users.Any(u => u.Email.Equals(user.Email)))
                 {
-                    return ResponseStatus.ErrorEmailExist;
+                    return new ResponseData(ResponseStatus.ErrorEmailExist, RequestType.SignUp);
                 }
 
                 user.Password = App.GetSHA256String(user.Password);
@@ -27,7 +28,7 @@ namespace Shipping.API.Controllers
                 entities.SaveChanges();
             }
 
-            return ResponseStatus.Success;
+            return new ResponseData(ResponseStatus.Success, RequestType.SignUp);
         }
     }
 }

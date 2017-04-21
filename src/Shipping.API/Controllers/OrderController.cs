@@ -2,37 +2,40 @@
 using System.Linq;
 using System.Web.Http;
 using Shipping.API.Enums;
+using Shipping.API.Models;
 using Shipping.DataAccess;
 
 namespace Shipping.API.Controllers
 {
     public class OrderController : ApiController
     {
-        public List<Order> Get()
+        public ResponseData Get()
         {
             using (var entities = new ShippingEntities())
             {
-                return entities.Orders.ToList();
+                return new ResponseData(entities.Orders.OrderByDescending(o => o.OrderId).ToList(),
+                                        ResponseStatus.Success,
+                                        RequestType.Order);
             }
         }
 
-        public ResponseStatus Post(Order order)
+        public ResponseData Post(Order order)
         {
             using (var entities = new ShippingEntities())
             {
                 entities.Orders.Add(order);
                 entities.SaveChanges();
-                return ResponseStatus.Success;
+                return new ResponseData(ResponseStatus.Success, RequestType.Order);
             }
         }
 
-        public ResponseStatus Put(int id, Order order)
+        public ResponseData Put(int id, Order order)
         {
             using (var entities = new ShippingEntities())
             {
                 var orderUpdate = entities.Orders.FirstOrDefault(o => o.OrderId == id);
                 if (orderUpdate == null)
-                    return ResponseStatus.ErrorOrderNotExist;
+                    return new ResponseData(ResponseStatus.ErrorOrderNotExist, RequestType.Order);
 
                 orderUpdate.OrderName = order.OrderName;
                 orderUpdate.StartingPoint = order.StartingPoint;
@@ -45,7 +48,7 @@ namespace Shipping.API.Controllers
                 orderUpdate.Status = order.Status;
 
                 entities.SaveChanges();
-                return ResponseStatus.Success;
+                return new ResponseData(ResponseStatus.Success, RequestType.Order);
             }
         }
     }

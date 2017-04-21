@@ -119,10 +119,12 @@
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\controllers\createOrder.js" />
     <Content Include="Scripts\controllers\main.js" />
+    <Content Include="Scripts\controllers\toastTemplate.js" />
     <Content Include="Scripts\SqlQuery.sql" />
     <Content Include="Styles\app.css" />
     <Content Include="Templates\order-item.html" />
-    <Content Include="Templates\order-detail.html" />
+    <Content Include="app\order-detail.html" />
+    <Content Include="Templates\toast-template.html" />
     <Content Include="Templates\waiting.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js" />

@@ -1,21 +1,16 @@
 ﻿function createOrder($scope, request, $mdDialog, mdToast, order, userId) {
     $scope.isCreate = !order;
     $scope.isEdit = $scope.isCreate;
-    $scope.order = JSON.parse(JSON.stringify(order));
+    if (!$scope.isCreate)
+        $scope.order = JSON.parse(JSON.stringify(order));
+
     $scope.userId = userId;
     
     $scope.today = new Date();
-    $scope.startTime = new Date($scope.order.StartTime);
-    if ($scope.isCreate) {
-        $scope.currentHour = $scope.today.getHours();
-        $scope.currentMinute = $scope.today.getMinutes();
-    } else {
-        $scope.currentHour = $scope.startTime.getHours();
-        $scope.currentMinute = $scope.startTime.getMinutes();
-    }
+    $scope.startTime = $scope.isCreate ? $scope.today : new Date($scope.order.StartTime);
 
-    $scope.currentHour = $scope.currentHour.toString().padStart(2, '0');
-    $scope.currentMinute = $scope.currentMinute.toString().padStart(2, '0');
+    $scope.currentHour = $scope.startTime.getHours().toString().padStart(2, '0');
+    $scope.currentMinute = $scope.startTime.getMinutes().toString().padStart(2, '0');
 
     $scope.today.setHours(0, 0, 0, 0);
 
@@ -61,15 +56,27 @@
 
     function onSuccess(response) {
         $scope.waiting = false;
+
         var status = $app.enums.responseStatus;
-        if (response.data === status.Success) {
-            mdToast.showToast('tao moi thanh cong', 0, 'top right');
-            if (!$scope.isCreate) {
-                for (var key in $scope.order) {
-                    if ($scope.order.hasOwnProperty(key)) {
-                        order[key] = $scope.order[key];
+        var type = $app.enums.requestType;
+
+        if (response.data.RequestType === type.Order) {
+            if (response.data.ResponseStatus === status.Success) {
+                var message = constants.lbl.CREATE_ORDER_SUCCESS;
+                if (!$scope.isCreate) {
+                    message = constants.lbl.UPDATE_ORDER_SUCCESS;
+                    $scope.isEdit = false;
+
+                    for (var key in $scope.order) {
+                        if ($scope.order.hasOwnProperty(key)) {
+                            order[key] = $scope.order[key];
+                        }
                     }
+                } else {
+                    $mdDialog.hide();
                 }
+
+                mdToast.showToastTemplate(message, 0, 'top right');
             }
         }
     }

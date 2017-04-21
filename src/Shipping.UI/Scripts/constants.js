@@ -21,12 +21,14 @@
         LOGIN: 'login',
         ORDER: 'order',
         REGISTER: 'register',
-        SIGN_UP: 'signup'
+        SIGN_UP: 'signup',
+        USER: 'user'
     },
     lbl: {
         ADVANCE_DEPOSIT: 'Đặt cọc',
         ALL_ITEMS: 'Tất cả đơn hàng',
         ALREADY_HAVE_ACCOUNT: 'Đã có tài khoản? <a href="login.html">Đăng nhập</a>.',
+        CREATE_ORDER_SUCCESS: 'Tạo mới đơn hàng thành công.',
         DESTINATION: 'Nơi giao hàng',
         EMAIL: 'Email',
         ERROR_EMAIL_EXIST: 'Email đã tồn tại.',
@@ -58,6 +60,7 @@
         STATUS_CANCELED: 'Đã hủy',
         STATUS_SHIPPING: 'Đang vận chuyển',
         STATUS_WAITING: 'Đang chờ',
+        UPDATE_ORDER_SUCCESS: 'Cập nhật đơn hàng thành công.',
         USERNAME: 'Tên tài khoản',
         WELCOME: 'Xin chào'
     },

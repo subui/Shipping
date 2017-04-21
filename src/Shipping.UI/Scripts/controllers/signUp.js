@@ -13,21 +13,26 @@
 
     function onSuccess(response) {
         $scope.waiting = false;
+
         var status = $app.enums.responseStatus;
-        if (response.data === status.Success) {
-            $window.location.href = '/account/login.html';
-            return;
-        }
+        var type = $app.enums.requestType;
 
-        if (response.data === status.ErrorUsernameExist) {
-            $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_EXIST;
-        }
+        if (response.data.RequestType === type.SignUp) {
+            if (response.data.ResponseStatus === status.Success) {
+                $window.location.href = '/account/login.html';
+                return;
+            }
 
-        if (response.data === status.ErrorEmailExist) {
-            $scope.error = $rootScope.consts.lbl.ERROR_EMAIL_EXIST;
-        }
+            if (response.data.ResponseStatus === status.ErrorUsernameExist) {
+                $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_EXIST;
+            }
 
-        mdToast.showToast($scope.error, 0, 'top right');
+            if (response.data.ResponseStatus === status.ErrorEmailExist) {
+                $scope.error = $rootScope.consts.lbl.ERROR_EMAIL_EXIST;
+            }
+
+            mdToast.showToast($scope.error, 0, 'top right');
+        }
     }
 
     function onError(response) {
