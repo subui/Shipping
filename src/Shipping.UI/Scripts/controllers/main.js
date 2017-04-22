@@ -11,10 +11,8 @@
         return;
     }
 
-    if ($scope.isShopManager) $scope.btnShipperRegistered = String.format(constants.btn.LIST_SHIPPER_REGISTERED, "111");
-
     $scope.waiting = true;
-    request.getListOrders(onSuccess, onError);
+    request.getListOrdersByUserId($scope.userId, onSuccess, onError);
     
     $scope.menu = [];
 
@@ -139,7 +137,7 @@
                 userId: $scope.userId
             }
         }).then(function () {
-            request.getListOrders(onSuccess, onError);
+            request.getListOrdersByUserId($scope.userId, onSuccess, onError);
         }, function () {
 
         });
@@ -187,7 +185,13 @@
 
         if (response.data.RequestType === type.Order && response.data.ResponseStatus === status.Success) {
             $scope.listOrders = response.data.Data;
-            request.getOrderRegisteredByShipperId($scope.userId, onSuccess, onError);
+            $scope.orders = $scope.listOrders;
+            if ($scope.isShopManager) {
+                $scope.orders.forEach(order => order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, order.ShipperCount));
+            } else {
+                request.getOrderRegisteredByShipperId($scope.userId, onSuccess, onError);
+            }
+
         }
 
         if (response.data.RequestType === type.Register && response.data.ResponseStatus === status.Success) {
@@ -195,9 +199,9 @@
             $scope.listOrdersNotRegistered = [];
 
             $scope.listOrders.filter(order => {
-                var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.OrderId);
+                var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.Order.OrderId);
                 if (!isRegistered) {
-                    $scope.listOrdersNotRegistered.push(order);
+                    $scope.listOrdersNotRegistered.push(order.Order);
                 }
             });
 

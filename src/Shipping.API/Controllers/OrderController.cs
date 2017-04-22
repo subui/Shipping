@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Shipping.API.Enums;
 using Shipping.API.Models;
@@ -8,16 +9,39 @@ namespace Shipping.API.Controllers
 {
     public class OrderController : ApiController
     {
-        public ResponseData Get()
+        [HttpGet]
+        [Route("order/{orderId}/{userId}")]
+        public ResponseData Get(int orderId, int userId)
         {
             using (var entities = new ShippingEntities())
             {
-                return new ResponseData(entities.Orders.OrderByDescending(o => o.OrderId).ToList(),
-                                        ResponseStatus.Success,
-                                        RequestType.Order);
+                var userRequest = entities.Users.FirstOrDefault(u => u.UserId == userId);
+                var userType = userRequest?.UserType;
+
+                List<Order> listOrders;
+
+                if (userType != null && userType == (int) UserType.ShopManager)
+                {
+                    listOrders = entities.Orders.Where(o => o.ShopId == userRequest.UserId).OrderByDescending(o => o.OrderId).ToList();
+                }
+                else
+                {
+                    listOrders = entities.Orders.OrderByDescending(o => o.OrderId).ToList();
+                }
+
+                var returnData = new List<object>();
+
+                foreach (var order in listOrders)
+                {
+                    var shipperCount = entities.ShippingRegistrations.Count(r => r.OrderId == order.OrderId);
+                    returnData.Add(new { Order = order, ShipperCount = shipperCount });
+                }
+
+                return new ResponseData(returnData, ResponseStatus.Success, RequestType.Order);
             }
         }
 
+        [HttpPost]
         public ResponseData Post(Order order)
         {
             using (var entities = new ShippingEntities())
@@ -28,6 +52,7 @@ namespace Shipping.API.Controllers
             }
         }
 
+        [HttpPut]
         public ResponseData Put(int id, Order order)
         {
             using (var entities = new ShippingEntities())

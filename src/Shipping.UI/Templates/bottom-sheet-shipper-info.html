@@ -1,0 +1,40 @@
+﻿<md-bottom-sheet class="md-list md-has-header" style="z-index: 80; font-size: 2em">
+  <div style="width: 70%; min-width: 500px; margin: auto" layout="row">
+    <div flex="40">
+      <md-subheader md-colors="{color: 'blue'}">
+        <h1>{{subheader}}</h1>
+      </md-subheader>
+      <div layout="column">
+        <div layout="row">
+          <div flex="30">{{$root.consts.lbl.FULL_NAME}}</div>
+          <div flex>{{shipper.FullName}}</div>
+        </div>
+        <div layout="row">
+          <div flex="30">{{$root.consts.lbl.GENDER}}</div>
+          <div flex>{{shipper.Gender}}</div>
+        </div>
+        <div layout="row">
+          <div flex="30">{{$root.consts.lbl.BIRTH_DAY}}</div>
+          <div flex>{{shipper.BirthDay}}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div flex="60">
+      <md-subheader md-colors="{color: 'blue'}">
+        <h1>{{$root.consts.lbl.REVIEWS}}</h1>
+      </md-subheader>
+      <div layout="column">
+        <md-list>
+          <md-list-item class="md-3-line">
+            <div class="md-list-item-text" layout="column">
+              <h3>item.who</h3>
+              <h4>item.what</h4>
+              <p>item.notes</p>
+            </div>
+          </md-list-item>
+        </md-list>
+      </div>
+    </div>
+  </div>
+</md-bottom-sheet>

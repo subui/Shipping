@@ -139,6 +139,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Enums\ResponseStatus.cs" />
+    <Compile Include="Enums\UserType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

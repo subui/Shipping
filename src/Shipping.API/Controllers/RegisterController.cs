@@ -26,7 +26,7 @@ namespace Shipping.API.Controllers
                 if (orderId != 0 && shipperId == 0)
                 {
                     var listShipperId = entities.ShippingRegistrations.Where(r => r.OrderId == orderId).Select(r => r.ShipperId);
-                    var listShipper = entities.Users.Where(u => listShipperId.Contains(u.UserId)).Select(u => u.FullName).ToList();
+                    var listShipper = entities.Users.Where(u => listShipperId.Contains(u.UserId)).ToList();
                     return new ResponseData(listShipper, ResponseStatus.Success, RequestType.Register);
                 }
 

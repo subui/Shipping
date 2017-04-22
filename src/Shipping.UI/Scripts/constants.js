@@ -17,6 +17,7 @@
         ORDER_UNREGISTER: 'Hủy đăng ký đơn hàng',
         PROFILE: 'Thông tin cá nhân',
         SAVE: 'Lưu lại',
+        SHIPPER_INFO: 'Thông tin Shipper',
         SIGN_UP: 'Đăng ký'
     },
     req: {
@@ -30,6 +31,7 @@
         ADVANCE_DEPOSIT: 'Đặt cọc',
         ALL_ITEMS: 'Tất cả đơn hàng',
         ALREADY_HAVE_ACCOUNT: 'Đã có tài khoản? <a href="login.html">Đăng nhập</a>.',
+        BIRTH_DAY: 'Ngày sinh',
         CREATE_ORDER_SUCCESS: 'Tạo mới đơn hàng {0} thành công.',
         DESTINATION: 'Nơi giao hàng',
         EMAIL: 'Email',
@@ -39,10 +41,12 @@
         ERROR_USERNAME_NOT_EXIST: 'Tài khoản không tồn tại.',
         FORGOT_PASSWORD: 'Quên mật khẩu?',
         FULL_NAME: 'Họ tên',
+        GENDER: 'Giới tính',
         HOUR: 'HH',
         INVALID_EMAIL: 'Email không hợp lệ.',
         LOGIN: 'Đăng nhập',
         MINUTE: 'MM',
+        NOT_REGISTERED: 'Chưa có Shipper nào đăng ký đơn hàng này.',
         ORDER_NAME: 'Tên đơn hàng',
         PASSWORD: 'Mật khẩu',
         PASSWORD_INCORRECT: 'Mật khẩu không đúng.',
@@ -54,7 +58,10 @@
         RECIPIENTS_PHONE_NUMBER: 'SĐT người nhận',
         REGISTER_ORDER_SUCCESS: 'Đăng ký đơn hàng {0} thành công.',
         REQUIRED: 'Bắt buộc nhập.',
+        REVIEWS: 'Các đánh giá từ người dùng',
+        SELECTED: 'Bạn đã chọn shipper {0} cho đơn hàng {1}.',
         SHIPPER: 'Shipper',
+        SHIPPER_INFO: 'Thông tin của {0}',
         SHOP: 'Shop',
         SHOP_MANAGER: 'Chủ cửa hàng',
         SIGN_UP: 'Đăng ký tài khoản',
@@ -72,7 +79,7 @@
     title: {
         CREATE_ORDER: 'Tạo mới đơn hàng',
         LOGIN: 'Đăng nhập',
-        SELECT_SHIPPER: 'Lựa chọn shipper vận chuyển',
+        SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'
     }

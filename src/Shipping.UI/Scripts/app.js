@@ -142,12 +142,16 @@ app.controller('signUp',
             orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
         })
     .controller('selectShipper',
-        function ($scope, request, $mdDialog, order, userId, isRegistered) {
-            selectShipper($scope, request, $mdDialog, order, userId, isRegistered);
+        function ($scope, request, $mdDialog, $mdBottomSheet, order, userId, isRegistered) {
+            selectShipper($scope, request, $mdDialog, $mdBottomSheet, order, userId, isRegistered);
         })
     .controller('toastTemplate',
         function ($scope, $mdToast, textContent) {
             toastTemplate($scope, $mdToast, textContent);
+        })
+    .controller('bottomSheet',
+        function ($scope, $mdBottomSheet, shipper) {
+            bottomSheet($scope, $mdBottomSheet, shipper);
         });
 
 
@@ -208,8 +212,8 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
-    function getListOrders(onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.ORDER)
+    function getListOrdersByUserId(userId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.ORDER + '/0/' + userId)
             .then(onSuccess, onError);
     }
 
@@ -251,7 +255,7 @@ function request($http) {
     return {
         createNewUser: createNewUser,
         login: login,
-        getListOrders: getListOrders,
+        getListOrdersByUserId: getListOrdersByUserId,
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,

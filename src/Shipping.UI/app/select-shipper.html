@@ -10,11 +10,13 @@
     </div>
   </md-toolbar>
   <md-dialog-content layout="column" layout-padding>
-    <md-list>
-      <md-list-item ng-repeat="shipper in shippers">
-        <p>{{shipper}}</p>
-        <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>
-      </md-list-item>
-    </md-list>
+    <h3 ng-if="!shippers.length" md-colors="{color: 'dialogTheme-orange-900'}" align="center">{{$root.consts.lbl.NOT_REGISTERED}}</h3>
+    <md-radio-group ng-model="selectedShipper">
+      <div ng-repeat="shipper in shippers" layout="row">
+        <md-radio-button value="{{shipper.UserId}}" layout="row" layout-align="center center" style="margin: 8px 0">{{shipper.FullName}}</md-radio-button>
+        <span flex></span>
+        <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue'}" ng-click="viewShipperInfo(shipper)">{{$root.consts.btn.SHIPPER_INFO}}</md-button>
+      </div>
+    </md-radio-group>
   </md-dialog-content>
 </md-dialog>

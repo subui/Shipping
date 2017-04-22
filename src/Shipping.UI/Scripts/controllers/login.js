@@ -30,7 +30,7 @@
                 $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
             }
 
-            if (response.data.ResponseStatus === status.PasswordIncorrect) {
+            if (response.data.ResponseStatus === status.ErrorPasswordIncorrect) {
                 $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
             }
 
