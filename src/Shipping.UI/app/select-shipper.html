@@ -1,0 +1,20 @@
+﻿<md-dialog style="min-width: 500px">
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="closeDialog()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content layout="column" layout-padding>
+    <md-list>
+      <md-list-item ng-repeat="shipper in shippers">
+        <p>{{shipper}}</p>
+        <md-button class="md-secondary" ng-click="doSecondaryAction($event)">More Info</md-button>
+      </md-list-item>
+    </md-list>
+  </md-dialog-content>
+</md-dialog>

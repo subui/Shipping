@@ -94,6 +94,15 @@ var $app = {
     }
 };
 
+String.format = function () {
+    var s = arguments[0];
+    for (var i = 0; i < arguments.length - 1; i++) {
+        var reg = new RegExp("\\{" + i + "\\}", "gm");
+        s = s.replace(reg, arguments[i + 1]);
+    }
+    return s;
+}
+
 // angular module
 var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize', 'ngCookies']);
 
@@ -113,27 +122,31 @@ app.config(function ($mdThemingProvider) {
 });
 
 app.controller('signUp',
-        function($rootScope, $scope, request, $window, mdToast) {
+        function ($rootScope, $scope, request, $window, mdToast) {
             signUp($rootScope, $scope, request, $window, mdToast);
         })
     .controller('login',
-        function($rootScope, $scope, request, $window, mdToast, cookies) {
+        function ($rootScope, $scope, request, $window, mdToast, cookies) {
             login($rootScope, $scope, request, $window, mdToast, cookies);
         })
     .controller('main',
-        function($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
+        function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
             main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
         })
     .controller('createOrder',
-        function($scope, request, $mdDialog, mdToast, order, userId) {
+        function ($scope, request, $mdDialog, mdToast, order, userId) {
             createOrder($scope, request, $mdDialog, mdToast, order, userId);
         })
     .controller('orderDetail',
-        function($scope, request, $mdDialog, order, userId) {
-            orderDetail($scope, request, $mdDialog, order, userId);
+        function ($scope, request, $mdDialog, order, userId, isRegistered) {
+            orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
+        })
+    .controller('selectShipper',
+        function ($scope, request, $mdDialog, order, userId, isRegistered) {
+            selectShipper($scope, request, $mdDialog, order, userId, isRegistered);
         })
     .controller('toastTemplate',
-        function($scope, $mdToast, textContent) {
+        function ($scope, $mdToast, textContent) {
             toastTemplate($scope, $mdToast, textContent);
         });
 
@@ -215,8 +228,23 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
+    function unRegisterOrder(orderId, shipperId, onSuccess, onError) {
+        $http.delete($app.apiUrl + constants.req.REGISTER + '/' + orderId + '/' + shipperId)
+            .then(onSuccess, onError);
+    }
+
     function getShopNameByUserId(userId, onSuccess, onError) {
         $http.get($app.apiUrl + constants.req.USER + '/' + userId)
+            .then(onSuccess, onError);
+    }
+
+    function getOrderRegisteredByShipperId(shipperId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REGISTER + '/0/' + shipperId)
+            .then(onSuccess, onError);
+    }
+
+    function getShipperRegisteredByOrderId(orderId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REGISTER + '/' + orderId + '/0')
             .then(onSuccess, onError);
     }
 
@@ -227,6 +255,9 @@ function request($http) {
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,
-        getShopNameByUserId: getShopNameByUserId
+        unRegisterOrder: unRegisterOrder,
+        getShopNameByUserId: getShopNameByUserId,
+        getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
+        getShipperRegisteredByOrderId: getShipperRegisteredByOrderId
     }
 }

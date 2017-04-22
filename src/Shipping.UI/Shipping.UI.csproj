@@ -98,6 +98,7 @@
     <Content Include="account\sign-up.html" />
     <Content Include="app\create-order.html" />
     <Content Include="app\index.html" />
+    <Content Include="app\select-shipper.html" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -114,12 +115,14 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\controllers\login.js" />
     <Content Include="Scripts\controllers\orderDetail.js" />
+    <Content Include="Scripts\controllers\selectShipper.js" />
     <Content Include="Scripts\controllers\signUp.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\controllers\createOrder.js" />
     <Content Include="Scripts\controllers\main.js" />
     <Content Include="Scripts\controllers\toastTemplate.js" />
+    <Content Include="Scripts\data.sql" />
     <Content Include="Scripts\SqlQuery.sql" />
     <Content Include="Styles\app.css" />
     <Content Include="Templates\order-item.html" />

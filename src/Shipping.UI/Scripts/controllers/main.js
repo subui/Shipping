@@ -5,16 +5,20 @@
         $scope.isLogin = true;
         $scope.userId = $scope.userLogin.UserId;
         $scope.username = $scope.userLogin.FullName;
+        $scope.isShopManager = $scope.userLogin.UserType === $app.enums.userType.ShopManager;
     } else {
         $window.location.href = '/account/login.html';
         return;
     }
+
+    if ($scope.isShopManager) $scope.btnShipperRegistered = String.format(constants.btn.LIST_SHIPPER_REGISTERED, "111");
+
     $scope.waiting = true;
     request.getListOrders(onSuccess, onError);
-
+    
     $scope.menu = [];
 
-    $scope.userLogin.UserType === $app.enums.userType.ShopManager
+    $scope.isShopManager
             ? $scope.menu.push({
                 title: $rootScope.consts.btn.ORDER_MANAGEMENT,
                 children: [
@@ -33,12 +37,15 @@
                 title: $rootScope.consts.btn.ORDER_MANAGEMENT,
                 children: [
                     {
-                        title: $rootScope.consts.btn.LIST_ORDERS
+                        title: $rootScope.consts.btn.LIST_ORDERS,
+                        action: function() {
+                            $scope.getOrders();
+                        }
                     },
                     {
                         title: $rootScope.consts.btn.ORDER_REGISTERED,
                         action: function () {
-                            $scope.orderRegistered();
+                            $scope.getOrdersRegistered();
                         }
                     }
                 ]
@@ -66,10 +73,16 @@
         }
     });
 
-    $scope.rm = function () {
+    $scope.rm = function() {
         var content = document.getElementById('content');
         content.children[0].remove();
-    }
+    };
+
+    $scope.getOrders = function () {
+        $scope.orders = $scope.listOrdersNotRegistered;
+        $scope.isRegistered = false;
+        $scope.toggleSidenav();
+    };
 
     $scope.showDetail = function (event, order) {
         if ($scope.userLogin.UserType === $app.enums.userType.ShopManager) {
@@ -85,11 +98,30 @@
             controller: 'orderDetail',
             locals: {
                 order: order,
-                userId: $scope.userId
-    }
+                userId: $scope.userId,
+                isRegistered: $scope.isRegistered
+            }
         })
         .then(function () {
-            mdToast.showToast('dang ky thanh cong', 3000, 'bottom right');
+            var message;
+            var index;
+
+            if ($scope.isRegistered) {
+                message = constants.lbl.UNREGISTER_ORDER_SUCCESS;
+                index = $scope.listOrdersRegistered.indexOf(order);
+                $scope.listOrdersRegistered.splice(index, 1);
+
+                $scope.listOrdersNotRegistered.push(order);
+                $scope.listOrdersNotRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
+            } else {
+                message = constants.lbl.REGISTER_ORDER_SUCCESS;
+                index = $scope.listOrdersNotRegistered.indexOf(order);
+                $scope.listOrdersNotRegistered.splice(index, 1);
+
+                $scope.listOrdersRegistered.push(order);
+                $scope.listOrdersRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
+            }
+            mdToast.showToast(String.format(message, order.OrderName), 3000, 'bottom right');
         }, function () {
         });
     };
@@ -113,16 +145,33 @@
         });
     };
 
-    $scope.orderRegistered = function() {
-        
-    }
+    $scope.showShipper = function (event, order) {
+        event.stopPropagation();
+        $mdDialog.show({
+            targetEvent: event,
+            templateUrl: 'select-shipper.html',
+            clickOutsideToClose: true,
+            controller: 'selectShipper',
+            locals: {
+                order: order,
+                userId: $scope.userId,
+                isRegistered: $scope.isRegistered
+            }
+        });
+    };
+
+    $scope.getOrdersRegistered = function () {
+        $scope.orders = $scope.listOrdersRegistered;
+        $scope.isRegistered = true;
+        $scope.toggleSidenav();
+    };
 
     $scope.logout = function () {
         cookies.userLogout();
         $window.location.href = '/';
     };
 
-    $scope.openSidenav = function () {
+    $scope.toggleSidenav = function () {
         $mdSidenav('left').toggle();
     };
 
@@ -136,13 +185,29 @@
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
 
-        if (response.data.RequestType === type.Order && response.data.ResponseStatus === status.Success)
-            $scope.orders = response.data.Data;
+        if (response.data.RequestType === type.Order && response.data.ResponseStatus === status.Success) {
+            $scope.listOrders = response.data.Data;
+            request.getOrderRegisteredByShipperId($scope.userId, onSuccess, onError);
+        }
+
+        if (response.data.RequestType === type.Register && response.data.ResponseStatus === status.Success) {
+            $scope.listOrdersRegistered = response.data.Data;
+            $scope.listOrdersNotRegistered = [];
+
+            $scope.listOrders.filter(order => {
+                var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.OrderId);
+                if (!isRegistered) {
+                    $scope.listOrdersNotRegistered.push(order);
+                }
+            });
+
+            $scope.orders = $scope.listOrdersNotRegistered;
+        }
     }
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.showToast('An error has occurred.', 3000, 'bottom right');
-        console.log(response.data);
+        mdToast.showToast(constants.lbl.ERROR, 3000, 'bottom right');
+        console.error(response.data);
     }
 }

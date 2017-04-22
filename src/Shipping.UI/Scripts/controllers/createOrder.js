@@ -1,8 +1,12 @@
 ﻿function createOrder($scope, request, $mdDialog, mdToast, order, userId) {
     $scope.isCreate = !order;
     $scope.isEdit = $scope.isCreate;
-    if (!$scope.isCreate)
+    if ($scope.isCreate) {
+        $scope.title = constants.title.CREATE_ORDER;
+    } else {
+        $scope.title = constants.title.UPDATE_ORDER;
         $scope.order = JSON.parse(JSON.stringify(order));
+    }
 
     $scope.userId = userId;
     
@@ -76,14 +80,14 @@
                     $mdDialog.hide();
                 }
 
-                mdToast.showToastTemplate(message, 0, 'top right');
+                mdToast.showToastTemplate(String.format(message, $scope.order.OrderName), 0, 'top right');
             }
         }
     }
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.showToast('An error has occurred.', 0, 'top right');
+        mdToast.showToast(constants.lbl.ERROR, 0, 'top right');
         console.error(response.data);
     }
 }

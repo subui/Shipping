@@ -23,6 +23,7 @@
   <script src="../Scripts/controllers/toastTemplate.js"></script>
   <script src="/Scripts/controllers/createOrder.js"></script>
   <script src="/Scripts/controllers/orderDetail.js"></script>
+  <script src="../Scripts/controllers/selectShipper.js"></script>
   <script src="/Scripts/controllers/main.js"></script>
   <script src="/Scripts/app.js"></script>
 
@@ -46,7 +47,7 @@
                 md-colors="{background: 'blue'}">
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <md-button class="md-icon-button" ng-click="openSidenav()" hide-gt-md>
+          <md-button class="md-icon-button" ng-click="toggleSidenav()" hide-gt-md>
             <md-icon>menu</md-icon>
           </md-button>
           <h2 md-truncate flex>SHIPPING</h2>
@@ -71,7 +72,7 @@
     <section layout="column" flex>
       <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-          <md-button class="md-icon-button" ng-click="openSidenav()" hide-gt-md>
+          <md-button class="md-icon-button" ng-click="toggleSidenav()" hide-gt-md>
             <md-icon>menu</md-icon>
           </md-button>
           <h2 md-truncate flex hide-gt-md>{{$root.consts.btn.ORDER_MANAGEMENT}}</h2>
@@ -117,14 +118,25 @@
           </md-checkbox>
         </div>
 
-        <md-grid-list id="content"
-                      md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-                      md-row-height="125px"
-                      md-gutter="10px">
-          <md-grid-tile ng-repeat="order in orders">
-            <ng-include src="'/Templates/order-item.html'" flex></ng-include>
-          </md-grid-tile>
-        </md-grid-list>
+        <div id="content">
+          <md-grid-list ng-if="isShopManager"
+                        md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+                        md-row-height="175px"
+                        md-gutter="10px">
+            <md-grid-tile ng-repeat="order in orders">
+              <ng-include src="'/Templates/order-item.html'" flex></ng-include>
+            </md-grid-tile>
+          </md-grid-list>
+
+          <md-grid-list ng-if="!isShopManager"
+                        md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+                        md-row-height="125px"
+                        md-gutter="10px">
+            <md-grid-tile ng-repeat="order in orders">
+              <ng-include src="'/Templates/order-item.html'" flex></ng-include>
+            </md-grid-tile>
+          </md-grid-list>
+        </div>
       </md-content>
     </section>
   </md-content>
