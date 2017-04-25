@@ -14,8 +14,6 @@
     };
 
     function onSuccess(response) {
-        $scope.waiting = false;
-
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
 
@@ -25,6 +23,8 @@
                 $window.location.href = '/app';
                 return;
             }
+
+            $scope.waiting = false;
 
             if (response.data.ResponseStatus === status.ErrorUsernameNotExist) {
                 $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;

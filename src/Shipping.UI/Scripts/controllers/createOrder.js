@@ -47,8 +47,8 @@
         $scope.order.ShopId = $scope.userId;
         $scope.startTime.setHours($scope.hour, $scope.minute);
         $scope.order.StartTime = $scope.startTime;
+        $scope.order.Status = $app.enums.orderStatus.Waiting;
 
-        console.log($scope.order);
         $scope.isCreate ? request.createOrder($scope.order, onSuccess, onError)
                         : request.updateOrder($scope.order, onSuccess, onError);
     };

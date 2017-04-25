@@ -21,3 +21,16 @@ md-input-container {
 md-dialog-content > md-input-container:first-child {
     margin-top: 18px !important;
 }
+
+#filter {
+    margin: 10px;
+}
+
+    #filter md-checkbox {
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+        #filter md-checkbox > div:first-child {
+            left: 5px;
+        }

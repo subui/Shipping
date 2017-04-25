@@ -61,15 +61,22 @@ namespace Shipping.API.Controllers
                 if (orderUpdate == null)
                     return new ResponseData(ResponseStatus.ErrorOrderNotExist, RequestType.Order);
 
-                orderUpdate.OrderName = order.OrderName;
-                orderUpdate.StartingPoint = order.StartingPoint;
-                orderUpdate.Destination = order.Destination;
-                orderUpdate.StartTime = order.StartTime;
-                orderUpdate.RecipientsName = order.RecipientsName;
-                orderUpdate.RecipientsPhoneNumber = order.RecipientsPhoneNumber;
-                orderUpdate.AdvanceDeposit = order.AdvanceDeposit;
-                orderUpdate.Profit = order.Profit;
-                orderUpdate.Status = order.Status;
+                if (orderUpdate.SelectedShipperId == order.SelectedShipperId)
+                {
+                    orderUpdate.OrderName = order.OrderName;
+                    orderUpdate.StartingPoint = order.StartingPoint;
+                    orderUpdate.Destination = order.Destination;
+                    orderUpdate.StartTime = order.StartTime;
+                    orderUpdate.RecipientsName = order.RecipientsName;
+                    orderUpdate.RecipientsPhoneNumber = order.RecipientsPhoneNumber;
+                    orderUpdate.AdvanceDeposit = order.AdvanceDeposit;
+                    orderUpdate.Profit = order.Profit;
+                    orderUpdate.Status = order.Status;
+                }
+                else
+                {
+                    orderUpdate.SelectedShipperId = order.SelectedShipperId;
+                }
 
                 entities.SaveChanges();
                 return new ResponseData(ResponseStatus.Success, RequestType.Order);

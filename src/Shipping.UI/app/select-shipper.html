@@ -11,7 +11,7 @@
   </md-toolbar>
   <md-dialog-content layout="column" layout-padding>
     <h3 ng-if="!shippers.length" md-colors="{color: 'dialogTheme-orange-900'}" align="center">{{$root.consts.lbl.NOT_REGISTERED}}</h3>
-    <md-radio-group ng-model="selectedShipper">
+    <md-radio-group ng-model="selectedShipperId" ng-change="select()">
       <div ng-repeat="shipper in shippers" layout="row">
         <md-radio-button value="{{shipper.UserId}}" layout="row" layout-align="center center" style="margin: 8px 0">{{shipper.FullName}}</md-radio-button>
         <span flex></span>

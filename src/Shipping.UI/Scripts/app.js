@@ -62,6 +62,14 @@ var $app = {
             Admin: 0,
             ShopManager: 1,
             Shipper: 2
+        },
+        orderStatus: {
+            Unknown: 0,
+            Waiting: 1,
+            Shipping: 2,
+            Done: 3,
+            Canceled: 4,
+            Expired: 5
         }
     },
     MenuItem: function (title, children, action) {
@@ -83,14 +91,6 @@ var $app = {
             }
         }
         return script;
-    },
-    showToast: function ($mdToast, textContent, hideDelay, position) {
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent(textContent)
-                .hideDelay(hideDelay)
-                .position(position)
-        );
     }
 };
 
@@ -142,8 +142,8 @@ app.controller('signUp',
             orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
         })
     .controller('selectShipper',
-        function ($scope, request, $mdDialog, $mdBottomSheet, order, userId, isRegistered) {
-            selectShipper($scope, request, $mdDialog, $mdBottomSheet, order, userId, isRegistered);
+        function ($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered) {
+            selectShipper($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered);
         })
     .controller('toastTemplate',
         function ($scope, $mdToast, textContent) {
@@ -195,9 +195,14 @@ function mdToast($mdToast) {
         });
     }
 
+    function hide() {
+        $mdToast.hide();
+    }
+
     return {
         showToast: showToast,
-        showToastTemplate: showToastTemplate
+        showToastTemplate: showToastTemplate,
+        hide: hide
     }
 }
 
@@ -262,6 +267,7 @@ function request($http) {
         unRegisterOrder: unRegisterOrder,
         getShopNameByUserId: getShopNameByUserId,
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
-        getShipperRegisteredByOrderId: getShipperRegisteredByOrderId
+        getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
+        selectShipper: updateOrder
     }
 }
