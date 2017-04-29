@@ -11,7 +11,9 @@
         return;
     }
 
+    $scope.content = 'order-items.html';
     $scope.waiting = true;
+
     mdToast.showToast(constants.lbl.LOADING_LIST_ORDERS, 0, 'bottom right');
     request.getListOrdersByUserId($scope.userId, onSuccess, onError);
 
@@ -25,7 +27,10 @@
                 title: $rootScope.consts.btn.ORDER_MANAGEMENT,
                 children: [
                     {
-                        title: $rootScope.consts.btn.MY_ORDERS
+                        title: $rootScope.consts.btn.MY_ORDERS,
+                        action: function() {
+                            $scope.showMyOrders();
+                        }
                     },
                     {
                         title: $rootScope.consts.btn.CREATE_ORDER,
@@ -57,7 +62,10 @@
         title: $rootScope.consts.btn.ACCOUNT_MANAGEMENT,
         children: [
             {
-                title: $rootScope.consts.btn.PROFILE
+                title: $rootScope.consts.btn.PROFILE,
+                action: function() {
+                    $scope.showProfile();
+                }
             },
             {
                 title: $rootScope.consts.btn.CHANGE_PASSWORD,
@@ -75,9 +83,9 @@
         }
     });
 
-    $scope.rm = function() {
-        var content = document.getElementById('content');
-        content.children[0].remove();
+    $scope.showMyOrders = function() {
+        $scope.content = 'order-items.html';
+        $scope.toggleSidenav();
     };
 
     $scope.getOrders = function () {
@@ -165,6 +173,11 @@
     $scope.getOrdersRegistered = function () {
         $scope.orders = $scope.listOrdersRegistered;
         $scope.isRegistered = true;
+        $scope.toggleSidenav();
+    };
+
+    $scope.showProfile = function() {
+        $scope.content = 'profile.html';
         $scope.toggleSidenav();
     };
 

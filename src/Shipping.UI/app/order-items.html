@@ -1,0 +1,44 @@
+﻿<ng-include src="'/Templates/waiting.html'"></ng-include>
+<div id="filter" layout="row">
+  <div>{{$root.consts.lbl.ORDER_STATUS}}</div>
+  <div>
+    <md-checkbox ng-model="filter.allItems" md-whiteframe="5">
+      {{consts.lbl.ALL_ITEMS}}
+    </md-checkbox>
+    <md-checkbox ng-model="filter.waiting" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.WAITING}}'}">
+      {{consts.lbl.STATUS_WAITING}}
+    </md-checkbox>
+    <md-checkbox ng-model="filter.shipping" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.SHIPPING}}'}">
+      {{consts.lbl.STATUS_SHIPPING}}
+    </md-checkbox>
+    <md-checkbox ng-model="filter.done" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.DONE}}'}">
+      {{consts.lbl.STATUS_DONE}}
+    </md-checkbox>
+    <md-checkbox ng-model="filter.expired" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.EXPIRED}}'}">
+      {{consts.lbl.STATUS_EXPIRED}}
+    </md-checkbox>
+    <md-checkbox ng-model="filter.canceled" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.CANCELED}}'}">
+      {{consts.lbl.STATUS_CANCELED}}
+    </md-checkbox>
+  </div>
+</div>
+
+<div id="content">
+  <md-grid-list ng-if="isShopManager"
+                md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+                md-row-height="175px"
+                md-gutter="10px">
+    <md-grid-tile ng-repeat="o in orders" ng-init="order=o.Order">
+      <ng-include src="'/Templates/order-item.html'" flex></ng-include>
+    </md-grid-tile>
+  </md-grid-list>
+
+  <md-grid-list ng-if="!isShopManager"
+                md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+                md-row-height="125px"
+                md-gutter="10px">
+    <md-grid-tile ng-repeat="order in orders" ng-init="o=order">
+      <ng-include src="'/Templates/order-item.html'" flex></ng-include>
+    </md-grid-tile>
+  </md-grid-list>
+</div>

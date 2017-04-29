@@ -96,8 +96,11 @@
   <ItemGroup>
     <Content Include="account\login.html" />
     <Content Include="account\sign-up.html" />
+    <Content Include="app\change-password.html" />
     <Content Include="app\create-order.html" />
     <Content Include="app\index.html" />
+    <Content Include="app\order-items.html" />
+    <Content Include="app\profile.html" />
     <Content Include="app\select-shipper.html" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
