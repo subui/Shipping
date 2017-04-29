@@ -1,10 +1,10 @@
-﻿md-content {
+﻿body > md-content {
     height: 100%;
 }
 
-    md-content > div {
-        min-width: 400px;
-    }
+md-content > div {
+    min-width: 400px;
+}
 
 md-input-container {
     margin-bottom: 0;
@@ -34,3 +34,14 @@ md-dialog-content > md-input-container:first-child {
         #filter md-checkbox > div:first-child {
             left: 5px;
         }
+
+.inline {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+md-checkbox {
+    margin: 8px !important;
+}

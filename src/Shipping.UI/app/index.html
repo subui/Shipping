@@ -25,18 +25,10 @@
   <script src="/Scripts/controllers/createOrder.js"></script>
   <script src="/Scripts/controllers/orderDetail.js"></script>
   <script src="/Scripts/controllers/selectShipper.js"></script>
+  <script src="/Scripts/controllers/listOrders.js"></script>
   <script src="/Scripts/controllers/main.js"></script>
   <script src="/Scripts/app.js"></script>
 
-  <style>
-    body > md-content {
-      height: 100%;
-    }
-
-    md-input-container {
-      margin-bottom: 0;
-    }
-  </style>
   <link href="/Styles/app.css" rel="stylesheet" />
 </head>
 <body>
@@ -98,7 +90,7 @@
         </div>
       </md-toolbar>
 
-      <md-content md-colors="{background: 'amber-50'}" ng-include="content" flex>
+      <md-content md-colors="{background: 'amber-50'}" ng-include="content" ng-init="content='list-orders.html'" flex>
       </md-content>
     </section>
   </md-content>

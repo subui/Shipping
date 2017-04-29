@@ -1,0 +1,48 @@
+﻿<div ng-controller="listOrders">
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
+  <div id="filter" layout="row">
+    <div layout="column" layout-align="center center">{{$root.consts.lbl.ORDER_STATUS}}</div>
+    <div>
+      <md-checkbox ng-model="filter.allItems" ng-change="filterItems(true)" md-whiteframe="5">
+        {{consts.lbl.ALL_ITEMS}}
+      </md-checkbox>
+      <md-checkbox ng-model="filter.waiting" ng-change="filterItems()" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.WAITING}}'}">
+        {{consts.lbl.STATUS_WAITING}}
+      </md-checkbox>
+      <md-checkbox ng-model="filter.shipping" ng-change="filterItems()" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.SHIPPING}}'}">
+        {{consts.lbl.STATUS_SHIPPING}}
+      </md-checkbox>
+      <md-checkbox ng-model="filter.done" ng-change="filterItems()" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.DONE}}'}">
+        {{consts.lbl.STATUS_DONE}}
+      </md-checkbox>
+      <md-checkbox ng-model="filter.expired" ng-change="filterItems()" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.EXPIRED}}'}">
+        {{consts.lbl.STATUS_EXPIRED}}
+      </md-checkbox>
+      <md-checkbox ng-model="filter.canceled" ng-change="filterItems()" md-whiteframe="5" md-colors="{background: '{{$root.consts.color.CANCELED}}'}">
+        {{consts.lbl.STATUS_CANCELED}}
+      </md-checkbox>
+    </div>
+  </div>
+
+  <div id="content">
+    <md-grid-list ng-if="isShopManager"
+                  md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="3"
+                  md-row-height="165px"
+                  md-gutter="20px"
+                  style="margin: 0 10px">
+      <md-grid-tile ng-repeat="o in orders" ng-init="order = o.Order">
+        <ng-include src="'/Templates/order-item.html'" style="width: 100%" flex></ng-include>
+      </md-grid-tile>
+    </md-grid-list>
+
+    <md-grid-list ng-if="!isShopManager"
+                  md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="3"
+                  md-row-height="110px"
+                  md-gutter="20px"
+                  style="margin: 0 10px">
+      <md-grid-tile ng-repeat="order in orders" ng-init="o = order">
+        <ng-include src="'/Templates/order-item.html'" style="width: 100%" flex></ng-include>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+</div>

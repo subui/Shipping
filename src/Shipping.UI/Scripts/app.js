@@ -133,6 +133,10 @@ app.controller('signUp',
         function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
             main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
         })
+    .controller('listOrders',
+        function ($rootScope, $scope, request, $mdDialog, mdToast) {
+            listOrders($rootScope, $scope, request, $mdDialog, mdToast);
+        })
     .controller('createOrder',
         function ($scope, request, $mdDialog, mdToast, order, userId) {
             createOrder($scope, request, $mdDialog, mdToast, order, userId);

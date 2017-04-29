@@ -80,7 +80,7 @@
                     $mdDialog.hide();
                 }
 
-                mdToast.showToastTemplate(String.format(message, $scope.order.OrderName), 0, 'top right');
+                mdToast.showToastTemplate(String.format(message, $scope.order.OrderName), 0, 'bottom right');
             }
         }
     }

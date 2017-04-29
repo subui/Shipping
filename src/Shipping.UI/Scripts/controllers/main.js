@@ -11,15 +11,6 @@
         return;
     }
 
-    $scope.content = 'order-items.html';
-    $scope.waiting = true;
-
-    mdToast.showToast(constants.lbl.LOADING_LIST_ORDERS, 0, 'bottom right');
-    request.getListOrdersByUserId($scope.userId, onSuccess, onError);
-
-    $scope.filter = {};
-    $scope.filter.allItems = true;
-    
     $scope.menu = [];
 
     $scope.isShopManager
@@ -29,7 +20,7 @@
                     {
                         title: $rootScope.consts.btn.MY_ORDERS,
                         action: function() {
-                            $scope.showMyOrders();
+                            $scope.showListOrders();
                         }
                     },
                     {
@@ -70,7 +61,7 @@
             {
                 title: $rootScope.consts.btn.CHANGE_PASSWORD,
                 action: function() {
-                    $scope.createOrder();
+                    $scope.changePassword();
                 }
             }
         ]
@@ -83,57 +74,21 @@
         }
     });
 
-    $scope.showMyOrders = function() {
-        $scope.content = 'order-items.html';
+    $scope.showListOrders = function() {
+        $scope.content = 'list-orders.html';
         $scope.toggleSidenav();
     };
 
     $scope.getOrders = function () {
-        $scope.orders = $scope.listOrdersNotRegistered;
-        $scope.isRegistered = false;
+        $scope.content = 'list-orders.html';
+        $scope.$broadcast('getOrders');
         $scope.toggleSidenav();
     };
 
-    $scope.showDetail = function (event, order) {
-        if ($scope.userLogin.UserType === $app.enums.userType.ShopManager) {
-            $scope.createOrder(event, order);
-            return;
-        }
-
-        $mdDialog.show({
-//            parent: angular.element(document.body),
-            targetEvent: event,
-            templateUrl: 'order-detail.html',
-            clickOutsideToClose: true,
-            controller: 'orderDetail',
-            locals: {
-                order: order,
-                userId: $scope.userId,
-                isRegistered: $scope.isRegistered
-            }
-        })
-        .then(function () {
-            var message;
-            var index;
-
-            if ($scope.isRegistered) {
-                message = constants.lbl.UNREGISTER_ORDER_SUCCESS;
-                index = $scope.listOrdersRegistered.indexOf(order);
-                $scope.listOrdersRegistered.splice(index, 1);
-
-                $scope.listOrdersNotRegistered.push(order);
-                $scope.listOrdersNotRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
-            } else {
-                message = constants.lbl.REGISTER_ORDER_SUCCESS;
-                index = $scope.listOrdersNotRegistered.indexOf(order);
-                $scope.listOrdersNotRegistered.splice(index, 1);
-
-                $scope.listOrdersRegistered.push(order);
-                $scope.listOrdersRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
-            }
-            mdToast.showToast(String.format(message, order.OrderName), 3000, 'bottom right');
-        }, function () {
-        });
+    $scope.getOrdersRegistered = function () {
+        $scope.content = 'list-orders.html';
+        $scope.$broadcast('getOrdersRegistered');
+        $scope.toggleSidenav();
     };
 
     $scope.createOrder = function (event, order) {
@@ -149,31 +104,10 @@
                 userId: $scope.userId
             }
         }).then(function () {
-            request.getListOrdersByUserId($scope.userId, onSuccess, onError);
+            $scope.$broadcast('createOrder');
         }, function () {
-
+            
         });
-    };
-
-    $scope.showShipper = function (event, order) {
-        event.stopPropagation();
-        $mdDialog.show({
-            targetEvent: event,
-            templateUrl: 'select-shipper.html',
-            clickOutsideToClose: true,
-            controller: 'selectShipper',
-            locals: {
-                order: order,
-                userId: $scope.userId,
-                isRegistered: $scope.isRegistered
-            }
-        });
-    };
-
-    $scope.getOrdersRegistered = function () {
-        $scope.orders = $scope.listOrdersRegistered;
-        $scope.isRegistered = true;
-        $scope.toggleSidenav();
     };
 
     $scope.showProfile = function() {
@@ -181,11 +115,16 @@
         $scope.toggleSidenav();
     };
 
+    $scope.changePassword = function() {
+        $scope.content = 'change-password.html';
+        $scope.toggleSidenav();
+    };
+
     $scope.logout = function () {
         cookies.userLogout();
         $window.location.href = '/';
     };
-
+    
     $scope.toggleSidenav = function () {
         $mdSidenav('left').toggle();
     };
@@ -193,74 +132,4 @@
     $scope.openMenu = function ($mdMenu, e) {
         $mdMenu.open(e);
     };
-
-    function getColor(status) {
-        var orderStatus = $app.enums.orderStatus;
-        var color = constants.color;
-        switch (status) {
-            case orderStatus.Waiting:
-                return color.WAITING;
-
-            case orderStatus.Shipping:
-                return color.SHIPPING;
-
-            case orderStatus.Done:
-                return color.DONE;
-
-            case orderStatus.Expired:
-                return color.EXPIRED;
-
-            case orderStatus.Canceled:
-                return color.CANCELED;
-
-            default:
-                return color.UNKNOWN;
-        }
-    }
-
-    function onSuccess(response) {
-        $scope.waiting = false;
-        mdToast.hide();
-
-        var status = $app.enums.responseStatus;
-        var type = $app.enums.requestType;
-
-        if (response.data.ResponseStatus === status.Success) {
-            if (response.data.RequestType === type.Order) {
-                $scope.listOrders = response.data.Data;
-                $scope.orders = $scope.listOrders;
-                if ($scope.isShopManager) {
-                    $scope.orders.forEach(order => {
-                        order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, order.ShipperCount);
-                        order.color = getColor(order.Order.Status);
-                    });
-                } else {
-                    request.getOrderRegisteredByShipperId($scope.userId, onSuccess, onError);
-                }
-
-            }
-
-            if (response.data.RequestType === type.Register) {
-                response.data.Data.forEach(item => item.color = item.SelectedShipperId === $scope.userId ? constants.color.DONE : constants.color.UNKNOWN);
-                $scope.listOrdersRegistered = response.data.Data;
-                $scope.listOrdersNotRegistered = [];
-
-                $scope.listOrders.filter(order => {
-                    var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.Order.OrderId);
-                    if (!isRegistered) {
-                        order.Order.color = constants.color.UNKNOWN;
-                        $scope.listOrdersNotRegistered.push(order.Order);
-                    }
-                });
-
-                $scope.orders = $scope.listOrdersNotRegistered;
-            }
-        }
-    }
-
-    function onError(response) {
-        $scope.waiting = false;
-        mdToast.showToast(constants.lbl.ERROR, 3000, 'bottom right');
-        console.error(response.data);
-    }
 }

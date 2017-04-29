@@ -1,2 +1,6 @@
-﻿<md-button class="md-raised" md-colors="{background: 'blue'}">Button</md-button>
-<pre style="background: beige">system.exit();</pre>
+﻿<div layout="column" layout-align="center center" flex>
+  <md-input-container>
+    <label>{{$root.consts.lbl.USERNAME}}</label>
+    <input type="text" name="userName" ng-model="user.UserName" required autofocus />
+  </md-input-container>
+</div>
