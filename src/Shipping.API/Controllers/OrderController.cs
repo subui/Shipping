@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Shipping.API.Enums;
@@ -18,16 +19,20 @@ namespace Shipping.API.Controllers
                 var userRequest = entities.Users.FirstOrDefault(u => u.UserId == userId);
                 var userType = userRequest?.UserType;
 
-                List<Order> listOrders;
+                if (userType == null)
+                    return new ResponseData(ResponseStatus.NullError, RequestType.Order);
 
-                if (userType != null && userType == (int) UserType.ShopManager)
-                {
-                    listOrders = entities.Orders.Where(o => o.ShopId == userRequest.UserId).OrderByDescending(o => o.OrderId).ToList();
-                }
-                else
-                {
-                    listOrders = entities.Orders.OrderByDescending(o => o.OrderId).ToList();
-                }
+                var expiredOrders = entities.Orders.Where(o => o.Status == (int) OrderStatus.Waiting && o.StartTime < DateTime.Now);
+                foreach (var expiredOrder in expiredOrders)
+                    expiredOrder.Status = expiredOrder.SelectedShipperId == null
+                        ? (int) OrderStatus.Expired
+                        : (int) OrderStatus.Shipping;
+
+                entities.SaveChanges();
+
+                var listOrders = userType == (int) UserType.ShopManager 
+                    ? entities.Orders.Where(o => o.ShopId == userRequest.UserId).OrderByDescending(o => o.OrderId).ToList() 
+                    : entities.Orders.OrderByDescending(o => o.OrderId).ToList();
 
                 var returnData = new List<object>();
 

@@ -104,7 +104,7 @@
                 userId: $scope.userId
             }
         }).then(function () {
-            $scope.$broadcast('createOrder');
+            $scope.$broadcast('createOrUpdateOrder');
         }, function () {
             
         });

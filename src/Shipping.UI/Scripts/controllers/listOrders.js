@@ -118,7 +118,7 @@
         });
     };
 
-    $scope.$on('createOrder', function() {
+    $scope.$on('createOrUpdateOrder', function() {
         request.getListOrdersByUserId($scope.userId, onSuccess, onError);
     });
 
@@ -166,6 +166,7 @@
             if (response.data.RequestType === type.Order) {
                 mdToast.hide();
                 $scope.listOrders = response.data.Data;
+
                 if ($scope.isShopManager) {
                     $scope.orders = $scope.listOrders;
                     $scope.orders.forEach(order => {

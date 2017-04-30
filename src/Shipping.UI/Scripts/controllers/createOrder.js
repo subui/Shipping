@@ -1,4 +1,4 @@
-﻿function createOrder($scope, request, $mdDialog, mdToast, order, userId) {
+﻿function createOrder($rootScope, $scope, request, $mdDialog, mdToast, order, userId) {
     $scope.isCreate = !order;
     $scope.isEdit = $scope.isCreate;
     if ($scope.isCreate) {
@@ -28,8 +28,6 @@
         $scope.minutes.push(m.toString().padStart(2, '0'));
     }
 
-    $scope.mdDialog = $mdDialog;
-
     $scope.edit = function () {
         $scope.isEdit = !$scope.isEdit;
         $scope.orderOld = JSON.parse(JSON.stringify($scope.order));
@@ -44,18 +42,25 @@
         if (!$scope.createOrder.$valid) return;
         $scope.waiting = true;
 
-        $scope.order.ShopId = $scope.userId;
         $scope.startTime.setHours($scope.hour, $scope.minute);
         $scope.order.StartTime = $scope.startTime;
-        $scope.order.Status = $app.enums.orderStatus.Waiting;
 
-        $scope.isCreate ? request.createOrder($scope.order, onSuccess, onError)
-                        : request.updateOrder($scope.order, onSuccess, onError);
+        if ($scope.isCreate) {
+            $scope.order.ShopId = $scope.userId;
+            $scope.order.Status = $app.enums.orderStatus.Waiting;
+
+            request.createOrder($scope.order, onSuccess, onError);
+        } else {
+            if ($scope.order.Status === $app.enums.orderStatus.Expired && $scope.startTime.getTime() > Date.now())
+                $scope.order.Status = $app.enums.orderStatus.Waiting;
+
+            request.updateOrder($scope.order, onSuccess, onError);
+        }
     };
 
     $scope.closeDialog = function () {
         // Show confirm dialog
-        $scope.mdDialog.cancel();
+        $mdDialog.cancel();
     };
 
     function onSuccess(response) {
@@ -71,11 +76,7 @@
                     message = constants.lbl.UPDATE_ORDER_SUCCESS;
                     $scope.isEdit = false;
 
-                    for (var key in $scope.order) {
-                        if ($scope.order.hasOwnProperty(key)) {
-                            order[key] = $scope.order[key];
-                        }
-                    }
+                    $rootScope.$broadcast('createOrUpdateOrder');
                 } else {
                     $mdDialog.hide();
                 }

@@ -64,6 +64,7 @@ var $app = {
             Shipper: 2
         },
         orderStatus: {
+            NullError: -1,
             Unknown: 0,
             Waiting: 1,
             Shipping: 2,
@@ -138,8 +139,8 @@ app.controller('signUp',
             listOrders($rootScope, $scope, request, $mdDialog, mdToast);
         })
     .controller('createOrder',
-        function ($scope, request, $mdDialog, mdToast, order, userId) {
-            createOrder($scope, request, $mdDialog, mdToast, order, userId);
+        function ($rootScope, $scope, request, $mdDialog, mdToast, order, userId) {
+            createOrder($rootScope, $scope, request, $mdDialog, mdToast, order, userId);
         })
     .controller('orderDetail',
         function ($scope, request, $mdDialog, order, userId, isRegistered) {

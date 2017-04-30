@@ -32,7 +32,7 @@
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <div layout="row" ng-init="startTime=today; hour=currentHour; minute=currentMinute">
+      <div layout="row" ng-init="hour=currentHour; minute=currentMinute">
         <md-input-container>
           <label style="left: 0">{{$root.consts.lbl.START_TIME}}</label>
           <md-datepicker name="startTime" ng-model="startTime" md-min-date="today"
