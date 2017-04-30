@@ -22,34 +22,18 @@
   <script src="/Scripts/controllers/signUp.js"></script>
   <script src="/Scripts/app.js"></script>
   <script src="/Vendors/sha256.js"></script>
+
+  <link href="/Styles/app.css" rel="stylesheet" />
   <style>
-      md-content {
-        height: 100%;
-      }
-
-        md-content > div {
-          max-width: 400px;
-          margin: auto;
-        }
-
-      md-input-container {
-        margin-bottom: 0;
-      }
-
-      #circular {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 10;
-        background-color: rgba(33, 33, 33, 0.48);
-      }
+    md-content > div {
+      max-width: 400px;
+      margin: auto;
+    }
   </style>
 </head>
 <body>
   <md-content md-colors="{background: 'amber-50'}">
-    <div id="circular" layout="row" layout-align="center center" ng-show="waiting">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
+    <ng-include src="'/Templates/waiting.html'"></ng-include>
     <div>
       <h1 align="center">{{consts.lbl.SIGN_UP}}</h1>
       <form name="signup" layout="column" layout-padding>
