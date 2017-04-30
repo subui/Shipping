@@ -180,7 +180,11 @@
             }
 
             if (response.data.RequestType === type.Register) {
-                response.data.Data.forEach(item => item.color = item.SelectedShipperId === $scope.userId ? constants.color.DONE : constants.color.UNKNOWN);
+                response.data.Data.forEach(item =>
+                    item.color = item.SelectedShipperId === $scope.userId
+                        ? constants.color.DONE
+                        : constants.color.UNKNOWN);
+
                 $scope.listOrdersRegistered = response.data.Data;
                 $scope.listOrdersNotRegistered = [];
 

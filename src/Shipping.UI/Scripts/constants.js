@@ -2,9 +2,11 @@
     btn: {
         ACCOUNT_MANAGEMENT: 'Quản ký tài khoản',
         CANCEL: 'Hủy bỏ',
+        CANCEL_ORDER: 'Hủy đơn hàng',
         CHANGE_PASSWORD: 'Đổi mật khẩu',
         CLOSE: 'Đóng',
         CREATE_ORDER: 'Tạo mới đơn hàng',
+        DONE: 'Hoàn thành',
         EDIT: 'Sửa',
         LIST_ORDERS: 'Danh sách đơn hàng',
         LIST_SHIPPER_REGISTERED: 'Danh sách shipper đăng ký ({0})',

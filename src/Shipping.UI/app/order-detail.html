@@ -27,7 +27,7 @@
   </md-dialog-content>
   <md-dialog-actions layout="row" layout-align="end center">
     <md-button class="md-raised" ng-click="register()" ng-if="!isRegistered" md-colors="{background: 'dialogTheme-green'}">{{$root.consts.btn.ORDER_REGISTER}}</md-button>
-    <md-button class="md-raised" ng-click="unRegister()" ng-if="isRegistered" md-colors="{background: 'dialogTheme-red-900'}">{{$root.consts.btn.ORDER_UNREGISTER}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="unRegister()" ng-if="isRegistered" ng-disabled="isSelected">{{$root.consts.btn.ORDER_UNREGISTER}}</md-button>
     <md-button class="md-raised" ng-click="closeDialog()" md-colors="{background: 'dialogTheme-blue-grey'}">{{$root.consts.btn.CLOSE}}</md-button>
   </md-dialog-actions>
 </md-dialog>

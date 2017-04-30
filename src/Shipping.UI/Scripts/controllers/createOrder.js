@@ -6,10 +6,16 @@
     } else {
         $scope.title = constants.title.UPDATE_ORDER;
         $scope.order = JSON.parse(JSON.stringify(order));
+
+        $scope.isWaiting = $scope.order.Status === $app.enums.orderStatus.Waiting;
+        $scope.isShipping = $scope.order.Status === $app.enums.orderStatus.Shipping;
+        $scope.isDone = $scope.order.Status === $app.enums.orderStatus.Done;
+        $scope.isExpired = $scope.order.Status === $app.enums.orderStatus.Expired;
+        $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
     }
 
     $scope.userId = userId;
-    
+
     $scope.today = new Date();
     $scope.startTime = $scope.isCreate ? $scope.today : new Date($scope.order.StartTime);
 
@@ -31,12 +37,12 @@
     $scope.edit = function () {
         $scope.isEdit = !$scope.isEdit;
         $scope.orderOld = JSON.parse(JSON.stringify($scope.order));
-    }
+    };
 
-    $scope.cancel = function() {
+    $scope.cancel = function () {
         $scope.isEdit = !$scope.isEdit;
         $scope.order = $scope.orderOld;
-    }
+    };
 
     $scope.save = function () {
         if (!$scope.createOrder.$valid) return;
@@ -51,11 +57,21 @@
 
             request.createOrder($scope.order, onSuccess, onError);
         } else {
-            if ($scope.order.Status === $app.enums.orderStatus.Expired && $scope.startTime.getTime() > Date.now())
+            if ($scope.isExpired && $scope.startTime.getTime() > Date.now())
                 $scope.order.Status = $app.enums.orderStatus.Waiting;
 
             request.updateOrder($scope.order, onSuccess, onError);
         }
+    };
+
+    $scope.done = function () {
+        $scope.order.Status = $app.enums.orderStatus.Done;
+        request.updateOrder($scope.order, onSuccess, onError);
+    };
+
+    $scope.cancelOrder = function () {
+        $scope.order.Status = $app.enums.orderStatus.Canceled;
+        request.updateOrder($scope.order, onSuccess, onError);
     };
 
     $scope.closeDialog = function () {

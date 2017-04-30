@@ -1,6 +1,7 @@
 ﻿function orderDetail($scope, request, $mdDialog, order, userId, isRegistered) {
     $scope.order = order;
     $scope.isRegistered = isRegistered;
+    $scope.isSelected = order.SelectedShipperId === userId;
 
     request.getShopNameByUserId(order.ShopId, onSuccess, onError);
 
@@ -25,11 +26,13 @@
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
 
-        if (response.data.RequestType === type.Register && response.data.ResponseStatus === status.Success)
-            $mdDialog.hide();
+        if (response.data.ResponseStatus === status.Success) {
+            if (response.data.RequestType === type.Register)
+                $mdDialog.hide();
 
-        if (response.data.RequestType === type.User && response.data.ResponseStatus === status.Success)
-            $scope.shopName = response.data.Data;
+            if (response.data.RequestType === type.User)
+                $scope.shopName = response.data.Data;
+        }
     }
 
     function onError() {

@@ -25,8 +25,7 @@
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <md-input-container>
-        <label>{{$root.consts.lbl.DESTINATION}}</label>
+      <md-input-container><label>{{$root.consts.lbl.DESTINATION}}</label>
         <input type="text" name="destination" ng-model="order.Destination" ng-disabled="!isEdit" required />
         <div ng-messages="createOrder.destination.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
@@ -96,7 +95,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions>
-      <md-button type="submit" class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="save()" ng-show="isEdit">
+      <md-button type="submit" class="md-raised" md-colors="{background: 'dialogTheme-blue'}" ng-click="save()" ng-show="isEdit">
         <md-icon style="color: white">save</md-icon>
         {{$root.consts.btn.SAVE}}
       </md-button>
@@ -104,9 +103,17 @@
         <md-icon style="color: white">cancel</md-icon>
         {{$root.consts.btn.CANCEL}}
       </md-button>
-      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="edit()" ng-show="!isEdit">
-        <md-icon style="color: black">edit</md-icon>
+      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="edit()" ng-hide="isEdit || isShipping || isDone">
+        <md-icon>edit</md-icon>
         {{$root.consts.btn.EDIT}}
+      </md-button>
+      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="cancelOrder()" ng-show="!isEdit && isWaiting">
+        <md-icon>edit</md-icon>
+        {{$root.consts.btn.CANCEL_ORDER}}
+      </md-button>
+      <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="done()" ng-show="!isEdit && isShipping">
+        <md-icon style="color: white">edit</md-icon>
+        {{$root.consts.btn.DONE}}
       </md-button>
       <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="closeDialog()" ng-show="!isEdit || isCreate">
         <md-icon style="color: white">close</md-icon>
