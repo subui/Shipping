@@ -44,6 +44,7 @@ var $app = {
     },
     enums: {
         responseStatus: {
+            ErrorNullValue: -1,
             Success: 0,
             ErrorUsernameExist: 1,
             ErrorUsernameNotExist: 2,
@@ -64,7 +65,6 @@ var $app = {
             Shipper: 2
         },
         orderStatus: {
-            NullError: -1,
             Unknown: 0,
             Waiting: 1,
             Shipping: 2,
@@ -142,6 +142,10 @@ app.controller('signUp',
         function ($rootScope, $scope, request, $mdDialog, mdToast, order, userId) {
             createOrder($rootScope, $scope, request, $mdDialog, mdToast, order, userId);
         })
+    .controller('changePassword',
+        function ($scope, request, mdToast) {
+            changePassword($scope, request, mdToast);
+        })
     .controller('orderDetail',
         function ($scope, request, $mdDialog, order, userId, isRegistered) {
             orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
@@ -181,23 +185,32 @@ function cookies($cookies) {
 }
 
 function mdToast($mdToast) {
-    function showToast(textContent, hideDelay, position) {
-        $mdToast.show($mdToast.simple()
-            .textContent(textContent)
-            .hideDelay(hideDelay)
-            .position(position));
-    }
+    function show(textContent, hideDelay, position) {
+        if (typeof hideDelay === 'undefined') {
+            hideDelay = 0;
+        }
+        else if (typeof hideDelay === 'string') {
+            position = hideDelay;
+            hideDelay = 0;
+        }
 
-    function showToastTemplate(textContent, hideDelay, position) {
-        $mdToast.show({
-            templateUrl: '/Templates/toast-template.html',
-            controller: 'toastTemplate',
-            hideDelay: hideDelay,
-            position: position,
-            locals: {
-                textContent: textContent
-            }
-        });
+        if (typeof position === 'undefined') {
+            position = 'bottom right';
+        }
+
+        hideDelay === 0 ? $mdToast.show({
+                            templateUrl: '/Templates/toast-template.html',
+                            controller: 'toastTemplate',
+                            hideDelay: 0,
+                            position: position,
+                            locals: {
+                                textContent: textContent
+                            }
+                        })
+                        : $mdToast.show($mdToast.simple()
+                            .textContent(textContent)
+                            .hideDelay(hideDelay)
+                            .position(position));
     }
 
     function hide() {
@@ -205,13 +218,15 @@ function mdToast($mdToast) {
     }
 
     return {
-        showToast: showToast,
-        showToastTemplate: showToastTemplate,
+        show: show,
         hide: hide
     }
 }
 
-function request($http) {
+function request($http, cookies) {
+    var userLogin = cookies.getUserLogin();
+    if (userLogin) var userId = userLogin.UserId;
+
     function createNewUser(user, onSuccess, onError) {
         $http.post($app.apiUrl + constants.req.SIGN_UP, user)
             .then(onSuccess, onError);
@@ -222,7 +237,7 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
-    function getListOrdersByUserId(userId, onSuccess, onError) {
+    function getListOrdersByUserId(onSuccess, onError) {
         $http.get($app.apiUrl + constants.req.ORDER + '/0/' + userId)
             .then(onSuccess, onError);
     }
@@ -262,6 +277,11 @@ function request($http) {
             .then(onSuccess, onError);
     }
 
+    function updatePassword(password, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.USER, { UserId: userId, Password: password })
+            .then(onSuccess, onError);
+    }
+
     return {
         createNewUser: createNewUser,
         login: login,
@@ -273,6 +293,7 @@ function request($http) {
         getShopNameByUserId: getShopNameByUserId,
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
         getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
-        selectShipper: updateOrder
+        selectShipper: updateOrder,
+        updatePassword: updatePassword
     }
 }

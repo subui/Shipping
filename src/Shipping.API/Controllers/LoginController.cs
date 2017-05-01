@@ -11,24 +11,16 @@ namespace Shipping.API.Controllers
     {
         public ResponseData Post(User user)
         {
-            User userLogin;
             using (var entities = new ShippingEntities())
             {
-                var users = entities.Users.Where(u => u.Username.Equals(user.Username));
+                var userLogin = entities.Users.FirstOrDefault(u => u.Username.Equals(user.Username));
 
-                if (!users.Any())
-                {
-                    return new ResponseData(ResponseStatus.ErrorUsernameNotExist, RequestType.Login);
-                }
-
-                userLogin = users.First();
-                if (!App.GetSHA256String(user.Password).Equals(userLogin.Password))
-                {
-                    return new ResponseData(ResponseStatus.ErrorPasswordIncorrect, RequestType.Login);
-                }
+                return userLogin == null
+                    ? new ResponseData(ResponseStatus.ErrorUsernameNotExist, RequestType.Login)
+                    : (!App.GetSHA256String(user.Password).Equals(userLogin.Password)
+                        ? new ResponseData(ResponseStatus.ErrorPasswordIncorrect, RequestType.Login)
+                        : new ResponseData(userLogin, ResponseStatus.Success, RequestType.Login));
             }
-
-            return new ResponseData(userLogin, ResponseStatus.Success, RequestType.Login);
         }
     }
 }

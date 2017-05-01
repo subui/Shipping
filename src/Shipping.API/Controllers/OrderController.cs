@@ -20,7 +20,7 @@ namespace Shipping.API.Controllers
                 var userType = userRequest?.UserType;
 
                 if (userType == null)
-                    return new ResponseData(ResponseStatus.NullError, RequestType.Order);
+                    return new ResponseData(ResponseStatus.ErrorNullValue, RequestType.Order);
 
                 var expiredOrders = entities.Orders.Where(o => o.Status == (int) OrderStatus.Waiting && o.StartTime < DateTime.Now);
                 foreach (var expiredOrder in expiredOrders)

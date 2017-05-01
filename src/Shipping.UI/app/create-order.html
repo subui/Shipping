@@ -9,36 +9,36 @@
       </md-button>
     </div>
   </md-toolbar>
-  <form name="createOrder" layout="column">
+  <form name="form.createOrder" layout="column">
     <md-dialog-content layout="column" layout-padding>
       <md-input-container>
         <label>{{$root.consts.lbl.ORDER_NAME}}</label>
         <input type="text" name="orderName" ng-model="order.OrderName" ng-disabled="!isEdit" required autofocus />
-        <div ng-messages="createOrder.orderName.$error">
+        <div ng-messages="form.createOrder.orderName.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container>
         <label>{{$root.consts.lbl.STARTING_POINT}}</label>
         <input type="text" name="startingPoint" ng-model="order.StartingPoint" ng-disabled="!isEdit" required />
-        <div ng-messages="createOrder.startingPoint.$error">
+        <div ng-messages="form.createOrder.startingPoint.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container><label>{{$root.consts.lbl.DESTINATION}}</label>
         <input type="text" name="destination" ng-model="order.Destination" ng-disabled="!isEdit" required />
-        <div ng-messages="createOrder.destination.$error">
+        <div ng-messages="form.createOrder.destination.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <div layout="row" ng-init="hour=currentHour; minute=currentMinute">
+      <div layout="row" ng-init="hour = currentHour; minute = currentMinute">
         <md-input-container>
           <label style="left: 0">{{$root.consts.lbl.START_TIME}}</label>
           <md-datepicker name="startTime" ng-model="startTime" md-min-date="today"
                          md-open-on-focus aria-label="{{$root.consts.lbl.START_TIME}}"
                          ng-change="onDateChange()" ng-disabled="!isEdit">
           </md-datepicker>
-          <div ng-messages="createOrder.startTime.$error">
+          <div ng-messages="form.createOrder.startTime.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
@@ -65,14 +65,14 @@
         <md-input-container flex="70">
           <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
           <input type="text" name="recipientsName" ng-model="order.RecipientsName" ng-disabled="!isEdit" required />
-          <div ng-messages="createOrder.recipientsName.$error">
+          <div ng-messages="form.createOrder.recipientsName.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
           <input type="text" name="recipientsPhoneNumber" ng-model="order.RecipientsPhoneNumber" ng-disabled="!isEdit" required />
-          <div ng-messages="createOrder.recipientsPhoneNumber.$error">
+          <div ng-messages="form.createOrder.recipientsPhoneNumber.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
@@ -81,14 +81,14 @@
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
           <input type="text" name="advanceDeposit" ng-model="order.AdvanceDeposit" ng-disabled="!isEdit" required />
-          <div ng-messages="createOrder.advanceDeposit.$error">
+          <div ng-messages="form.createOrder.advanceDeposit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.PROFIT}}</label>
           <input type="text" name="profit" ng-model="order.Profit" ng-disabled="!isEdit" required />
-          <div ng-messages="createOrder.profit.$error">
+          <div ng-messages="form.createOrder.profit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>

@@ -29,30 +29,30 @@
 <body>
   <ng-include src="'/Templates/waiting.html'"></ng-include>
   <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center" ng-hide="isLogin">
-    <div>
+    <form name="form.login" layout="column" layout-padding>
       <h1 align="center">{{consts.lbl.LOGIN}}</h1>
-      <form name="form.login" layout="column" layout-padding>
-        <!-- Username -->
-        <md-input-container>
-          <label>{{consts.lbl.USERNAME}}</label>
-          <input type="text" name="username" ng-model="username" required />
-          <div ng-messages="form.login.username.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <!-- Password -->
-        <md-input-container>
-          <label>{{consts.lbl.PASSWORD}}</label>
-          <input type="password" name="password" ng-model="password" required />
-          <div ng-messages="form.login.password.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}" ng-click="login()">{{consts.btn.LOGIN}}</md-button>
-      </form>
-      <a href="#" style="float: left">{{consts.lbl.FORGOT_PASSWORD}}</a>
-      <a href="sign-up.html" style="float: right">{{consts.lbl.SIGN_UP}}</a>
-    </div>
+      <!-- Username -->
+      <md-input-container>
+        <label>{{consts.lbl.USERNAME}}</label>
+        <input type="text" name="username" ng-model="username" required autofocus />
+        <div ng-messages="form.login.username.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <!-- Password -->
+      <md-input-container>
+        <label>{{consts.lbl.PASSWORD}}</label>
+        <input type="password" name="password" ng-model="password" required />
+        <div ng-messages="form.login.password.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}" ng-click="login()">{{consts.btn.LOGIN}}</md-button>
+      <div layout="row">
+        <a href="#" flex>{{consts.lbl.FORGOT_PASSWORD}}</a>
+        <a href="sign-up.html">{{consts.lbl.SIGN_UP}}</a>
+      </div>
+    </form>
   </md-content>
 </body>
 </html>

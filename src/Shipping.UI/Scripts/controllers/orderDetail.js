@@ -25,13 +25,14 @@
 
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
+        var data = response.data;
 
-        if (response.data.ResponseStatus === status.Success) {
-            if (response.data.RequestType === type.Register)
+        if (data.ResponseStatus === status.Success) {
+            if (data.RequestType === type.Register)
                 $mdDialog.hide();
 
-            if (response.data.RequestType === type.User)
-                $scope.shopName = response.data.Data;
+            if (data.RequestType === type.User)
+                $scope.shopName = data.Data;
         }
     }
 

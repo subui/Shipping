@@ -7,7 +7,7 @@
     }
     $scope.waiting = false;
     $scope.login = function () {
-        if (!$scope.form.login.$valid) return;
+        if ($scope.form.login.$invalid) return;
         $scope.waiting = true;
         var user = new $app.entities.User($scope.username, sha256_digest($scope.password));
         request.login(user, onSuccess, onError);
@@ -16,31 +16,32 @@
     function onSuccess(response) {
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
+        var data = response.data;
 
-        if (response.data.RequestType === type.Login) {
-            if (response.data.ResponseStatus === status.Success) {
-                cookies.setUserLogin(response.data.Data);
+        if (data.RequestType === type.Login) {
+            if (data.ResponseStatus === status.Success) {
+                cookies.setUserLogin(data.Data);
                 $window.location.href = '/app';
                 return;
             }
 
             $scope.waiting = false;
 
-            if (response.data.ResponseStatus === status.ErrorUsernameNotExist) {
+            if (data.ResponseStatus === status.ErrorUsernameNotExist) {
                 $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
             }
 
-            if (response.data.ResponseStatus === status.ErrorPasswordIncorrect) {
-                $scope.error = $rootScope.consts.lbl.PASSWORD_INCORRECT;
+            if (data.ResponseStatus === status.ErrorPasswordIncorrect) {
+                $scope.error = $rootScope.consts.lbl.ERROR_PASSWORD_INCORRECT;
             }
 
-            mdToast.showToast($scope.error, 10000, 'top right');
+            mdToast.show($scope.error, 10000, 'top right');
         }
     }
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.showToast('An error has occurred.', 10000, 'top right');
+        mdToast.show('An error has occurred.', 10000, 'top right');
         console.error(response.data);
     }
 }

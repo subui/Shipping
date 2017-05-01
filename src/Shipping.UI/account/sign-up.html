@@ -24,82 +24,74 @@
   <script src="/Vendors/sha256.js"></script>
 
   <link href="/Styles/app.css" rel="stylesheet" />
-  <style>
-    md-content > div {
-      max-width: 400px;
-      margin: auto;
-    }
-  </style>
 </head>
 <body>
-  <md-content md-colors="{background: 'amber-50'}">
-    <ng-include src="'/Templates/waiting.html'"></ng-include>
-    <div>
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
+  <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center">
+    <form name="form.signUp" layout="column" layout-padding>
       <h1 align="center">{{consts.lbl.SIGN_UP}}</h1>
-      <form name="signup" layout="column" layout-padding>
-        <!-- User type -->
-        <md-radio-group ng-model="userType" ng-init="userType = 1" layout="row">
-          <md-radio-button ng-value="1" flex="50">
-            {{consts.lbl.SHOP_MANAGER}}
-          </md-radio-button>
-          <md-radio-button ng-value="2" flex="50">
-            {{consts.lbl.SHIPPER}}
-          </md-radio-button>
-        </md-radio-group>
-        <!-- Full name -->
-        <md-input-container>
-          <label>{{consts.lbl.FULL_NAME}}</label>
-          <input type="text" name="fullName" ng-model="fullName" required autofocus />
-          <div ng-messages="signup.fullName.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <!-- Username -->
-        <md-input-container>
-          <label>{{consts.lbl.USERNAME}}</label>
-          <input type="text" name="username" ng-model="username" required />
-          <div ng-messages="signup.username.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <!-- Password -->
-        <md-input-container>
-          <label>{{consts.lbl.PASSWORD}}</label>
-          <input type="password" name="password" ng-model="password" required />
-          <div ng-messages="signup.password.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <!-- Re-password -->
-        <md-input-container>
-          <label>{{consts.lbl.RE_PASSWORD}}</label>
-          <input type="password" name="reRassword" ng-model="reRassword" required ng-pattern="password" />
-          <div ng-messages="signup.reRassword.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-            <div ng-message="pattern">{{consts.lbl.PASSWORD_NOT_MATCH}}</div>
-          </div>
-        </md-input-container>
-        <!-- Email -->
-        <md-input-container>
-          <label>{{consts.lbl.EMAIL}}</label>
-          <input type="email" name="email" ng-model="email" required />
-          <div ng-messages="signup.email.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-            <div ng-message="email">{{consts.lbl.INVALID_EMAIL}}</div>
-          </div>
-        </md-input-container>
-        <!-- Phone number -->
-        <md-input-container>
-          <label>{{consts.lbl.PHONE_NUMBER}}</label>
-          <input type="tel" name="phoneNumber" ng-model="phoneNumber" required />
-          <div ng-messages="signup.phoneNumber.$error">
-            <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
-          </div>
-        </md-input-container>
-        <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'green'}" ng-click="signUp()">{{consts.btn.SIGN_UP}}</md-button>
-      </form>
+      <!-- User type -->
+      <md-radio-group ng-model="userType" ng-init="userType = 1" layout="row">
+        <md-radio-button ng-value="1" flex="50">
+          {{consts.lbl.SHOP_MANAGER}}
+        </md-radio-button>
+        <md-radio-button ng-value="2" flex="50">
+          {{consts.lbl.SHIPPER}}
+        </md-radio-button>
+      </md-radio-group>
+      <!-- Full name -->
+      <md-input-container>
+        <label>{{consts.lbl.FULL_NAME}}</label>
+        <input type="text" name="fullName" ng-model="fullName" required autofocus />
+        <div ng-messages="form.signUp.fullName.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <!-- Username -->
+      <md-input-container>
+        <label>{{consts.lbl.USERNAME}}</label>
+        <input type="text" name="username" ng-model="username" required />
+        <div ng-messages="form.signUp.username.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <!-- Password -->
+      <md-input-container>
+        <label>{{consts.lbl.PASSWORD}}</label>
+        <input type="password" name="password" ng-model="password" required />
+        <div ng-messages="form.signUp.password.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <!-- Re-password -->
+      <md-input-container>
+        <label>{{consts.lbl.RE_PASSWORD}}</label>
+        <input type="password" name="reRassword" ng-model="reRassword" required ng-pattern="password" />
+        <div ng-messages="form.signUp.reRassword.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+          <div ng-message="pattern">{{consts.lbl.ERROR_PASSWORD_NOT_MATCH}}</div>
+        </div>
+      </md-input-container>
+      <!-- Email -->
+      <md-input-container>
+        <label>{{consts.lbl.EMAIL}}</label>
+        <input type="email" name="email" ng-model="email" required />
+        <div ng-messages="form.signUp.email.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+          <div ng-message="email">{{consts.lbl.INVALID_EMAIL}}</div>
+        </div>
+      </md-input-container>
+      <!-- Phone number -->
+      <md-input-container>
+        <label>{{consts.lbl.PHONE_NUMBER}}</label>
+        <input type="tel" name="phoneNumber" ng-model="phoneNumber" required />
+        <div ng-messages="form.signUp.phoneNumber.$error">
+          <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'green'}" ng-submit="signUp()">{{consts.btn.SIGN_UP}}</md-button>
       <div ng-bind-html="consts.lbl.ALREADY_HAVE_ACCOUNT" align="center"></div>
-    </div>
+    </form>
   </md-content>
 </body>
 </html>

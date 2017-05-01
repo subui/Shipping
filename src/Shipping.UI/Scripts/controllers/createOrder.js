@@ -45,7 +45,7 @@
     };
 
     $scope.save = function () {
-        if (!$scope.createOrder.$valid) return;
+        if ($scope.form.createOrder.$invalid) return;
         $scope.waiting = true;
 
         $scope.startTime.setHours($scope.hour, $scope.minute);
@@ -84,9 +84,10 @@
 
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
+        var data = response.data;
 
-        if (response.data.RequestType === type.Order) {
-            if (response.data.ResponseStatus === status.Success) {
+        if (data.RequestType === type.Order) {
+            if (data.ResponseStatus === status.Success) {
                 var message = constants.lbl.CREATE_ORDER_SUCCESS;
                 if (!$scope.isCreate) {
                     message = constants.lbl.UPDATE_ORDER_SUCCESS;
@@ -97,14 +98,14 @@
                     $mdDialog.hide();
                 }
 
-                mdToast.showToastTemplate(String.format(message, $scope.order.OrderName), 0, 'bottom right');
+                mdToast.show(String.format(message, $scope.order.OrderName));
             }
         }
     }
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.showToast(constants.lbl.ERROR, 0, 'top right');
+        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
         console.error(response.data);
     }
 }

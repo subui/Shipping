@@ -2,7 +2,7 @@
 {
     public enum ResponseStatus
     {
-        NullError = -1,
+        ErrorNullValue = -1,
         Success = 0,
         ErrorUsernameExist = 1,
         ErrorUsernameNotExist = 2,

@@ -33,19 +33,21 @@
 
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
+        var data = response.data;
 
-        if (response.data.ResponseStatus === status.Success) {
-            if (response.data.RequestType === type.Register)
-                $scope.shippers = response.data.Data;
+        if (data.ResponseStatus === status.Success) {
+            if (data.RequestType === type.Register)
+                $scope.shippers = data.Data;
 
-            if (response.data.RequestType === type.Order) {
-                var selectedShipper = $scope.shippers.find(s => s.UserId == $scope.selectedShipperId);
-                mdToast.showToast(String.format(constants.lbl.SELECTED, selectedShipper.FullName, order.OrderName), 5000, 'bottom right');
+            if (data.RequestType === type.Order) {
+                var selectedShipper = $scope.shippers.find(s => s.UserId === $scope.selectedShipperId);
+                mdToast.show(String.format(constants.lbl.SELECTED, selectedShipper.FullName, order.OrderName), 5000);
             }
         }
     }
 
     function onError() {
-
+        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
+        console.error(response.data);
     }
 }

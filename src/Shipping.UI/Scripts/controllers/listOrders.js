@@ -1,8 +1,8 @@
 ﻿function listOrders($rootScope, $scope, request, $mdDialog, mdToast) {
     $scope.waiting = true;
 
-    mdToast.showToast(constants.lbl.LOADING_LIST_ORDERS, 0, 'bottom right');
-    request.getListOrdersByUserId($scope.userId, onSuccess, onError);
+    mdToast.show(constants.lbl.LOADING_LIST_ORDERS);
+    request.getListOrdersByUserId(onSuccess, onError);
 
     $scope.filter = {
         allItems: true,
@@ -98,7 +98,7 @@
                 $scope.listOrdersRegistered.push(order);
                 $scope.listOrdersRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
             }
-            mdToast.showToast(String.format(message, order.OrderName), 3000, 'bottom right');
+            mdToast.show(String.format(message, order.OrderName), 3000);
         }, function () {
         });
     };
@@ -161,11 +161,12 @@
 
         var status = $app.enums.responseStatus;
         var type = $app.enums.requestType;
+        var data = response.data;
 
-        if (response.data.ResponseStatus === status.Success) {
-            if (response.data.RequestType === type.Order) {
+        if (data.ResponseStatus === status.Success) {
+            if (data.RequestType === type.Order) {
                 mdToast.hide();
-                $scope.listOrders = response.data.Data;
+                $scope.listOrders = data.Data;
 
                 if ($scope.isShopManager) {
                     $scope.orders = $scope.listOrders;
@@ -179,16 +180,16 @@
 
             }
 
-            if (response.data.RequestType === type.Register) {
-                response.data.Data.forEach(item =>
+            if (data.RequestType === type.Register) {
+                data.Data.forEach(item =>
                     item.color = item.SelectedShipperId === $scope.userId
                         ? constants.color.DONE
                         : constants.color.UNKNOWN);
 
-                $scope.listOrdersRegistered = response.data.Data;
+                $scope.listOrdersRegistered = data.Data;
                 $scope.listOrdersNotRegistered = [];
 
-                $scope.listOrders.filter(order => {
+                $scope.listOrders.forEach(order => {
                     var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.Order.OrderId);
                     if (!isRegistered) {
                         order.Order.color = constants.color.UNKNOWN;
@@ -203,7 +204,7 @@
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.showToast(constants.lbl.ERROR, 3000, 'bottom right');
+        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
         console.error(response.data);
     }
 }

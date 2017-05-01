@@ -19,9 +19,11 @@
   <!-- Angular Material libary -->
   <script src="/Vendors/angular-material-1.1.4/angular-material.min.js"></script>
   <!-- JavaScript app -->
+  <script src="/Vendors/sha256.js"></script>
   <script src="/Scripts/constants.js"></script>
   <script src="/Scripts/controllers/toastTemplate.js"></script>
   <script src="/Scripts/controllers/bottomSheet.js"></script>
+  <script src="/Scripts/controllers/changePassword.js"></script>
   <script src="/Scripts/controllers/createOrder.js"></script>
   <script src="/Scripts/controllers/orderDetail.js"></script>
   <script src="/Scripts/controllers/selectShipper.js"></script>
@@ -68,9 +70,9 @@
           <md-button class="md-icon-button" ng-click="toggleSidenav()" hide-gt-md>
             <md-icon>menu</md-icon>
           </md-button>
-          <h2 md-truncate flex hide-gt-md>{{$root.consts.btn.ORDER_MANAGEMENT}}</h2>
+          <h2 md-truncate flex hide-gt-md>{{consts.btn.ORDER_MANAGEMENT}}</h2>
           <span flex></span>
-          <h5><a href="#">{{$root.consts.lbl.WELCOME + ' ' + username}}</a></h5>
+          <h5><a href="#">{{consts.lbl.WELCOME + ' ' + username}}</a></h5>
           <md-menu md-position-mode="target-right target" md-offset="0 42">
             <md-button class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
               <md-icon>more_vert</md-icon>
@@ -83,7 +85,7 @@
                 <md-button>Menu item 2</md-button>
               </md-menu-item>
               <md-menu-item>
-                <md-button ng-click="logout()">Thoats</md-button>
+                <md-button ng-click="logout()">{{consts.btn.LOGOUT}}</md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
