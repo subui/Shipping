@@ -3,7 +3,7 @@
         if ($scope.form.changePassword.$invalid) return;
 
         $scope.waiting = true;
-        request.updatePassword(sha256_digest($scope.currentPassword), onSuccess, onError);
+        request.updatePassword(new $app.entities.UpdatePassword(null, $scope.currentPassword, $scope.newPassword), onSuccess, onError);
     }
 
     function onSuccess(response) {
@@ -21,12 +21,12 @@
             if (data.ResponseStatus === status.ErrorPasswordIncorrect) {
                 mdToast.show(constants.lbl.ERROR_PASSWORD_INCORRECT);
                 $scope.form.changePassword.currentPassword.$setValidity('incorrect', false);
-                console.log($scope.form.changePassword.currentPassword);
+                document.getElementById('currentPassword').focus();
             }
         }
     }
 
-    function onError() {
+    function onError(response) {
         $scope.waiting = false;
         mdToast.show(constants.lbl.ERROR, 1000, 'top right');
         console.error(response.data);

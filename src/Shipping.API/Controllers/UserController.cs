@@ -20,20 +20,20 @@ namespace Shipping.API.Controllers
         }
 
         [HttpPost]
-        public ResponseData ChangePassword(User user)
+        public ResponseData ChangePassword(UpdatePassword password)
         {
             using (var entities = new ShippingEntities())
             {
-                var userUpdate = entities.Users.FirstOrDefault(u => u.UserId == user.UserId);
+                var userUpdate = entities.Users.FirstOrDefault(u => u.UserId == password.UserId);
 
                 if (userUpdate == null) return new ResponseData(ResponseStatus.ErrorNullValue, RequestType.User);
 
-                var passwordUpdate = App.GetSHA256String(user.Password);
+                var currentPassword = App.GetSHA256String(password.CurrentPassword);
 
-                if (!passwordUpdate.Equals(user.Password))
+                if (!currentPassword.Equals(userUpdate.Password))
                     return new ResponseData(ResponseStatus.ErrorPasswordIncorrect, RequestType.User);
 
-                userUpdate.Password = passwordUpdate;
+                userUpdate.Password = App.GetSHA256String(password.NewPassword);
                 entities.SaveChanges();
 
                 return new ResponseData(ResponseStatus.Success, RequestType.User);

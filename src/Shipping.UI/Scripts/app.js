@@ -40,6 +40,11 @@ var $app = {
             this.Score = null;
             this.Content = null;
             this.RevTime = null;
+        },
+        UpdatePassword: function(userId, currentPassword, newPassword) {
+            this.UserId = userId;
+            this.CurrentPassword = sha256_digest(currentPassword);
+            this.NewPassword = sha256_digest(newPassword);
         }
     },
     enums: {
@@ -278,7 +283,8 @@ function request($http, cookies) {
     }
 
     function updatePassword(password, onSuccess, onError) {
-        $http.post($app.apiUrl + constants.req.USER, { UserId: userId, Password: password })
+        password.UserId = userId;
+        $http.post($app.apiUrl + constants.req.USER, password)
             .then(onSuccess, onError);
     }
 
