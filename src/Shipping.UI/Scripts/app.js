@@ -76,6 +76,11 @@ var $app = {
             Done: 3,
             Canceled: 4,
             Expired: 5
+        },
+        gender: {
+            Unknown: 0,
+            Male: 1,
+            Female: 2
         }
     },
     MenuItem: function (title, children, action) {
@@ -136,8 +141,8 @@ app.controller('signUp',
             login($rootScope, $scope, request, $window, mdToast, cookies);
         })
     .controller('main',
-        function ($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
-            main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies);
+        function ($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
+            main($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies);
         })
     .controller('listOrders',
         function ($rootScope, $scope, request, $mdDialog, mdToast) {
@@ -146,6 +151,10 @@ app.controller('signUp',
     .controller('createOrder',
         function ($rootScope, $scope, request, $mdDialog, mdToast, order, userId) {
             createOrder($rootScope, $scope, request, $mdDialog, mdToast, order, userId);
+        })
+    .controller('profile',
+        function ($scope, request, mdToast, cookies) {
+            profile($scope, request, mdToast, cookies);
         })
     .controller('changePassword',
         function ($scope, request, mdToast) {

@@ -110,6 +110,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="Scripts\controllers\changePassword.js" />
+    <Content Include="Scripts\controllers\profile.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-cookies.min.js.map" />

@@ -20,7 +20,8 @@
         PROFILE: 'Thông tin cá nhân',
         SAVE: 'Lưu lại',
         SHIPPER_INFO: 'Thông tin Shipper',
-        SIGN_UP: 'Đăng ký'
+        SIGN_UP: 'Đăng ký',
+        UPDATE: 'Cập nhật'
     },
     req: {
         LOGIN: 'login',
@@ -59,6 +60,7 @@
         ORDER_STATUS: 'Trạng thái đơn hàng:',
         PASSWORD: 'Mật khẩu',
         PASSWORD_CHANGED: 'Thay đổi mật khẩu thành công.',
+        PERSONAL_INFO: 'Thông tin cá nhân',
         PHONE_NUMBER: 'Số điện thoại',
         PROFIT: 'Lợi nhuận',
         RE_PASSWORD: 'Nhập lại mật khẩu',
@@ -71,6 +73,7 @@
         SHIPPER: 'Shipper',
         SHIPPER_INFO: 'Thông tin của {0}',
         SHOP: 'Shop',
+        SHOP_INFO: 'Thông tin cửa hàng',
         SHOP_MANAGER: 'Chủ cửa hàng',
         SIGN_UP: 'Đăng ký tài khoản',
         START_TIME: 'Thời gian giao hàng',

@@ -1,6 +1,102 @@
-﻿<div layout="column" layout-align="center center" flex>
-  <md-input-container>
-    <label>{{$root.consts.lbl.USERNAME}}</label>
-    <input type="text" name="userName" ng-model="user.UserName" required autofocus />
-  </md-input-container>
+﻿<div ng-controller="profile">
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
+  <div layout="column" layout-align="center center" flex>
+    <form name="form.profile" layout="column" layout-padding style="width: 80%">
+      <div layout-xs="column" layout-sm="row" layout-gt-sm="row">
+        <div layout="column" flex-sm="45" flex-gt-sm="45">
+          <h1>{{consts.lbl.PERSONAL_INFO}}</h1>
+          <!-- Username -->
+          <md-input-container>
+            <label>{{consts.lbl.USERNAME}}</label>
+            <input type="text" name="username" ng-model="user.Username" required />
+            <div ng-messages="form.profile.username.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <!-- Full name -->
+          <md-input-container>
+            <label>{{consts.lbl.FULL_NAME}}</label>
+            <input type="text" name="fullName" ng-model="user.FullName" required autofocus/>
+            <div ng-messages="form.profile.fullName.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <!-- Email -->
+          <md-input-container>
+            <label>{{consts.lbl.EMAIL}}</label>
+            <input type="email" name="email" ng-model="user.Email" required/>
+            <div ng-messages="form.profile.email.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+              <div ng-message="email">{{consts.lbl.INVALID_EMAIL}}</div>
+            </div>
+          </md-input-container>
+          <!-- Phone number -->
+          <md-input-container>
+            <label>{{consts.lbl.PHONE_NUMBER}}</label>
+            <input type="tel" name="phoneNumber" ng-model="user.PhoneNumber" required/>
+            <div ng-messages="form.profile.phoneNumber.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>{{$root.consts.lbl.BIRTH_DAY}}</label>
+            <md-datepicker name="birthDay" ng-model="user.BirthDay"
+                           md-open-on-focus aria-label="{{$root.consts.lbl.BIRTH_DAY}}">
+            </md-datepicker>
+            <div ng-messages="form.profile.birthDay.$error">
+              <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>{{$root.consts.lbl.GENDER}}</label>
+            <md-select ng-model="user.Gender">
+              <md-option value="1">
+                {{h}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        
+        <div flex></div>
+
+        <div layout="column" flex-sm="45" flex-gt-sm="45">
+          <h1>{{consts.lbl.SHOP_INFO}}</h1>
+          <md-input-container>
+            <label>{{consts.lbl.FULL_NAME}}</label>
+            <input type="text" name="fullName" ng-model="user.FullName" required autofocus/>
+            <div ng-messages="form.signUp.fullName.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <!-- Username -->
+          <md-input-container>
+            <label>{{consts.lbl.USERNAME}}</label>
+            <input type="text" name="username" ng-model="user.Username" required/>
+            <div ng-messages="form.signUp.username.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+          <!-- Email -->
+          <md-input-container>
+            <label>{{consts.lbl.EMAIL}}</label>
+            <input type="email" name="email" ng-model="user.Email" required/>
+            <div ng-messages="form.signUp.email.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+              <div ng-message="email">{{consts.lbl.INVALID_EMAIL}}</div>
+            </div>
+          </md-input-container>
+          <!-- Phone number -->
+          <md-input-container>
+            <label>{{consts.lbl.PHONE_NUMBER}}</label>
+            <input type="tel" name="phoneNumber" ng-model="user.PhoneNumber" required/>
+            <div ng-messages="form.signUp.phoneNumber.$error">
+              <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+            </div>
+          </md-input-container>
+        </div>
+      </div>
+
+      <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'green'}" ng-submit="signUp()">{{consts.btn.UPDATE}}</md-button>
+    </form>
+  </div>
 </div>

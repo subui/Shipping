@@ -1,4 +1,4 @@
-﻿function main($rootScope, $scope, request, $window, $timeout, $mdSidenav, $mdDialog, mdToast, cookies) {
+﻿function main($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
     $scope.isLogin = false;
     $scope.userLogin = cookies.getUserLogin();
     if ($scope.userLogin) {
