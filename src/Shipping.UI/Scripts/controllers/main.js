@@ -1,4 +1,4 @@
-﻿function main($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
+﻿function main($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
     $scope.isLogin = false;
     $scope.userLogin = cookies.getUserLogin();
     if ($scope.userLogin) {
@@ -11,38 +11,45 @@
         return;
     }
 
+    $scope.setTitle = function (title) {
+        $scope.title = title;
+    }
     $scope.menu = [];
 
     $scope.isShopManager
             ? $scope.menu.push({
-                title: $rootScope.consts.btn.ORDER_MANAGEMENT,
+                title: constants.btn.ORDER_MANAGEMENT,
                 children: [
                     {
-                        title: $rootScope.consts.btn.MY_ORDERS,
-                        action: function() {
+                        title: constants.btn.MY_ORDERS,
+                        action: function () {
+                            $scope.menu.highlight = this.title;
                             $scope.showListOrders();
                         }
                     },
                     {
-                        title: $rootScope.consts.btn.CREATE_ORDER,
-                        action: function() {
+                        title: constants.btn.CREATE_ORDER,
+                        action: function () {
                             $scope.createOrder();
+                            $scope.menu.highlight = this.title;
                         }
                     }
                 ]
             })
             : $scope.menu.push({
-                title: $rootScope.consts.btn.ORDER_MANAGEMENT,
+                title: constants.btn.ORDER_MANAGEMENT,
                 children: [
                     {
-                        title: $rootScope.consts.btn.LIST_ORDERS,
-                        action: function() {
+                        title: constants.btn.LIST_ORDERS,
+                        action: function () {
+                            $scope.menu.highlight = this.title;
                             $scope.getOrders();
                         }
                     },
                     {
-                        title: $rootScope.consts.btn.ORDER_REGISTERED,
+                        title: constants.btn.ORDER_REGISTERED,
                         action: function () {
+                            $scope.menu.highlight = this.title;
                             $scope.getOrdersRegistered();
                         }
                     }
@@ -50,17 +57,19 @@
             });
 
     $scope.menu.push({
-        title: $rootScope.consts.btn.ACCOUNT_MANAGEMENT,
+        title: constants.btn.ACCOUNT_MANAGEMENT,
         children: [
             {
-                title: $rootScope.consts.btn.PROFILE,
-                action: function() {
+                title: constants.btn.PROFILE,
+                action: function () {
+                    $scope.menu.highlight = this.title;
                     $scope.showProfile();
                 }
             },
             {
-                title: $rootScope.consts.btn.CHANGE_PASSWORD,
-                action: function() {
+                title: constants.btn.CHANGE_PASSWORD,
+                action: function () {
+                    $scope.menu.highlight = this.title;
                     $scope.changePassword();
                 }
             }
@@ -68,13 +77,19 @@
     });
 
     $scope.menu.push({
-        title: $rootScope.consts.btn.LOGOUT,
-        action: function() {
+        title: constants.btn.LOGOUT,
+        action: function () {
             $scope.logout();
         }
     });
 
-    $scope.showListOrders = function() {
+    $scope.menu.highlight = $scope.menu[0].children[0].title;
+
+    $scope.menu.isActive = function (item) {
+        return item === this.highlight;
+    };
+
+    $scope.showListOrders = function () {
         $scope.content = 'list-orders.html';
         $scope.toggleSidenav();
     };
@@ -92,10 +107,12 @@
     };
 
     $scope.createOrder = function (event, order) {
-        if (!order) $mdSidenav('left').toggle();
+        if (!order) {
+            $mdSidenav('left').toggle();
+            $scope.menu.highlightPre = $scope.menu.highlight;
+        }
 
         $mdDialog.show({
-//            parent: angular.element(document.body),
             targetEvent: event,
             templateUrl: 'create-order.html',
             controller: 'createOrder',
@@ -105,17 +122,23 @@
             }
         }).then(function () {
             $scope.$broadcast('createOrUpdateOrder');
+            if (!order) {
+                $scope.content = 'list-orders.html';
+                $scope.menu.highlight = $scope.menu[0].children[0].title;
+            }
         }, function () {
-            
+            if (!order) {
+                $scope.menu.highlight = $scope.menu.highlightPre;
+            }
         });
     };
 
-    $scope.showProfile = function() {
+    $scope.showProfile = function () {
         $scope.content = 'profile.html';
         $scope.toggleSidenav();
     };
 
-    $scope.changePassword = function() {
+    $scope.changePassword = function () {
         $scope.content = 'change-password.html';
         $scope.toggleSidenav();
     };
@@ -124,7 +147,7 @@
         cookies.userLogout();
         $window.location.href = '/';
     };
-    
+
     $scope.toggleSidenav = function () {
         $mdSidenav('left').toggle();
     };

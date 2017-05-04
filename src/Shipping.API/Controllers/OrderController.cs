@@ -51,6 +51,7 @@ namespace Shipping.API.Controllers
         {
             using (var entities = new ShippingEntities())
             {
+                order.StartTime = order.StartTime.ToLocalTime();
                 entities.Orders.Add(order);
                 entities.SaveChanges();
                 return new ResponseData(ResponseStatus.Success, RequestType.Order);
@@ -71,7 +72,7 @@ namespace Shipping.API.Controllers
                     orderUpdate.OrderName = order.OrderName;
                     orderUpdate.StartingPoint = order.StartingPoint;
                     orderUpdate.Destination = order.Destination;
-                    orderUpdate.StartTime = order.StartTime;
+                    orderUpdate.StartTime = order.StartTime.ToLocalTime();
                     orderUpdate.RecipientsName = order.RecipientsName;
                     orderUpdate.RecipientsPhoneNumber = order.RecipientsPhoneNumber;
                     orderUpdate.AdvanceDeposit = order.AdvanceDeposit;

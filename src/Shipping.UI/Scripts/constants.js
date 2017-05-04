@@ -46,6 +46,7 @@
         ERROR_PASSWORD_NOT_MATCH: 'Mật khẩu không khớp.',
         ERROR_USERNAME_EXIST: 'Tài khoản đã tồn tại.',
         ERROR_USERNAME_NOT_EXIST: 'Tài khoản không tồn tại.',
+        FEMALE: 'Nữ',
         FORGOT_PASSWORD: 'Quên mật khẩu?',
         FULL_NAME: 'Họ tên',
         GENDER: 'Giới tính',
@@ -53,6 +54,7 @@
         INVALID_EMAIL: 'Email không hợp lệ.',
         LOADING_LIST_ORDERS: 'Đang tải danh sách đơn hàng...',
         LOGIN: 'Đăng nhập',
+        MALE: 'Nam',
         MINUTE: 'MM',
         NEW_PASSWORD: 'Mật khẩu mới',
         NOT_REGISTERED: 'Chưa có Shipper nào đăng ký đơn hàng này.',
@@ -73,8 +75,10 @@
         SHIPPER: 'Shipper',
         SHIPPER_INFO: 'Thông tin của {0}',
         SHOP: 'Shop',
+        SHOP_ADDRESS: 'Địa chỉ cửa hàng',
         SHOP_INFO: 'Thông tin cửa hàng',
         SHOP_MANAGER: 'Chủ cửa hàng',
+        SHOP_NAME: 'Tên cửa hàng',
         SIGN_UP: 'Đăng ký tài khoản',
         START_TIME: 'Thời gian giao hàng',
         STARTING_POINT: 'Nơi nhận hàng',
@@ -97,8 +101,11 @@
         WAITING: 'yellow-100'
     },
     title: {
+        CHANGE_PASSWORD: 'Đổi mật khẩu',
         CREATE_ORDER: 'Tạo mới đơn hàng',
         LOGIN: 'Đăng nhập',
+        ORDER_MANAGEMENT: 'Quản lý đơn hàng',
+        PROFILE: 'Thông tin tài khoản',
         SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'

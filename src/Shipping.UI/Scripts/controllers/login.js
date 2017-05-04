@@ -29,10 +29,14 @@
 
             if (data.ResponseStatus === status.ErrorUsernameNotExist) {
                 $scope.error = $rootScope.consts.lbl.ERROR_USERNAME_NOT_EXIST;
+                $scope.form.login.username.$setValidity('incorrect', false);
+                document.getElementById('username').focus();
             }
 
             if (data.ResponseStatus === status.ErrorPasswordIncorrect) {
                 $scope.error = $rootScope.consts.lbl.ERROR_PASSWORD_INCORRECT;
+                $scope.form.login.password.$setValidity('incorrect', false);
+                document.getElementById('password').focus();
             }
 
             mdToast.show($scope.error, 10000, 'top right');

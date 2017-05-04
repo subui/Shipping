@@ -1,5 +1,6 @@
-﻿function listOrders($rootScope, $scope, request, $mdDialog, mdToast) {
+﻿function listOrders($rootScope, $scope, request, $timeout, $mdDialog, mdToast) {
     $scope.waiting = true;
+    $scope.setTitle(constants.title.ORDER_MANAGEMENT);
 
     mdToast.show(constants.lbl.LOADING_LIST_ORDERS);
     request.getListOrdersByUserId(onSuccess, onError);
@@ -165,7 +166,7 @@
 
         if (data.ResponseStatus === status.Success) {
             if (data.RequestType === type.Order) {
-                mdToast.hide();
+                $timeout(mdToast.hide(), 1000);
                 $scope.listOrders = data.Data;
 
                 if ($scope.isShopManager) {

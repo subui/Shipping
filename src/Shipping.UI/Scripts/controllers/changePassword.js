@@ -1,4 +1,6 @@
 ﻿function changePassword($scope, request, mdToast) {
+    $scope.setTitle(constants.title.CHANGE_PASSWORD);
+
     $scope.changePassword = function () {
         if ($scope.form.changePassword.$invalid) return;
 

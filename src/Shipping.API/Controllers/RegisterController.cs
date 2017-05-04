@@ -39,6 +39,7 @@ namespace Shipping.API.Controllers
         {
             using (var entities = new ShippingEntities())
             {
+                reg.RegTime = reg.RegTime.ToLocalTime();
                 entities.ShippingRegistrations.Add(reg);
                 entities.SaveChanges();
                 return new ResponseData(ResponseStatus.Success, RequestType.Register);

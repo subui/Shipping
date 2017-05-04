@@ -34,17 +34,21 @@
       <!-- Username -->
       <md-input-container>
         <label>{{consts.lbl.USERNAME}}</label>
-        <input type="text" name="username" ng-model="username" required autofocus />
+        <input id="username" type="text" name="username" ng-model="username" required autofocus
+               ng-change="form.login.login.$setValidity('incorrect', true)" />
         <div ng-messages="form.login.username.$error">
           <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+          <div ng-message="incorrect">{{consts.lbl.ERROR_USERNAME_NOT_EXIST}}</div>
         </div>
       </md-input-container>
       <!-- Password -->
       <md-input-container>
         <label>{{consts.lbl.PASSWORD}}</label>
-        <input type="password" name="password" ng-model="password" required />
+        <input id="password" type="password" name="password" ng-model="password" required
+               ng-change="form.login.password.$setValidity('incorrect', true)" />
         <div ng-messages="form.login.password.$error">
           <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+          <div ng-message="incorrect">{{consts.lbl.ERROR_PASSWORD_INCORRECT}}</div>
         </div>
       </md-input-container>
       <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}" ng-click="login()">{{consts.btn.LOGIN}}</md-button>

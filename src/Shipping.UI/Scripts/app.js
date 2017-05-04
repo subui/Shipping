@@ -141,12 +141,12 @@ app.controller('signUp',
             login($rootScope, $scope, request, $window, mdToast, cookies);
         })
     .controller('main',
-        function ($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
-            main($rootScope, $scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies);
+        function ($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
+            main($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies);
         })
     .controller('listOrders',
-        function ($rootScope, $scope, request, $mdDialog, mdToast) {
-            listOrders($rootScope, $scope, request, $mdDialog, mdToast);
+        function ($rootScope, $scope, request, $timeout, $mdDialog, mdToast) {
+            listOrders($rootScope, $scope, request, $timeout, $mdDialog, mdToast);
         })
     .controller('createOrder',
         function ($rootScope, $scope, request, $mdDialog, mdToast, order, userId) {

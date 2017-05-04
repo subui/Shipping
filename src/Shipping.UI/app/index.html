@@ -50,12 +50,12 @@
         </div>
       </md-toolbar>
       <md-content md-colors="{background: 'blue'}" flex>
-        <md-list>
+        <md-list ng-click="menu.isActive()">
           <div ng-repeat="menuItem in menu">
             <md-list-item ng-click="menuItem.action()">{{menuItem.title}}</md-list-item>
             <md-list ng-if="menuItem.children" style="width: 90%; margin-left: 10%">
               <div ng-repeat="subMenuItem in menuItem.children">
-                <md-list-item ng-click="subMenuItem.action()">
+                <md-list-item ng-click="subMenuItem.action()" md-colors="{background: '{{menu.isActive(subMenuItem.title) ? 'blue-300-0.7' : 'blue'}}', color: 'grey-A100'}">
                   {{subMenuItem.title}}
                 </md-list-item>
               </div>
@@ -65,13 +65,13 @@
       </md-content>
     </md-sidenav>
 
-    <section layout="column" flex ng-init="a=true">
+    <section layout="column" flex>
       <md-toolbar layout="row">
         <div class="md-toolbar-tools">
           <md-button class="md-icon-button" ng-click="toggleSidenav()" hide-gt-md>
             <md-icon>menu</md-icon>
           </md-button>
-          <h2 md-truncate flex hide-gt-md>{{consts.btn.ORDER_MANAGEMENT}}</h2>
+          <h2 md-truncate flex hide-gt-md>{{title}}</h2>
           <span flex></span>
           <h5><a href="#">{{consts.lbl.WELCOME + ' ' + username}}</a></h5>
           <md-menu md-position-mode="target-right target" md-offset="0 42">
