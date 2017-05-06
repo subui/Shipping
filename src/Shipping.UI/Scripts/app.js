@@ -168,6 +168,10 @@ app.controller('signUp',
         function ($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered) {
             selectShipper($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered);
         })
+    .controller('reviewsShipper',
+        function ($scope, request, $mdDialog, shipper) {
+            reviewsShipper($scope, request, $mdDialog, shipper);
+        })
     .controller('toastTemplate',
         function ($scope, $mdToast, textContent) {
             toastTemplate($scope, $mdToast, textContent);
@@ -252,7 +256,7 @@ function request($http, cookies) {
     }
 
     function getListOrders(onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.ORDER + '/0/' + userId)
+        $http.get($app.apiUrl + constants.req.ORDER + '/' + userId)
             .then(onSuccess, onError);
     }
 
@@ -282,12 +286,12 @@ function request($http, cookies) {
     }
 
     function getOrderRegisteredByShipperId(shipperId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REGISTER + '/0/' + shipperId)
+        $http.get($app.apiUrl + constants.req.REGISTER + '/getorder/' + shipperId)
             .then(onSuccess, onError);
     }
 
     function getShipperRegisteredByOrderId(orderId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REGISTER + '/' + orderId + '/0')
+        $http.get($app.apiUrl + constants.req.REGISTER + '/getshipper/' + orderId)
             .then(onSuccess, onError);
     }
 

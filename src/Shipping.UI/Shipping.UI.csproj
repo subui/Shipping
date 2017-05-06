@@ -101,6 +101,7 @@
     <Content Include="app\index.html" />
     <Content Include="app\list-orders.html" />
     <Content Include="app\profile.html" />
+    <Content Include="app\reviews-shipper.html" />
     <Content Include="app\select-shipper.html" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
@@ -111,6 +112,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="Scripts\controllers\changePassword.js" />
     <Content Include="Scripts\controllers\profile.js" />
+    <Content Include="Scripts\controllers\reviewsShipper.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-cookies.min.js.map" />

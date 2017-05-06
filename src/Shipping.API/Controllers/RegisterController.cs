@@ -9,28 +9,41 @@ namespace Shipping.API.Controllers
     public class RegisterController : ApiController
     {
         [HttpGet]
-        [Route("register/{orderId}/{shipperId}")]
-        public ResponseData Get(int orderId, int shipperId)
+        [Route("register/getorder/{id}")]
+        // getOrderRegisteredByShipperId
+        public ResponseData GetOrder(int id)
         {
             using (var entities = new ShippingEntities())
             {
-                // getOrderRegisteredByShipperId
-                if (orderId == 0 && shipperId != 0)
-                {
-                    var listOrderId = entities.ShippingRegistrations.Where(r => r.ShipperId == shipperId).Select(r => r.OrderId);
-                    var listOrder = entities.Orders.Where(o => listOrderId.Contains(o.OrderId)).ToList();
-                    return new ResponseData(listOrder, ResponseStatus.Success, RequestType.Register);
-                }
+                var listOrderId = entities.ShippingRegistrations
+                        .Where(r => r.ShipperId == id)
+                        .Select(r => r.OrderId);
 
-                // getShipperRegisteredByOrderId
-                if (orderId != 0 && shipperId == 0)
-                {
-                    var listShipperId = entities.ShippingRegistrations.Where(r => r.OrderId == orderId).Select(r => r.ShipperId);
-                    var listShipper = entities.Users.Where(u => listShipperId.Contains(u.UserId)).ToList();
-                    return new ResponseData(listShipper, ResponseStatus.Success, RequestType.Register);
-                }
+                var listOrder = entities.Orders
+                    .Where(o => listOrderId.Contains(o.OrderId))
+                    .ToList();
 
-                return null;
+                return new ResponseData(listOrder, ResponseStatus.Success, RequestType.Register);
+            }
+        }
+
+        [HttpGet]
+        [Route("register/getshipper/{id}")]
+        // getShipperRegisteredByOrderId
+        public ResponseData GetShipper(int id)
+        {
+            using (var entities = new ShippingEntities())
+            {
+                var listShipperId = entities.ShippingRegistrations
+                       .Where(r => r.OrderId == id)
+                       .Select(r => r.ShipperId);
+
+                var listShipper = entities.Users
+                    .Where(u => listShipperId.Contains(u.UserId))
+                    .Select(u => new { u.UserId, u.FullName })
+                    .ToList();
+
+                return new ResponseData(listShipper, ResponseStatus.Success, RequestType.Register);
             }
         }
 

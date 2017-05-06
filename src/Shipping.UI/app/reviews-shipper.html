@@ -1,0 +1,45 @@
+﻿<md-dialog style="min-width: 500px">
+  <ng-include src="'/Templates/waiting.html'"></ng-include>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="closeDialog()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <form name="form.reviews">
+    <md-dialog-content layout="column" layout-padding>
+      Hãy đánh giá shipper để mọi người biết đến
+      <md-input-container md-colors="{color: 'dialogTheme-amber'}" ng-mouseleave="starHoverOut()">
+        <input name="star" ng-model="stareds" required />
+        <div id="star" layout="row" layout-align="center center">
+          <md-icon ng-mouseover="starHoverIn(0)" ng-click="starClick(0)">{{star[0]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(1)" ng-click="starClick(1)">{{star[1]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(2)" ng-click="starClick(2)">{{star[2]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(3)" ng-click="starClick(3)">{{star[3]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(4)" ng-click="starClick(4)">{{star[4]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(5)" ng-click="starClick(5)">{{star[5]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(6)" ng-click="starClick(6)">{{star[6]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(7)" ng-click="starClick(7)">{{star[7]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(8)" ng-click="starClick(8)">{{star[8]}}</md-icon>
+          <md-icon ng-mouseover="starHoverIn(9)" ng-click="starClick(9)">{{star[9]}}</md-icon>
+        </div>
+        <div ng-messages="form.reviews.star.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Nội dung</label>
+        <textarea name="content" ng-model="content" rows="5" md-maxlength="255" required></textarea>
+        <div ng-messages="form.reviews.content.$error">
+          <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+        </div>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button type="submit" class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="save()">sdfsdf</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

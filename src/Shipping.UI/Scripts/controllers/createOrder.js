@@ -14,6 +14,17 @@
         $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
     }
 
+    $mdDialog.show({
+        templateUrl: 'reviews-shipper.html',
+        controller: 'reviewsShipper',
+        locals: {
+            shipper: {
+                id: $scope.order.SelectedShipperId,
+                name: 'abc'
+            }
+        }
+    });
+
     $scope.userId = userId;
 
     $scope.today = new Date();

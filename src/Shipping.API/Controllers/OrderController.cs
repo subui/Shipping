@@ -11,12 +11,11 @@ namespace Shipping.API.Controllers
     public class OrderController : ApiController
     {
         [HttpGet]
-        [Route("order/{orderId}/{userId}")]
-        public ResponseData Get(int orderId, int userId)
+        public ResponseData Get(int id)
         {
             using (var entities = new ShippingEntities())
             {
-                var userRequest = entities.Users.FirstOrDefault(u => u.UserId == userId);
+                var userRequest = entities.Users.FirstOrDefault(u => u.UserId == id);
                 var userType = userRequest?.UserType;
 
                 if (userType == null)

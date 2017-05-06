@@ -109,6 +109,7 @@
         LOGIN: 'Đăng nhập',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         PROFILE: 'Thông tin tài khoản',
+        REVIEWS_SHIPPER: 'Đánh giá shipper ({0})',
         SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'
