@@ -251,7 +251,7 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function getListOrdersByUserId(onSuccess, onError) {
+    function getListOrders(onSuccess, onError) {
         $http.get($app.apiUrl + constants.req.ORDER + '/0/' + userId)
             .then(onSuccess, onError);
     }
@@ -291,6 +291,11 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
+    function updateUserInfo(user, onSuccess, onError) {
+        $http.put($app.apiUrl + constants.req.USER + '/' + userId, user)
+            .then(onSuccess, onError);
+    }
+
     function updatePassword(password, onSuccess, onError) {
         password.UserId = userId;
         $http.post($app.apiUrl + constants.req.USER, password)
@@ -300,7 +305,7 @@ function request($http, cookies) {
     return {
         createNewUser: createNewUser,
         login: login,
-        getListOrdersByUserId: getListOrdersByUserId,
+        getListOrders: getListOrders,
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,
@@ -309,6 +314,7 @@ function request($http, cookies) {
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
         getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
         selectShipper: updateOrder,
+        updateUserInfo: updateUserInfo,
         updatePassword: updatePassword
     }
 }

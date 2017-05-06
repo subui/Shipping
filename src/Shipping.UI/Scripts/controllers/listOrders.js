@@ -3,7 +3,7 @@
     $scope.setTitle(constants.title.ORDER_MANAGEMENT);
 
     mdToast.show(constants.lbl.LOADING_LIST_ORDERS);
-    request.getListOrdersByUserId(onSuccess, onError);
+    request.getListOrders(onSuccess, onError);
 
     $scope.filter = {
         allItems: true,
@@ -14,7 +14,7 @@
         canceled: true
     };
 
-    $scope.filterItems = function(all) {
+    $scope.filterItems = function (all) {
         if (all) {
             if ($scope.filter.allItems) {
                 $scope.filter.waiting = true;
@@ -69,7 +69,6 @@
         }
 
         $mdDialog.show({
-            //            parent: angular.element(document.body),
             targetEvent: event,
             templateUrl: 'order-detail.html',
             clickOutsideToClose: true,
@@ -119,16 +118,28 @@
         });
     };
 
-    $scope.$on('createOrUpdateOrder', function() {
-        request.getListOrdersByUserId($scope.userId, onSuccess, onError);
+    $scope.isShipping = function (order) {
+        return order.Status === $app.enums.orderStatus.Shipping;
+    };
+
+    $scope.isDone = function (order) {
+        return order.Status === $app.enums.orderStatus.Done;
+    };
+
+    $scope.isShippingOrDone = function (order) {
+        return $scope.isDone(order) || $scope.isShipping(order);
+    };
+
+    $scope.$on('createOrUpdateOrder', function () {
+        request.getListOrders(onSuccess, onError);
     });
 
-    $scope.$on('getOrders', function() {
+    $scope.$on('getOrders', function () {
         $scope.orders = $scope.listOrdersNotRegistered;
         $scope.isRegistered = false;
     });
 
-    $scope.$on('getOrdersRegistered', function() {
+    $scope.$on('getOrdersRegistered', function () {
         $scope.orders = $scope.listOrdersRegistered;
         $scope.isRegistered = true;
     });
@@ -172,7 +183,14 @@
                 if ($scope.isShopManager) {
                     $scope.orders = $scope.listOrders;
                     $scope.orders.forEach(order => {
-                        order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, order.ShipperCount);
+                        if ($scope.isShipping(order.Order)) {
+                            order.ShipperName = String.format(constants.lbl.SHIPPER_SHIPPING, order.ShipperName);
+                        } else if ($scope.isDone(order.Order)) {
+                            order.ShipperName = String.format(constants.lbl.SHIPPER_DONE, order.ShipperName);
+                        } else {
+                            order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, order.ShipperCount);
+                        }
+
                         order.color = getColor(order.Order.Status);
                     });
                 } else {
@@ -191,10 +209,10 @@
                 $scope.listOrdersNotRegistered = [];
 
                 $scope.listOrders.forEach(order => {
-                    var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.Order.OrderId);
+                    var isRegistered = $scope.listOrdersRegistered.some(o => o.OrderId === order.OrderId);
                     if (!isRegistered) {
-                        order.Order.color = constants.color.UNKNOWN;
-                        $scope.listOrdersNotRegistered.push(order.Order);
+                        order.color = constants.color.UNKNOWN;
+                        $scope.listOrdersNotRegistered.push(order);
                     }
                 });
 

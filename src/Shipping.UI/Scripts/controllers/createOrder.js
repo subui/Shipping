@@ -66,7 +66,7 @@
 
     $scope.done = function () {
         $scope.order.Status = $app.enums.orderStatus.Done;
-        request.updateOrder($scope.order, onSuccess, onError);
+        request.updateOrder($scope.order, onDone, onError);
     };
 
     $scope.cancelOrder = function () {
@@ -99,6 +99,25 @@
                 }
 
                 mdToast.show(String.format(message, $scope.order.OrderName));
+            }
+        }
+    }
+
+    function onDone(response) {
+        var status = $app.enums.responseStatus;
+        var type = $app.enums.requestType;
+        var data = response.data;
+
+        if (data.RequestType === type.Order) {
+            if (data.ResponseStatus === status.Success) {
+                $rootScope.$broadcast('createOrUpdateOrder');
+                $mdDialog.show({
+                    templateUrl: 'reviews-shipper.html',
+                    controller: 'reviewsShipper',
+                    locals: {
+                        
+                    }
+                });
             }
         }
     }

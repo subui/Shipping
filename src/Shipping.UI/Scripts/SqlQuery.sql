@@ -10,6 +10,6 @@ select *
 from INFORMATION_SCHEMA.COLUMNS
 where TABLE_NAME='ShippingRegistration'
 
-update [dbo].[Order] set Status = 1 where OrderId = 1012;
+update [dbo].[Order] set Status = 2 where OrderId = 6;
 
 update [dbo].[Order] set StartTime = DATEADD(HOUR, 7, StartTime) where OrderId > 1000;

@@ -1,4 +1,4 @@
-﻿<md-card md-theme-watch md-whiteframe="5" ng-click="showDetail($event, order)" md-colors="{background: '{{o.color}}'}" style="margin: auto; max-width: 400px; cursor: pointer;">
+﻿<md-card md-theme-watch md-whiteframe="5" ng-click="showDetail($event, order)" md-colors="{background: '{{o.color}}'}">
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">{{order.OrderName}}</span>
@@ -12,9 +12,12 @@
     </div>
   </md-card-content>
   <md-card-actions layout="row" ng-if="isShopManager">
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue'}" ng-click="showShipper($event, order)">
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue'}" ng-click="showShipper($event, order)" ng-if="!isShippingOrDone(order)">
       <md-icon style="color: white">playlist_add_check</md-icon>
       {{o.ShipperCount}}
     </md-button>
+    <span ng-if="isShippingOrDone(order)">
+      {{o.ShipperName}}
+    </span>
   </md-card-actions>
 </md-card>

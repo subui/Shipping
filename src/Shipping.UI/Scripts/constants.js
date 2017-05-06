@@ -73,7 +73,9 @@
         REVIEWS: 'Các đánh giá từ người dùng',
         SELECTED: 'Bạn đã chọn shipper {0} cho đơn hàng {1}.',
         SHIPPER: 'Shipper',
+        SHIPPER_DONE: 'Shipper đã vận chuyển: {0}',
         SHIPPER_INFO: 'Thông tin của {0}',
+        SHIPPER_SHIPPING: 'Shipper đang vận chuyển: {0}',
         SHOP: 'Shop',
         SHOP_ADDRESS: 'Địa chỉ cửa hàng',
         SHOP_INFO: 'Thông tin cửa hàng',
@@ -89,6 +91,7 @@
         STATUS_WAITING: 'Đang chờ',
         UNREGISTER_ORDER_SUCCESS: 'Hủy đăng ký đơn hàng {0} thành công.',
         UPDATE_ORDER_SUCCESS: 'Cập nhật đơn hàng {0} thành công.',
+        UPDATE_PROFILE_SUCCESS: 'Cập nhật tài khoản thành công.',
         USERNAME: 'Tên tài khoản',
         WELCOME: 'Xin chào'
     },
