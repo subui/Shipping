@@ -5,35 +5,43 @@
         $mdDialog.cancel();
     };
 
-    $scope.star = [];
+    $scope.stars = [];
     $scope.stared = 0;
 
     for (var i = 0; i < 10; i++) {
-        $scope.star.push('star_border');
+        $scope.stars.push({
+            icon: 'star_border',
+            direction: 'top',
+            tooltip: false
+        });
     }
 
-    $scope.starHoverIn = function(index) {
+    $scope.starHoverIn = function (index) {
         for (var i = 0; i < 10; i++) {
-            if (i <= index) $scope.star[i] = 'star';
-            else $scope.star[i] = 'star_border';
+            if (i < index) $scope.stars[i].icon = 'star';
+            else $scope.stars[i].icon = 'star_border';
         }
+        $scope.stars[index - 1].tooltip = true;
     };
 
-    $scope.starHoverOut = function() {
+    $scope.starHoverOut = function () {
+        if (!$scope.stared) return;
+
         for (var i = 0; i < 10; i++) {
-            if (i < $scope.stared) $scope.star[i] = 'star';
-            else $scope.star[i] = 'star_border';
+            if (i < $scope.stared) $scope.stars[i].icon = 'star';
+            else $scope.stars[i].icon = 'star_border';
         }
+
+        $scope.stars[$scope.stared - 1].tooltip = true;
+        console.log($scope.stars);
     };
 
     $scope.starClick = function(index) {
-        $scope.stared = index + 1;
-        for (var i = 0; i <= index; i++) {
-            $scope.star[i] = 'star';
-        }
+        $scope.stared = index;
     };
 
-    $scope.save = function() {
+    $scope.save = function () {
+        console.log($scope.demo.showTooltip);
         if ($scope.form.reviews.$invalid) return;
     }
 }
