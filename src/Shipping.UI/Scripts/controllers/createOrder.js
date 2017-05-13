@@ -14,17 +14,6 @@
         $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
     }
 
-    $mdDialog.show({
-        templateUrl: 'reviews-shipper.html',
-        controller: 'reviewsShipper',
-        locals: {
-            shipper: {
-                id: $scope.order.SelectedShipperId,
-                name: 'abc'
-            }
-        }
-    });
-
     $scope.userId = userId;
 
     $scope.today = new Date();
@@ -122,12 +111,18 @@
         if (data.RequestType === type.Order) {
             if (data.ResponseStatus === status.Success) {
                 $rootScope.$broadcast('createOrUpdateOrder');
-                $mdDialog.show({
-                    templateUrl: 'reviews-shipper.html',
-                    controller: 'reviewsShipper',
-                    locals: {
-                        
-                    }
+                $app.loadScript('/Scripts/controllers/reviewsShipper.js', null, function () {
+                    $mdDialog.show({
+                        templateUrl: 'reviews-shipper.html',
+                        controller: 'reviewsShipper',
+                        locals: {
+                            order: $scope.order,
+                            shipper: {
+                                id: $scope.order.SelectedShipperId,
+                                name: 'abc'
+                            }
+                        }
+                    }).then(function () { mdToast.show('ngu') }, function () { });
                 });
             }
         }

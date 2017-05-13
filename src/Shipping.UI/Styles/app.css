@@ -45,6 +45,7 @@ md-dialog-content > md-input-container:first-child {
 
 #filter {
     padding: 10px;
+/*    position: fixed;*/
 }
 
     #filter md-checkbox {
@@ -55,6 +56,10 @@ md-dialog-content > md-input-container:first-child {
         #filter md-checkbox > div:first-child {
             left: 5px;
         }
+
+#content {
+    position: relative;
+}
 
 .inline {
     display: inline-block;
@@ -73,8 +78,7 @@ md-card {
     cursor: pointer;
 }
 
-#star > * {
-    margin: 0;
+#star {
     cursor: pointer;
 }
 

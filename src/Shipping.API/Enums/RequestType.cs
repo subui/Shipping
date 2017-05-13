@@ -6,6 +6,7 @@
         SignUp = 2,
         User = 3,
         Order = 4,
-        Register = 5
+        Register = 5,
+        Reviews = 6
     }
 }

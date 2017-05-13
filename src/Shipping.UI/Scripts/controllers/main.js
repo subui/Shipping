@@ -107,40 +107,46 @@
     };
 
     $scope.createOrder = function (event, order) {
-        if (!order) {
-            $mdSidenav('left').toggle();
-            $scope.menu.highlightPre = $scope.menu.highlight;
-        }
+        $app.loadScript('/Scripts/controllers/createOrder.js', null, function() {
+            if (!order) {
+                $mdSidenav('left').toggle();
+                $scope.menu.highlightPre = $scope.menu.highlight;
+            }
 
-        $mdDialog.show({
-            targetEvent: event,
-            templateUrl: 'create-order.html',
-            controller: 'createOrder',
-            locals: {
-                order: order,
-                userId: $scope.userId
-            }
-        }).then(function () {
-            $scope.$broadcast('createOrUpdateOrder');
-            if (!order) {
-                $scope.content = 'list-orders.html';
-                $scope.menu.highlight = $scope.menu[0].children[0].title;
-            }
-        }, function () {
-            if (!order) {
-                $scope.menu.highlight = $scope.menu.highlightPre;
-            }
+            $mdDialog.show({
+                targetEvent: event,
+                templateUrl: 'create-order.html',
+                controller: 'createOrder',
+                locals: {
+                    order: order,
+                    userId: $scope.userId
+                }
+            }).then(function () {
+                $scope.$broadcast('createOrUpdateOrder');
+                if (!order) {
+                    $scope.content = 'list-orders.html';
+                    $scope.menu.highlight = $scope.menu[0].children[0].title;
+                }
+            }, function () {
+                if (!order) {
+                    $scope.menu.highlight = $scope.menu.highlightPre;
+                }
+            });
         });
     };
 
     $scope.showProfile = function () {
-        $scope.content = 'profile.html';
-        $scope.toggleSidenav();
+        $app.loadScript('/Scripts/controllers/profile.js', null, function () {
+            $scope.content = 'profile.html';
+            $scope.toggleSidenav();
+        });
     };
 
     $scope.changePassword = function () {
-        $scope.content = 'change-password.html';
-        $scope.toggleSidenav();
+        $app.loadScript('/Scripts/controllers/changePassword.js', null, function() {
+            $scope.content = 'change-password.html';
+            $scope.toggleSidenav();
+        });
     };
 
     $scope.logout = function () {

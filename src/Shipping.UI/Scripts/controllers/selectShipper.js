@@ -15,12 +15,12 @@
         $scope.alert = '';
         $mdBottomSheet.show({
             templateUrl: '/Templates/bottom-sheet-shipper-info.html',
-            controller: 'bottomSheet',
-            locals: {
-                shipper: shipper
+            controller: function ($scope) {
+                $scope.subheader = String.format(constants.lbl.SHIPPER_INFO, shipper.FullName);
+                $scope.shipper = shipper;
             }
         }).then(function (clickedItem) {
-            
+
         }).catch(function (error) {
             // User clicked outside or hit escape
         });

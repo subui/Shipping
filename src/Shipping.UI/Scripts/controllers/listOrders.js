@@ -68,53 +68,57 @@
             return;
         }
 
-        $mdDialog.show({
-            targetEvent: event,
-            templateUrl: 'order-detail.html',
-            clickOutsideToClose: true,
-            controller: 'orderDetail',
-            locals: {
-                order: order,
-                userId: $scope.userId,
-                isRegistered: $scope.isRegistered
-            }
-        })
-        .then(function () {
-            var message;
-            var index;
+        $app.loadScript('/Scripts/controllers/orderDetail.js', null, function () {
+            $mdDialog.show({
+                targetEvent: event,
+                templateUrl: 'order-detail.html',
+                clickOutsideToClose: true,
+                controller: 'orderDetail',
+                locals: {
+                    order: order,
+                    userId: $scope.userId,
+                    isRegistered: $scope.isRegistered
+                }
+            })
+            .then(function () {
+                var message;
+                var index;
 
-            if ($scope.isRegistered) {
-                message = constants.lbl.UNREGISTER_ORDER_SUCCESS;
-                index = $scope.listOrdersRegistered.indexOf(order);
-                $scope.listOrdersRegistered.splice(index, 1);
+                if ($scope.isRegistered) {
+                    message = constants.lbl.UNREGISTER_ORDER_SUCCESS;
+                    index = $scope.listOrdersRegistered.indexOf(order);
+                    $scope.listOrdersRegistered.splice(index, 1);
 
-                $scope.listOrdersNotRegistered.push(order);
-                $scope.listOrdersNotRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
-            } else {
-                message = constants.lbl.REGISTER_ORDER_SUCCESS;
-                index = $scope.listOrdersNotRegistered.indexOf(order);
-                $scope.listOrdersNotRegistered.splice(index, 1);
+                    $scope.listOrdersNotRegistered.push(order);
+                    $scope.listOrdersNotRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
+                } else {
+                    message = constants.lbl.REGISTER_ORDER_SUCCESS;
+                    index = $scope.listOrdersNotRegistered.indexOf(order);
+                    $scope.listOrdersNotRegistered.splice(index, 1);
 
-                $scope.listOrdersRegistered.push(order);
-                $scope.listOrdersRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
-            }
-            mdToast.show(String.format(message, order.OrderName), 3000);
-        }, function () {
+                    $scope.listOrdersRegistered.push(order);
+                    $scope.listOrdersRegistered.sort((o1, o2) => o1.OrderId - o2.OrderId);
+                }
+                mdToast.show(String.format(message, order.OrderName), 3000);
+            }, function () {
+            });
         });
     };
 
     $scope.showShipper = function (event, order) {
         event.stopPropagation();
-        $mdDialog.show({
-            targetEvent: event,
-            templateUrl: 'select-shipper.html',
-            clickOutsideToClose: true,
-            controller: 'selectShipper',
-            locals: {
-                order: order,
-                userId: $scope.userId,
-                isRegistered: $scope.isRegistered
-            }
+        $app.loadScript('/Scripts/controllers/selectShipper.js', null, function() {
+            $mdDialog.show({
+                targetEvent: event,
+                templateUrl: 'select-shipper.html',
+                clickOutsideToClose: true,
+                controller: 'selectShipper',
+                locals: {
+                    order: order,
+                    userId: $scope.userId,
+                    isRegistered: $scope.isRegistered
+                }
+            });
         });
     };
 

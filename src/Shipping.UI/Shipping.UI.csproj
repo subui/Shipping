@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\controllers\bottomSheet.js" />
     <Content Include="Scripts\controllers\listOrders.js" />
     <Content Include="Scripts\controllers\login.js" />
     <Content Include="Scripts\controllers\orderDetail.js" />
@@ -138,7 +137,6 @@
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\controllers\createOrder.js" />
     <Content Include="Scripts\controllers\main.js" />
-    <Content Include="Scripts\controllers\toastTemplate.js" />
     <Content Include="Scripts\data.sql" />
     <Content Include="Scripts\SqlQuery.sql" />
     <Content Include="Styles\app.css" />

@@ -27,6 +27,7 @@
         LOGIN: 'login',
         ORDER: 'order',
         REGISTER: 'register',
+        REVIEWS: 'reviews',
         SIGN_UP: 'signup',
         USER: 'user'
     },
@@ -59,7 +60,7 @@
         NEW_PASSWORD: 'Mật khẩu mới',
         NOT_REGISTERED: 'Chưa có Shipper nào đăng ký đơn hàng này.',
         ORDER_NAME: 'Tên đơn hàng',
-        ORDER_STATUS: 'Trạng thái đơn hàng:',
+        ORDER_STATUS: 'Trạng thái:',
         PASSWORD: 'Mật khẩu',
         PASSWORD_CHANGED: 'Thay đổi mật khẩu thành công.',
         PERSONAL_INFO: 'Thông tin cá nhân',
@@ -109,7 +110,7 @@
         LOGIN: 'Đăng nhập',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         PROFILE: 'Thông tin tài khoản',
-        REVIEWS_SHIPPER: 'Đánh giá shipper ({0})',
+        REVIEWS_SHIPPER: 'Đánh giá shipper {0} cho đơn hàng {1}',
         SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'

@@ -35,13 +35,13 @@ var $app = {
             this.ShipperId = shipperId;
             this.RegTime = regTime;
         },
-        ReviewsShipper: function () {
-            this.OrderId = null;
-            this.Score = null;
-            this.Content = null;
-            this.RevTime = null;
+        ReviewsShipper: function (orderId, score, content, revTime) {
+            this.OrderId = orderId;
+            this.Score = score;
+            this.Content = content;
+            this.RevTime = revTime;
         },
-        UpdatePassword: function(userId, currentPassword, newPassword) {
+        UpdatePassword: function (userId, currentPassword, newPassword) {
             this.UserId = userId;
             this.CurrentPassword = sha256_digest(currentPassword);
             this.NewPassword = sha256_digest(newPassword);
@@ -62,7 +62,8 @@ var $app = {
             SignUp: 2,
             User: 3,
             Order: 4,
-            Register: 5
+            Register: 5,
+            Reviews: 6
         },
         userType: {
             Admin: 0,
@@ -88,20 +89,22 @@ var $app = {
         this.children = children;
         this.action = action;
     },
-    loadScript: function (src, type) {
-        if (!src) return null;
+    loadScript: function (src, type, callback) {
+        if (!src) return;
         var script = document.querySelector('script[src*="' + src + '"]');
-        if (!script) {
+        if (script) {
+            callback();
+        } else {
             var heads = document.getElementsByTagName('head');
             if (heads && heads.length) {
                 var head = heads[0];
                 script = document.createElement('script');
+                script.onload = callback;
                 script.setAttribute('src', src);
                 if (type) script.setAttribute('type', type);
                 head.appendChild(script);
             }
         }
-        return script;
     }
 };
 
@@ -169,16 +172,8 @@ app.controller('signUp',
             selectShipper($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered);
         })
     .controller('reviewsShipper',
-        function ($scope, request, $mdDialog, shipper) {
-            reviewsShipper($scope, request, $mdDialog, shipper);
-        })
-    .controller('toastTemplate',
-        function ($scope, $mdToast, textContent) {
-            toastTemplate($scope, $mdToast, textContent);
-        })
-    .controller('bottomSheet',
-        function ($scope, $mdBottomSheet, shipper) {
-            bottomSheet($scope, $mdBottomSheet, shipper);
+        function ($scope, request, $mdDialog, $timeout, $interval, order, shipper) {
+            reviewsShipper($scope, request, $mdDialog, $timeout, $interval, order, shipper);
         });
 
 
@@ -218,12 +213,14 @@ function mdToast($mdToast) {
 
         hideDelay === 0 ? $mdToast.show({
                             templateUrl: '/Templates/toast-template.html',
-                            controller: 'toastTemplate',
+                            controller: function ($scope) {
+                                $scope.textContent = textContent;
+                                $scope.closeToast = function () {
+                                    $mdToast.hide();
+                                };
+                            },
                             hideDelay: 0,
-                            position: position,
-                            locals: {
-                                textContent: textContent
-                            }
+                            position: position
                         })
                         : $mdToast.show($mdToast.simple()
                             .textContent(textContent)
@@ -295,6 +292,11 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
+    function reviewsShipper(rev, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.REVIEWS, rev)
+            .then(onSuccess, onError);
+    }
+
     function updateUserInfo(user, onSuccess, onError) {
         $http.put($app.apiUrl + constants.req.USER + '/' + userId, user)
             .then(onSuccess, onError);
@@ -318,6 +320,7 @@ function request($http, cookies) {
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
         getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
         selectShipper: updateOrder,
+        reviewsShipper: reviewsShipper,
         updateUserInfo: updateUserInfo,
         updatePassword: updatePassword
     }
