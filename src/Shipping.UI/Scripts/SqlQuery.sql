@@ -9,7 +9,7 @@ select [Order].SelectedShipperId from [dbo].[Order] where [Order].OrderName = 'd
 
 select * from [dbo].[User] where UserId in (select ShopId from [dbo].[Order] where OrderName = 'ad')
 
-select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='User'
+select distinct TABLE_NAME from INFORMATION_SCHEMA.COLUMNS
 
 update INFORMATION_SCHEMA.COLUMNS set NUMERIC_SCALE = 1 where TABLE_NAME='User' and COLUMN_NAME = 'Score'
 
@@ -53,3 +53,55 @@ SELECT
     WHERE ([Extent1].[SelectedShipperId] = 2) OR (([Extent1].[SelectedShipperId] IS NULL) AND (2 IS NULL))
 
 select * from "user"
+
+DECLARE 
+       @SQL NVARCHAR(MAX)
+     , @TableName SYSNAME = '[dbo].[User]'
+
+SELECT @SQL = 'SELECT STUFF((SELECT
+' + STUFF((
+     SELECT [text()] = '+ ''N''''''' + ' + ISNULL(CAST([' + c.name + '] AS NVARCHAR(MAX)), '''') + '''''', ''' + CHAR(10)
+     FROM sys.columns c
+     WHERE c.[object_id] = OBJECT_ID('[dbo].[User]')
+          AND c.user_type_id = c.system_type_id
+FOR XML PATH('')), 1, 2, '  ') + ' + CHAR(10)
+FROM ' + @TableName + '
+FOR XML PATH('''')), 1, 0, '''')'
+
+PRINT @SQL
+
+DECLARE @temp TABLE (t NVARCHAR(MAX))
+
+INSERT INTO @temp
+EXEC sys.sp_executesql @SQL
+
+DECLARE @SQL2 NVARCHAR(MAX)
+
+SELECT @SQL2 = t
+FROM @temp
+
+PRINT @SQL2
+
+DECLARE @a  NVARCHAR(MAX);
+SELECT @a = STUFF((SELECT
+  'N''' + ISNULL(CAST([UserId] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([FullName] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([Username] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([Password] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([Email] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([PhoneNumber] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([BirthDay] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([Gender] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([UserType] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([ShopName] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([ShopAddress] AS NVARCHAR(MAX)), '') + ''', '
++ 'N''' + ISNULL(CAST([Score] AS NVARCHAR(MAX)), '') + ''', '
+ + CHAR(10)
+FROM [dbo].[User]
+FOR XML PATH('')), 1, 0, '');
+
+PRINT @a;
+
+select * from [User] u join [Order] o on u.UserId = o.SelectedShipperId join ReviewsShipper r on o.OrderId = r.OrderId;
+select * from [User] u join [Order] o on u.UserId = o.ShopId join ReviewsShipper r on o.OrderId = r.OrderId;
+select * from ReviewsShipper;

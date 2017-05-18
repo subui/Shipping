@@ -3,6 +3,8 @@
     $scope.isRegistered = isRegistered;
     $scope.isSelected = order.SelectedShipperId === userId;
 
+    $scope.startTime = $app.formatDateTime($scope.order.StartTime);
+
     request.getShopNameByUserId(order.ShopId, onSuccess, onError);
 
     $scope.closeDialog = function () {

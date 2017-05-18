@@ -2,7 +2,11 @@
   <ng-include src="'/Templates/waiting.html'"></ng-include>
   <div layout="column" layout-align="center center" flex>
     <form name="form.profile" layout="column" layout-padding style="width: 80%">
-      <h3>{{consts.lbl.USERNAME + ': ' + user.Username}}</h3>
+      <div layout-xs="column" layout-sm="row" layout-gt-sm="row">
+        <h3 flex-sm="45" flex-gt-sm="45">{{consts.lbl.USERNAME + ': ' + user.Username}}</h3>
+        <span flex></span>
+        <h3 flex-sm="45" flex-gt-sm="45">{{consts.lbl.USER_TYPE + ': ' + userType}}</h3>
+      </div>
       <div layout-xs="column" layout-sm="row" layout-gt-sm="row">
         <div layout="column" flex-sm="45" flex-gt-sm="45">
           <h1>{{consts.lbl.PERSONAL_INFO}}</h1>
@@ -33,16 +37,16 @@
           </md-input-container>
           <div layout="row">
             <md-input-container>
-              <label>{{$root.consts.lbl.BIRTH_DAY}}</label>
+              <label>{{consts.lbl.BIRTH_DAY}}</label>
               <md-datepicker name="birthDay" ng-model="user.BirthDay"
-                             md-open-on-focus aria-label="{{$root.consts.lbl.BIRTH_DAY}}">
+                             md-open-on-focus aria-label="{{consts.lbl.BIRTH_DAY}}">
               </md-datepicker>
               <div ng-messages="form.profile.birthDay.$error">
-                <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+                <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
               </div>
             </md-input-container>
             <md-input-container>
-              <label>{{$root.consts.lbl.GENDER}}</label>
+              <label>{{consts.lbl.GENDER}}</label>
               <md-select ng-model="user.Gender">
                 <md-option ng-repeat="g in gender" value="{{g.key}}">
                   {{g.value}}
@@ -55,19 +59,40 @@
         <div flex></div>
 
         <div layout="column" flex-sm="45" flex-gt-sm="45">
-          <h1>{{consts.lbl.SHOP_INFO}}</h1>
-          <!-- Shop name -->
-          <md-input-container>
-            <label>{{consts.lbl.SHOP_NAME}}</label>
-            <input type="text" name="shopName" ng-model="user.ShopName"/>
-            <div ng-messages="form.signUp.shopName.$error">
-            </div>
-          </md-input-container>
-          <!-- Shop address -->
-          <md-input-container>
-            <label>{{consts.lbl.SHOP_ADDRESS}}</label>
-            <textarea ng-model="user.ShopAddress" rows="5"></textarea>
-          </md-input-container>
+          <div ng-if="false">
+            <h1>{{consts.lbl.SHOP_INFO}}</h1>
+            <!-- Shop name -->
+            <md-input-container>
+              <label>{{consts.lbl.SHOP_NAME}}</label>
+              <input type="text" name="shopName" ng-model="user.ShopName"/>
+              <div ng-messages="form.signUp.shopName.$error">
+              </div>
+            </md-input-container>
+            <!-- Shop address -->
+            <md-input-container>
+              <label>{{consts.lbl.SHOP_ADDRESS}}</label>
+              <textarea ng-model="user.ShopAddress" rows="5"></textarea>
+            </md-input-container>
+          </div>
+          <div ng-if="true">
+            <h1>{{consts.lbl.REVIEWS}}</h1>
+            <md-list>
+              <md-list-item ng-repeat="review in listReviews"
+                            ng-init="bgItemReview = 'grey-200-0'"
+                            md-colors="{background: '{{bgItemReview}}'}"
+                            ng-mouseover="bgItemReview = 'grey-200'"
+                            ng-mouseleave="bgItemReview = 'grey-200-0'">
+                <div layout="column">
+                  <div>{{review.shopName}}</div>
+                  <div layout="row" md-colors="{color: 'amber'}">
+                    <md-icon ng-repeat="star in review.stars track by $index">{{star.icon}}</md-icon>
+                  </div>
+                  <div>{{review.Content}}</div>
+                  <div>{{review.RevTime}}</div>
+                </div>
+              </md-list-item>
+            </md-list>
+          </div>
         </div>
       </div>
 

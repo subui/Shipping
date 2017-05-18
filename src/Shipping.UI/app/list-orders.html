@@ -1,6 +1,6 @@
 ﻿<div ng-controller="listOrders">
   <ng-include src="'/Templates/waiting.html'"></ng-include>
-  <div id="filter" layout="row">
+  <div id="filter" layout="row" ng-if="isShopManager">
     <div layout="column" layout-align="center center">{{$root.consts.lbl.ORDER_STATUS}}</div>
     <div>
       <md-checkbox ng-model="filter.allItems" ng-change="filterItems(true)" md-whiteframe="5">
@@ -28,8 +28,7 @@
     <md-grid-list ng-if="isShopManager"
                   md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-lg="3" md-cols-xl="4"
                   md-row-height="165px"
-                  md-gutter="20px"
-                  style="margin: 0 10px">
+                  md-gutter="20px">
       <md-grid-tile ng-repeat="o in orders" ng-init="order = o.Order">
         <ng-include src="'/Templates/order-item.html'" style="width: 100%" flex></ng-include>
       </md-grid-tile>
@@ -38,8 +37,7 @@
     <md-grid-list ng-if="!isShopManager"
                   md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-lg="3" md-cols-xl="4"
                   md-row-height="110px"
-                  md-gutter="20px"
-                  style="margin: 0 10px">
+                  md-gutter="20px">
       <md-grid-tile ng-repeat="order in orders" ng-init="o = order">
         <ng-include src="'/Templates/order-item.html'" style="width: 100%" flex></ng-include>
       </md-grid-tile>

@@ -1,4 +1,4 @@
-﻿// ...
+﻿// common
 var $app = {
     apiUrl: 'http://localhost:1110/',
     entities: {
@@ -105,6 +105,14 @@ var $app = {
                 head.appendChild(script);
             }
         }
+    },
+    formatDateTime: function(dateTime) {
+        if (!(dateTime instanceof Date)) dateTime = new Date(dateTime);
+        return dateTime.getDate().toString().padStart(2, '0') + '-'
+            + dateTime.getMonth().toString().padStart(2, '0') + '-'
+            + dateTime.getFullYear().toString() + ' '
+            + dateTime.getHours().toString().padStart(2, '0') + ':'
+            + dateTime.getMinutes().toString().padStart(2, '0');
     }
 };
 
@@ -242,6 +250,31 @@ function request($http, cookies) {
     var userLogin = cookies.getUserLogin();
     if (userLogin) var userId = userLogin.UserId;
 
+    function getListOrders(onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.ORDER + '/' + userId)
+            .then(onSuccess, onError);
+    }
+
+    function getShopNameByUserId(userId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.USER + '/' + userId)
+            .then(onSuccess, onError);
+    }
+
+    function getOrderRegisteredByShipperId(shipperId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REGISTER + '/getorder/' + shipperId)
+            .then(onSuccess, onError);
+    }
+
+    function getShipperRegisteredByOrderId(orderId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REGISTER + '/getshipper/' + orderId)
+            .then(onSuccess, onError);
+    }
+
+    function getListReviews(onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REVIEWS + '/' + userId)
+            .then(onSuccess, onError);
+    }
+
     function createNewUser(user, onSuccess, onError) {
         $http.post($app.apiUrl + constants.req.SIGN_UP, user)
             .then(onSuccess, onError);
@@ -249,11 +282,6 @@ function request($http, cookies) {
 
     function login(user, onSuccess, onError) {
         $http.post($app.apiUrl + constants.req.LOGIN, user)
-            .then(onSuccess, onError);
-    }
-
-    function getListOrders(onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.ORDER + '/' + userId)
             .then(onSuccess, onError);
     }
 
@@ -277,21 +305,6 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function getShopNameByUserId(userId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.USER + '/' + userId)
-            .then(onSuccess, onError);
-    }
-
-    function getOrderRegisteredByShipperId(shipperId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REGISTER + '/getorder/' + shipperId)
-            .then(onSuccess, onError);
-    }
-
-    function getShipperRegisteredByOrderId(orderId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REGISTER + '/getshipper/' + orderId)
-            .then(onSuccess, onError);
-    }
-
     function reviewsShipper(rev, onSuccess, onError) {
         $http.post($app.apiUrl + constants.req.REVIEWS, rev)
             .then(onSuccess, onError);
@@ -309,16 +322,17 @@ function request($http, cookies) {
     }
 
     return {
+        getListOrders: getListOrders,
+        getShopNameByUserId: getShopNameByUserId,
+        getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
+        getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
+        getListReviews: getListReviews,
         createNewUser: createNewUser,
         login: login,
-        getListOrders: getListOrders,
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,
         unRegisterOrder: unRegisterOrder,
-        getShopNameByUserId: getShopNameByUserId,
-        getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
-        getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
         selectShipper: updateOrder,
         reviewsShipper: reviewsShipper,
         updateUserInfo: updateUserInfo,
