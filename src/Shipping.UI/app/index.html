@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html ng-app="app" ng-controller="main" ng-cloak>
 <head>
-  <title>{{consts.title.LOGIN}}</title>
+  <title>{{consts.title.SHIPPING}}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- GoogleApis fonts -->
@@ -28,7 +28,7 @@
   <link href="/Styles/app.css" rel="stylesheet" />
 </head>
 <body>
-  <md-content layout="row" flex ng-show="isLogin">
+  <md-content layout="row" flex ng-if="isLogin">
     <md-sidenav class="md-sidenav-left"
                 md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-md')"
@@ -86,7 +86,7 @@
         </div>
       </md-toolbar>
 
-      <md-content md-colors="{background: 'amber-50'}" ng-include="content" ng-init="content='list-orders.html'" flex>
+      <md-content md-colors="{background: 'amber-50'}" ng-include="content" flex>
       </md-content>
     </section>
   </md-content>

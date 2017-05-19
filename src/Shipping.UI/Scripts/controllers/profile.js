@@ -1,6 +1,6 @@
 ﻿function profile($scope, request, mdToast, cookies) {
-    $scope.user = cookies.getUserLogin();
-    $scope.userType = getUserType($scope.user.UserType);
+    $scope.userType = $scope.isShopManager ? constants.lbl.SHOP_MANAGER : constants.lbl.SHIPPER;
+    $scope.user = JSON.parse(JSON.stringify($scope.userLogin));
     $scope.setTitle(constants.title.PROFILE);
     $scope.gender = [
         {

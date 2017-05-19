@@ -6,6 +6,7 @@
         $scope.userId = $scope.userLogin.UserId;
         $scope.username = $scope.userLogin.FullName;
         $scope.isShopManager = $scope.userLogin.UserType === $app.enums.userType.ShopManager;
+        $scope.content = 'list-orders.html';
     } else {
         $window.location.href = '/account/login.html';
         return;

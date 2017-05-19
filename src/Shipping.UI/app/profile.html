@@ -58,8 +58,8 @@
 
         <div flex></div>
 
-        <div layout="column" flex-sm="45" flex-gt-sm="45">
-          <div ng-if="false">
+        <div flex-sm="45" flex-gt-sm="45">
+          <div ng-if="isShopManager" layout="column">
             <h1>{{consts.lbl.SHOP_INFO}}</h1>
             <!-- Shop name -->
             <md-input-container>
@@ -74,7 +74,7 @@
               <textarea ng-model="user.ShopAddress" rows="5"></textarea>
             </md-input-container>
           </div>
-          <div ng-if="true">
+          <div ng-if="!isShopManager" layout="column">
             <h1>{{consts.lbl.REVIEWS}}</h1>
             <md-list>
               <md-list-item ng-repeat="review in listReviews"

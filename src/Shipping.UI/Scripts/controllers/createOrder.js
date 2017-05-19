@@ -14,8 +14,6 @@
         $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
     }
 
-    $scope.userId = userId;
-
     $scope.today = new Date();
     $scope.startTime = $scope.isCreate ? $scope.today : new Date($scope.order.StartTime);
 
@@ -52,7 +50,7 @@
         $scope.order.StartTime = $scope.startTime;
 
         if ($scope.isCreate) {
-            $scope.order.ShopId = $scope.userId;
+            $scope.order.ShopId = userId;
             $scope.order.Status = $app.enums.orderStatus.Waiting;
 
             request.createOrder($scope.order, onSuccess, onError);
