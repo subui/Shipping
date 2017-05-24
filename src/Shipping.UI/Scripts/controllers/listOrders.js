@@ -1,6 +1,6 @@
 ﻿function listOrders($rootScope, $scope, request, $timeout, $mdDialog, mdToast) {
     $scope.waiting = true;
-    $scope.setTitle(constants.title.ORDER_MANAGEMENT);
+    $scope.setTitle(constants.title.LIST_ORDERS);
 
     mdToast.show(constants.lbl.LOADING_LIST_ORDERS);
     request.getListOrders(onSuccess, onError);
@@ -41,25 +41,29 @@
             }
         }
 
-        $scope.orders = $scope.listOrders;
-
-        if (!$scope.filter.waiting)
-            $scope.orders = $scope.orders.filter(order => order.Order.Status !== $app.enums.orderStatus.Waiting);
-
-        if (!$scope.filter.shipping)
-            $scope.orders = $scope.orders.filter(order => order.Order.Status !== $app.enums.orderStatus.Shipping);
-
-        if (!$scope.filter.done)
-            $scope.orders = $scope.orders.filter(order => order.Order.Status !== $app.enums.orderStatus.Done);
-
-        if (!$scope.filter.expired)
-            $scope.orders = $scope.orders.filter(order => order.Order.Status !== $app.enums.orderStatus.Expired);
-
-        if (!$scope.filter.canceled)
-            $scope.orders = $scope.orders.filter(order => order.Order.Status !== $app.enums.orderStatus.Canceled);
+        $scope.orders = $scope.isShopManager
+                            ? $scope.listOrders
+                            : $scope.isRegistered
+                                ? $scope.listOrdersRegistered
+                                : $scope.listOrdersNotRegistered;
 
         if ($scope.filter.allItems)
-            $scope.orders = $scope.listOrders;
+            return;
+
+        if (!$scope.filter.waiting)
+            $scope.orders = $scope.orders.filter(order => order.Status !== $app.enums.orderStatus.Waiting);
+
+        if (!$scope.filter.shipping)
+            $scope.orders = $scope.orders.filter(order => order.Status !== $app.enums.orderStatus.Shipping);
+
+        if (!$scope.filter.done)
+            $scope.orders = $scope.orders.filter(order => order.Status !== $app.enums.orderStatus.Done);
+
+        if (!$scope.filter.expired)
+            $scope.orders = $scope.orders.filter(order => order.Status !== $app.enums.orderStatus.Expired);
+
+        if (!$scope.filter.canceled)
+            $scope.orders = $scope.orders.filter(order => order.Status !== $app.enums.orderStatus.Canceled);
     };
 
     $scope.showDetail = function (event, order) {
@@ -139,11 +143,13 @@
     });
 
     $scope.$on('getOrders', function () {
+        $scope.setTitle(constants.title.LIST_ORDERS);
         $scope.orders = $scope.listOrdersNotRegistered;
         $scope.isRegistered = false;
     });
 
     $scope.$on('getOrdersRegistered', function () {
+        $scope.setTitle(constants.title.ORDER_REGISTERED);
         $scope.orders = $scope.listOrdersRegistered;
         $scope.isRegistered = true;
     });
@@ -185,18 +191,25 @@
                 $scope.listOrders = data.Data;
 
                 if ($scope.isShopManager) {
-                    $scope.orders = $scope.listOrders;
-                    $scope.orders.forEach(order => {
-                        if ($scope.isShipping(order.Order)) {
-                            order.ShipperName = String.format(constants.lbl.SHIPPER_SHIPPING, order.ShipperName);
-                        } else if ($scope.isDone(order.Order)) {
-                            order.ShipperName = String.format(constants.lbl.SHIPPER_DONE, order.ShipperName);
+                    $scope.orders = [];
+                    $scope.listOrders.forEach(order => {
+                        var shipperName = order.shipperName;
+                        var shipperCount = order.shipperCount;
+                        order = order.order;
+
+                        if ($scope.isShipping(order)) {
+                            order.ShipperName = String.format(constants.lbl.SHIPPER_SHIPPING, shipperName);
+                        } else if ($scope.isDone(order)) {
+                            order.ShipperName = String.format(constants.lbl.SHIPPER_DONE, shipperName);
                         } else {
-                            order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, order.ShipperCount);
+                            order.ShipperCount = String.format(constants.btn.LIST_SHIPPER_REGISTERED, shipperCount);
                         }
 
-                        order.color = getColor(order.Order.Status);
+                        order.color = getColor(order.Status);
+
+                        $scope.orders.push(order);
                     });
+                    $scope.listOrders = $scope.orders;
                 } else {
                     request.getOrderRegisteredByShipperId($scope.userId, onSuccess, onError);
                 }
@@ -204,10 +217,14 @@
             }
 
             if (data.RequestType === type.Register) {
-                data.Data.forEach(item =>
-                    item.color = item.SelectedShipperId === $scope.userId
-                        ? constants.color.DONE
-                        : constants.color.UNKNOWN);
+                data.Data.forEach(item => {
+                    item.color = constants.color.WAITING;
+                    if (item.SelectedShipperId === $scope.userId) {
+                        item.color = item.Status === $app.enums.orderStatus.Done
+                            ? constants.color.DONE
+                            : constants.color.SHIPPING;
+                    }
+                });
 
                 $scope.listOrdersRegistered = data.Data;
                 $scope.listOrdersNotRegistered = [];

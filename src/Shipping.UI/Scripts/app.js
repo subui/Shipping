@@ -108,18 +108,19 @@ var $app = {
     },
     formatDateTime: function(dateTime) {
         if (!(dateTime instanceof Date)) dateTime = new Date(dateTime);
-        return dateTime.getDate().toString().padStart(2, '0') + '-'
-            + dateTime.getMonth().toString().padStart(2, '0') + '-'
-            + dateTime.getFullYear().toString() + ' '
-            + dateTime.getHours().toString().padStart(2, '0') + ':'
-            + dateTime.getMinutes().toString().padStart(2, '0');
+        return String.format('{0}-{1}-{2} {3}:{4}',
+            dateTime.getDate().toString().padStart(2, '0'),
+            dateTime.getMonth().toString().padStart(2, '0'),
+            dateTime.getFullYear().toString(),
+            dateTime.getHours().toString().padStart(2, '0'),
+            dateTime.getMinutes().toString().padStart(2, '0'));
     }
 };
 
 String.format = function () {
     var s = arguments[0];
     for (var i = 0; i < arguments.length - 1; i++) {
-        var reg = new RegExp("\\{" + i + "\\}", "gm");
+        var reg = new RegExp('\\{' + i + '\\}', 'gm');
         s = s.replace(reg, arguments[i + 1]);
     }
     return s;

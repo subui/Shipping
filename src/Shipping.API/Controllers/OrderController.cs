@@ -33,8 +33,13 @@ namespace Shipping.API.Controllers
                 }
 
                 var listOrders = userType == (int)UserType.ShopManager
-                    ? entities.Orders.Where(o => o.ShopId == userRequest.UserId).OrderByDescending(o => o.OrderId).ToList()
-                    : entities.Orders.OrderByDescending(o => o.OrderId).ToList();
+                    ? entities.Orders.Where(o => o.ShopId == userRequest.UserId)
+                        .OrderByDescending(o => o.OrderId)
+                        .ToList()
+                    : entities.Orders.Where(
+                            o => o.Status != (int)OrderStatus.Expired && o.Status != (int)OrderStatus.Canceled)
+                        .OrderByDescending(o => o.OrderId)
+                        .ToList();
 
                 var returnData = new List<object>();
 
@@ -45,12 +50,12 @@ namespace Shipping.API.Controllers
                         if (order.Status == (int)OrderStatus.Done || order.Status == (int)OrderStatus.Shipping)
                         {
                             var shipperName = entities.Users.FirstOrDefault(u => u.UserId == order.SelectedShipperId)?.Username;
-                            returnData.Add(new { Order = order, ShipperName = shipperName });
+                            returnData.Add(new { order, shipperName });
                         }
                         else
                         {
                             var shipperCount = entities.ShippingRegistrations.Count(r => r.OrderId == order.OrderId);
-                            returnData.Add(new { Order = order, ShipperCount = shipperCount });
+                            returnData.Add(new { order, shipperCount });
                         }
                     }
                     else

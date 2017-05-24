@@ -15,12 +15,22 @@ namespace Shipping.API.Controllers
         {
             using (var entities = new ShippingEntities())
             {
-                var listOrderId = entities.ShippingRegistrations
+                /*var listOrderId = entities.ShippingRegistrations
                         .Where(r => r.ShipperId == id)
                         .Select(r => r.OrderId);
 
                 var listOrder = entities.Orders
                     .Where(o => listOrderId.Contains(o.OrderId))
+                    .ToList();*/
+
+                var listOrder = (from o in entities.Orders
+                                 join r in entities.ShippingRegistrations on o.OrderId equals r.OrderId
+                                 where r.ShipperId == id
+                                    && (o.SelectedShipperId == id || o.SelectedShipperId == null)
+                                    && o.Status != (int)OrderStatus.Expired
+                                    && o.Status != (int)OrderStatus.Canceled
+                                 orderby o.OrderId descending
+                                 select o)
                     .ToList();
 
                 return new ResponseData(listOrder, ResponseStatus.Success, RequestType.Register);
@@ -34,13 +44,19 @@ namespace Shipping.API.Controllers
         {
             using (var entities = new ShippingEntities())
             {
-                var listShipperId = entities.ShippingRegistrations
+                /*var listShipperId = entities.ShippingRegistrations
                        .Where(r => r.OrderId == id)
                        .Select(r => r.ShipperId);
 
                 var listShipper = entities.Users
                     .Where(u => listShipperId.Contains(u.UserId))
                     .Select(u => new { u.UserId, u.FullName })
+                    .ToList();*/
+
+                var listShipper = (from u in entities.Users
+                                   join r in entities.ShippingRegistrations on u.UserId equals r.ShipperId
+                                   where r.OrderId == id
+                                   select new { u.UserId, u.FullName })
                     .ToList();
 
                 return new ResponseData(listShipper, ResponseStatus.Success, RequestType.Register);

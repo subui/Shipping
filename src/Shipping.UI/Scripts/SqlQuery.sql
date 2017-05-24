@@ -105,3 +105,16 @@ PRINT @a;
 select * from [User] u join [Order] o on u.UserId = o.SelectedShipperId join ReviewsShipper r on o.OrderId = r.OrderId;
 select * from [User] u join [Order] o on u.UserId = o.ShopId join ReviewsShipper r on o.OrderId = r.OrderId;
 select * from ReviewsShipper;
+
+var listOrderId = entities.ShippingRegistrations
+                        .Where(r => r.ShipperId == id)
+                        .Select(r => r.OrderId);
+
+                var listOrder = entities.Orders
+                    .Where(o => listOrderId.Contains(o.OrderId))
+                    .ToList();
+
+
+select * from "order" o left join shippingregistration s on o.orderid = s.orderid where s.shipperid = 2
+
+from o in entities.Orders join r in entities.ShippingRegistrations on o.OrderId equal r.OrderId where r.ShipperId == id && o.Status != (int)OrderStatus.Expired && o.Status != (int)OrderStatus.Canceled select o;

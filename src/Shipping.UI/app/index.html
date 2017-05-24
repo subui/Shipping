@@ -30,7 +30,7 @@
 <body>
   <md-content layout="row" flex ng-if="isLogin">
     <md-sidenav class="md-sidenav-left"
-                md-component-id="left"
+                md-component-id="menu"
                 md-is-locked-open="$mdMedia('gt-md')"
                 md-whiteframe="4"
                 md-colors="{background: 'blue'}">
@@ -48,7 +48,8 @@
             <md-list-item ng-click="menuItem.action()">{{menuItem.title}}</md-list-item>
             <md-list ng-if="menuItem.children" style="width: 90%; margin-left: 10%">
               <div ng-repeat="subMenuItem in menuItem.children">
-                <md-list-item ng-click="subMenuItem.action()" md-colors="{background: '{{menu.isActive(subMenuItem.title) ? 'blue-300-0.7' : 'blue'}}', color: 'grey-A100'}">
+                <md-list-item ng-click="subMenuItem.action()"
+                              md-colors="{background: '{{menu.isActive(subMenuItem.title) ? 'blue-300-0.7' : 'blue'}}', color: 'grey-A100'}">
                   {{subMenuItem.title}}
                 </md-list-item>
               </div>
@@ -66,20 +67,14 @@
           </md-button>
           <h2 md-truncate flex hide-gt-md>{{title}}</h2>
           <span flex></span>
-          <h5><a href="#">{{consts.lbl.WELCOME + ' ' + username}}</a></h5>
+          <h5><a href="#">{{consts.lbl.WELCOME + ' ' + userLogin.FullName}}</a></h5>
           <md-menu md-position-mode="target-right target" md-offset="0 42">
-            <md-button class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+            <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
               <md-icon>more_vert</md-icon>
             </md-button>
             <md-menu-content>
-              <md-menu-item>
-                <md-button>Menu item 1</md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button>Menu item 2</md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="logout()">{{consts.btn.LOGOUT}}</md-button>
+              <md-menu-item ng-repeat="m in topRightMenu">
+                <md-button ng-click="m.action()">{{m.title}}</md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>

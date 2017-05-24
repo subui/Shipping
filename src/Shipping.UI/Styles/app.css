@@ -57,7 +57,7 @@ md-dialog-content > md-input-container:first-child {
         }
 
 #content {
-    margin: 10px;
+    padding: 10px;
 }
 
 .inline {
@@ -83,4 +83,17 @@ md-card {
 
 [md-colors] md-icon {
   color: inherit;
+}
+
+.big {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.score {
+    padding: 10px;
+    font-size: 3em;
+    font-weight: bold;
+    border: 3px solid #2196f3;
+    border-radius: 50%;
 }

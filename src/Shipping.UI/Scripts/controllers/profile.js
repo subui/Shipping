@@ -1,6 +1,6 @@
 ﻿function profile($scope, request, mdToast, cookies) {
     $scope.userType = $scope.isShopManager ? constants.lbl.SHOP_MANAGER : constants.lbl.SHIPPER;
-    $scope.user = JSON.parse(JSON.stringify($scope.userLogin));
+    $scope.user = cookies.getUserLogin();
     $scope.setTitle(constants.title.PROFILE);
     $scope.gender = [
         {
@@ -21,14 +21,6 @@
         request.updateUserInfo($scope.user, onSuccess, onError);
     };
 
-    function getUserType(userType) {
-        if (userType === $app.enums.userType.ShopManager)
-            return constants.lbl.SHOP_MANAGER;
-
-        if (userType === $app.enums.userType.Shipper)
-            return constants.lbl.SHIPPER;
-    }
-
     function onSuccess(response) {
         $scope.waiting = false;
 
@@ -38,13 +30,15 @@
 
         if (data.ResponseStatus === status.Success) {
             if (data.RequestType === type.User) {
-                mdToast.show(constants.lbl.UPDATE_PROFILE_SUCCESS);
+                mdToast.show(constants.lbl.UPDATE_PROFILE_SUCCESS, 3000);
                 cookies.setUserLogin($scope.user);
             }
 
             if (data.RequestType === type.Reviews) {
                 $scope.listReviews = data.Data;
+                $scope.reviews = String.format(constants.lbl.REVIEWS, $scope.listReviews.length);
                 $scope.listReviews.forEach(item => {
+                    item.RevTime = $app.formatDateTime(item.RevTime);
                     item.stars = [];
                     for (var i = 0; i < 10; i++) {
                         item.stars.push({

@@ -21,11 +21,12 @@ namespace Shipping.API.Controllers
                 */
 
                 var listReviewsByShipper = (from u in entities.Users
-                        let shopName = u.ShopName ?? u.FullName
-                        join o in entities.Orders on u.UserId equals o.ShopId
-                        join r in entities.ReviewsShippers on o.OrderId equals r.OrderId
-                        where o.SelectedShipperId == id && o.Status == (int) OrderStatus.Done
-                        select new {shopName, o.OrderName, r.Score, r.Content, r.RevTime})
+                                            let shopName = u.ShopName ?? u.FullName
+                                            join o in entities.Orders on u.UserId equals o.ShopId
+                                            join r in entities.ReviewsShippers on o.OrderId equals r.OrderId
+                                            where o.SelectedShipperId == id && o.Status == (int)OrderStatus.Done
+                                            orderby r.RevTime descending
+                                            select new { shopName, o.OrderName, r.Score, r.Content, r.RevTime })
                     .ToList();
 
                 /*
@@ -57,7 +58,7 @@ namespace Shipping.API.Controllers
                 if (shipper == null) return null;
 
                 var listOrderIdByShipper =
-                    entities.Orders.Where(o => o.SelectedShipperId == shipperId && o.Status == (int) OrderStatus.Done)
+                    entities.Orders.Where(o => o.SelectedShipperId == shipperId && o.Status == (int)OrderStatus.Done)
                         .Select(o => o.OrderId);
                 var shipperSore =
                     entities.ReviewsShippers.Where(r => listOrderIdByShipper.Contains(r.OrderId)).Average(r => r.Score);

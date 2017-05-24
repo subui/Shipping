@@ -35,11 +35,11 @@
               <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
             </div>
           </md-input-container>
-          <div layout="row">
+          <div layout-xs="column" layout-sm="column" layout-gt-sm="row">
             <md-input-container>
               <label>{{consts.lbl.BIRTH_DAY}}</label>
               <md-datepicker name="birthDay" ng-model="user.BirthDay"
-                             md-open-on-focus aria-label="{{consts.lbl.BIRTH_DAY}}">
+                             md-open-on-focus aria-label="{{consts.lbl.BIRTH_DAY}}" style="width: 100%">
               </md-datepicker>
               <div ng-messages="form.profile.birthDay.$error">
                 <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
@@ -54,6 +54,9 @@
               </md-select>
             </md-input-container>
           </div>
+          <md-button type="submit" class="md-primary md-raised" style="margin-top: 30px" md-colors="{background: 'green'}" ng-click="save()" ng-if="!isShopManager">
+            {{consts.btn.UPDATE}}
+          </md-button>
         </div>
 
         <div flex></div>
@@ -75,20 +78,28 @@
             </md-input-container>
           </div>
           <div ng-if="!isShopManager" layout="column">
-            <h1>{{consts.lbl.REVIEWS}}</h1>
+            <h1>{{consts.lbl.LIST_REVIEWS}}</h1>
+            <div style="padding: 20px">
+              <span class="score" md-colors="{color: 'dialogTheme-blue'}">{{user.Score}}</span>
+              <span class="md-title" md-colors="{color: 'grey-600'}">{{reviews}}</span>
+            </div>
             <md-list>
               <md-list-item ng-repeat="review in listReviews"
                             ng-init="bgItemReview = 'grey-200-0'"
                             md-colors="{background: '{{bgItemReview}}'}"
                             ng-mouseover="bgItemReview = 'grey-200'"
-                            ng-mouseleave="bgItemReview = 'grey-200-0'">
+                            ng-mouseleave="bgItemReview = 'grey-200-0'"
+                            style="padding: 10px 16px">
                 <div layout="column">
-                  <div>{{review.shopName}}</div>
+                  <div>
+                    <strong>{{review.shopName}}</strong>
+                    <span class="md-caption" md-colors="{color: 'grey'}">{{review.RevTime}}</span>
+                  </div>
                   <div layout="row" md-colors="{color: 'amber'}">
                     <md-icon ng-repeat="star in review.stars track by $index">{{star.icon}}</md-icon>
+                    <md-tooltip md-visible="true" md-direction="right">{{review.Score}}</md-tooltip>
                   </div>
-                  <div>{{review.Content}}</div>
-                  <div>{{review.RevTime}}</div>
+                  <div><i>{{review.Content}}</i></div>
                 </div>
               </md-list-item>
             </md-list>
@@ -96,7 +107,9 @@
         </div>
       </div>
 
-      <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'green'}" ng-click="save()">{{consts.btn.UPDATE}}</md-button>
+      <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'green'}" ng-click="save()" ng-if="isShopManager">
+        {{consts.btn.UPDATE}}
+      </md-button>
     </form>
   </div>
 </div>

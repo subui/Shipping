@@ -4,7 +4,6 @@
     if ($scope.userLogin) {
         $scope.isLogin = true;
         $scope.userId = $scope.userLogin.UserId;
-        $scope.username = $scope.userLogin.FullName;
         $scope.isShopManager = $scope.userLogin.UserType === $app.enums.userType.ShopManager;
         $scope.content = 'list-orders.html';
     } else {
@@ -90,27 +89,48 @@
         return item === this.highlight;
     };
 
+    $scope.topRightMenu = [
+        {
+            title: constants.btn.ORDER,
+            action: function () {
+                $scope.isShopManager ? $scope.showListOrders() : $scope.getOrders();
+            }
+        },
+        {
+            title: constants.btn.ACCOUNT,
+            action: function () {
+                $scope.showProfile();
+            }
+        },
+        {
+            title: constants.btn.LOGOUT,
+            action: function () {
+                $scope.logout();
+            }
+        }
+    ];
+
     $scope.showListOrders = function () {
         $scope.content = 'list-orders.html';
-        $scope.toggleSidenav();
+        $scope.closeSidenav();
     };
 
     $scope.getOrders = function () {
         $scope.content = 'list-orders.html';
         $scope.$broadcast('getOrders');
-        $scope.toggleSidenav();
+        $scope.closeSidenav();
     };
 
     $scope.getOrdersRegistered = function () {
         $scope.content = 'list-orders.html';
         $scope.$broadcast('getOrdersRegistered');
-        $scope.toggleSidenav();
+        $scope.closeSidenav();
     };
 
     $scope.createOrder = function (event, order) {
-        $app.loadScript('/Scripts/controllers/createOrder.js', null, function() {
+        $app.loadScript('/Scripts/controllers/createOrder.js', null, function () {
             if (!order) {
-                $mdSidenav('left').toggle();
+                $scope.closeSidenav();
                 $scope.menu.highlightPre = $scope.menu.highlight;
             }
 
@@ -144,7 +164,7 @@
     };
 
     $scope.changePassword = function () {
-        $app.loadScript('/Scripts/controllers/changePassword.js', null, function() {
+        $app.loadScript('/Scripts/controllers/changePassword.js', null, function () {
             $scope.content = 'change-password.html';
             $scope.toggleSidenav();
         });
@@ -156,7 +176,11 @@
     };
 
     $scope.toggleSidenav = function () {
-        $mdSidenav('left').toggle();
+        $mdSidenav('menu').toggle();
+    };
+
+    $scope.closeSidenav = function () {
+        $mdSidenav('menu').close();
     };
 
     $scope.openMenu = function ($mdMenu, e) {
