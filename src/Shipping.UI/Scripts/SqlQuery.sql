@@ -118,3 +118,12 @@ var listOrderId = entities.ShippingRegistrations
 select * from "order" o left join shippingregistration s on o.orderid = s.orderid where s.shipperid = 2
 
 from o in entities.Orders join r in entities.ShippingRegistrations on o.OrderId equal r.OrderId where r.ShipperId == id && o.Status != (int)OrderStatus.Expired && o.Status != (int)OrderStatus.Canceled select o;
+
+SELECT 
+    *
+    FROM  [dbo].[ReviewsShipper] AS [Extent1]
+    INNER JOIN [dbo].[Order] AS [Extent2] ON [Extent1].[OrderId] = [Extent2].[OrderId] order by revtime
+
+	select * from ReviewsShipper order by revtime
+
+	delete from ReviewsShipper where OrderId in (select OrderId from [Order] where [Order].[Status] = 2)

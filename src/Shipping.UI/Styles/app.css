@@ -26,6 +26,18 @@
     }
 }
 
+@media screen and (min-width: 700px) {
+    .show-reviews {
+        min-width: 700px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .show-reviews {
+        width: 100%;
+    }
+}
+
 md-input-container {
     margin-bottom: 0;
 }
@@ -91,9 +103,22 @@ md-card {
 }
 
 .score {
+    width: 70px;
+    height: 70px;
     padding: 10px;
+    margin: auto;
     font-size: 3em;
     font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
     border: 3px solid #2196f3;
     border-radius: 50%;
+}
+
+md-list {
+    padding: 0;
+}
+
+.shipper-info {
+    transition: all linear 1s;
 }

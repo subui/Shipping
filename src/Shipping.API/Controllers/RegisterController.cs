@@ -56,7 +56,7 @@ namespace Shipping.API.Controllers
                 var listShipper = (from u in entities.Users
                                    join r in entities.ShippingRegistrations on u.UserId equals r.ShipperId
                                    where r.OrderId == id
-                                   select new { u.UserId, u.FullName })
+                                   select new { u.UserId, u.FullName, u.Gender, u.BirthDay, u.Score })
                     .ToList();
 
                 return new ResponseData(listShipper, ResponseStatus.Success, RequestType.Register);

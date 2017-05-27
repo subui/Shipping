@@ -11,19 +11,21 @@
         request.selectShipper(order, onSuccess, onError);
     }
 
-    $scope.viewShipperInfo = function (shipper) {
-        $scope.alert = '';
-        $mdBottomSheet.show({
-            templateUrl: '/Templates/bottom-sheet-shipper-info.html',
-            controller: function ($scope) {
-                $scope.subheader = String.format(constants.lbl.SHIPPER_INFO, shipper.FullName);
-                $scope.shipper = shipper;
-            }
-        }).then(function (clickedItem) {
-
-        }).catch(function (error) {
-            // User clicked outside or hit escape
-        });
+    $scope.viewShipperInfo = function (shipper, event) {
+        $app.loadScript('/Scripts/controllers/shipperInfo.js',
+            null,
+            function() {
+                $mdDialog.show({
+                    multiple: true,
+                    targetEvent: event,
+                    clickOutsideToClose: true,
+                    templateUrl: '/Templates/shipper-info.html',
+                    controller: 'shipperInfo',
+                    locals: {
+                        shipper: shipper
+                    }
+                });
+            });
     };
 
     request.getShipperRegisteredByOrderId(order.OrderId, onSuccess, onError);
@@ -40,13 +42,14 @@
                 $scope.shippers = data.Data;
 
             if (data.RequestType === type.Order) {
-                var selectedShipper = $scope.shippers.find(s => s.UserId === $scope.selectedShipperId);
+                var selectedShipper = $scope.shippers.find(s => s.UserId === parseInt($scope.selectedShipperId));
                 mdToast.show(String.format(constants.lbl.SELECTED, selectedShipper.FullName, order.OrderName), 5000);
             }
         }
     }
 
-    function onError() {
+    function onError(response) {
+        $scope.waiting = false;
         mdToast.show(constants.lbl.ERROR, 1000, 'top right');
         console.error(response.data);
     }

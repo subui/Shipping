@@ -1,4 +1,4 @@
-﻿<md-dialog style="min-width: 500px">
+﻿<md-dialog style="min-width: 400px">
   <ng-include src="'/Templates/waiting.html'"></ng-include>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -11,12 +11,22 @@
   </md-toolbar>
   <md-dialog-content layout="column" layout-padding>
     <h3 ng-if="!shippers.length" md-colors="{color: 'dialogTheme-orange-900'}" align="center">{{$root.consts.lbl.NOT_REGISTERED}}</h3>
-    <md-radio-group ng-model="selectedShipperId" ng-change="select()">
-      <div ng-repeat="shipper in shippers" layout="row">
-        <md-radio-button value="{{shipper.UserId}}" layout="row" layout-align="center center" style="margin: 8px 0">{{shipper.FullName}}</md-radio-button>
-        <span flex></span>
-        <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue'}" ng-click="viewShipperInfo(shipper)">{{$root.consts.btn.SHIPPER_INFO}}</md-button>
-      </div>
+    <md-radio-group ng-model="selectedShipperId">
+      <md-list>
+        <md-list-item ng-repeat="shipper in shippers" ng-click="viewShipperInfo(shipper, $event)">
+          <md-radio-button value="{{shipper.UserId}}" layout="row" layout-align="center center" style="margin: 8px 0">{{shipper.FullName}}</md-radio-button>
+        </md-list-item>
+      </md-list>
     </md-radio-group>
   </md-dialog-content>
+  <md-dialog-actions>
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="select()">
+      <md-icon md-colors="{color: 'dialogTheme-grey-A100'}">done</md-icon>
+      {{$root.consts.btn.SELECT}}
+    </md-button>
+    <md-button class="md-raised" ng-click="closeDialog()">
+      <md-icon>close</md-icon>
+      {{$root.consts.btn.CANCEL}}
+    </md-button>
+  </md-dialog-actions>
 </md-dialog>

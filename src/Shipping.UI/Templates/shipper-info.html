@@ -1,0 +1,42 @@
+﻿<md-dialog>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="closeDialog()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content layout-padding>
+    <div ng-init="layout = 'column'" layout="{{layout}}" class="shipper-info" ng-class="class">
+      <div layout="column" flex="40">
+        <div class="md-body-2" layout="row">
+          <div flex="10"></div>
+          <div flex="40">{{$root.consts.lbl.FULL_NAME}}</div>
+          <div flex>{{shipper.FullName}}</div>
+        </div>
+        <div class="md-body-2" layout="row">
+          <div flex="10"></div>
+          <div flex="40">{{$root.consts.lbl.GENDER}}</div>
+          <div flex>{{gender}}</div>
+        </div>
+        <div class="md-body-2" layout="row">
+          <div flex="10"></div>
+          <div flex="40">{{$root.consts.lbl.BIRTH_DAY}}</div>
+          <div flex>{{birthDay}}</div>
+        </div>
+        <div class="score" md-colors="{color: 'dialogTheme-blue'}">{{shipper.Score || 0}}</div>
+        <div class="md-title" md-colors="{color: 'dialogTheme-grey-600'}" style="text-align: center">{{reviews}}</div>
+        <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="showReviews()">
+          {{$root.consts.btn.SHOW_REVIEWS}}
+        </md-button>
+      </div></div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button class="md-raised" ng-click="closeDialog()">
+      <md-icon>close</md-icon>
+      {{$root.consts.btn.CLOSE}}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

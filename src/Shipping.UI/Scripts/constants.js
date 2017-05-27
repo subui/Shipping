@@ -21,7 +21,9 @@
         ORDER: 'Đơn hàng',
         PROFILE: 'Thông tin cá nhân',
         SAVE: 'Lưu lại',
+        SELECT: 'Chọn',
         SHIPPER_INFO: 'Thông tin Shipper',
+        SHOW_REVIEWS: 'Xem các đánh giá',
         SIGN_UP: 'Đăng ký',
         UPDATE: 'Cập nhật'
     },
@@ -115,11 +117,13 @@
         CREATE_ORDER: 'Tạo mới đơn hàng',
         LIST_ORDERS: 'Danh sách đơn hàng',
         LOGIN: 'Đăng nhập',
+        ORDER_INFO: 'Thông tin đơn hàng',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         ORDER_REGISTERED: 'Đơn hàng đã đăng ký',
         PROFILE: 'Thông tin tài khoản',
         REVIEWS_SHIPPER: 'Đánh giá shipper {0} cho đơn hàng {1}',
         SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
+        SHIPPER_INFO: 'Thông tin shipper ({0})',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'
     }

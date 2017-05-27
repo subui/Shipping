@@ -4,7 +4,6 @@
     if ($scope.isCreate) {
         $scope.title = constants.title.CREATE_ORDER;
     } else {
-        $scope.title = constants.title.UPDATE_ORDER;
         $scope.order = JSON.parse(JSON.stringify(order));
 
         $scope.isWaiting = $scope.order.Status === $app.enums.orderStatus.Waiting;
@@ -12,6 +11,8 @@
         $scope.isDone = $scope.order.Status === $app.enums.orderStatus.Done;
         $scope.isExpired = $scope.order.Status === $app.enums.orderStatus.Expired;
         $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
+
+        $scope.title = $scope.isShipping || $scope.isDone ? constants.title.ORDER_INFO : constants.title.UPDATE_ORDER;
     }
 
     $scope.today = new Date();

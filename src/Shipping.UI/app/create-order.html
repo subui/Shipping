@@ -31,7 +31,7 @@
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
-      <div layout="row" ng-init="hour = currentHour; minute = currentMinute">
+      <div layout="row" ng-init="hour = currentHour; minute = currentMinute" style="min-height: 79px">
         <md-input-container>
           <label style="left: 0">{{$root.consts.lbl.START_TIME}}</label>
           <md-datepicker name="startTime" ng-model="startTime" md-min-date="today"
@@ -61,7 +61,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div layout="row">
+      <div layout="row" style="min-height: 79px">
         <md-input-container flex="70">
           <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
           <input type="text" name="recipientsName" ng-model="order.RecipientsName" ng-disabled="!isEdit" required />
@@ -77,7 +77,7 @@
           </div>
         </md-input-container>
       </div>
-      <div layout="row">
+      <div layout="row" style="min-height: 79px">
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
           <input type="text" name="advanceDeposit" ng-model="order.AdvanceDeposit" ng-disabled="!isEdit" required />
@@ -115,8 +115,8 @@
         <md-icon style="color: white">edit</md-icon>
         {{$root.consts.btn.DONE}}
       </md-button>
-      <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="closeDialog()" ng-if="!isEdit || isCreate">
-        <md-icon style="color: white">close</md-icon>
+      <md-button class="md-raised" ng-click="closeDialog()" ng-if="!isEdit || isCreate">
+        <md-icon>close</md-icon>
         {{$root.consts.btn.CLOSE}}
       </md-button>
     </md-dialog-actions>

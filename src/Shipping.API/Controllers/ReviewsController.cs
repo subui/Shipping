@@ -24,7 +24,7 @@ namespace Shipping.API.Controllers
                                             let shopName = u.ShopName ?? u.FullName
                                             join o in entities.Orders on u.UserId equals o.ShopId
                                             join r in entities.ReviewsShippers on o.OrderId equals r.OrderId
-                                            where o.SelectedShipperId == id && o.Status == (int)OrderStatus.Done
+                                            where o.SelectedShipperId == id
                                             orderby r.RevTime descending
                                             select new { shopName, o.OrderName, r.Score, r.Content, r.RevTime })
                     .ToList();
@@ -33,13 +33,29 @@ namespace Shipping.API.Controllers
                 var listReviewsByShipper =
                     entities.Users.Join(entities.Orders, u => u.UserId, o => o.ShopId,
                             (u, o) => new {shopName = u.ShopName ?? u.FullName, o.OrderId, o.OrderName, o.SelectedShipperId, o.Status})
-                        .Where(o => o.SelectedShipperId == id && o.Status == (int) OrderStatus.Done)
+                        .Where(o => o.SelectedShipperId == id)
                         .Join(entities.ReviewsShippers, o => o.OrderId, r => r.OrderId,
                             (o, r) => new {o.shopName, o.OrderName, r.Score, r.Content, r.RevTime})
                         .ToList();
                 */
 
                 return new ResponseData(listReviewsByShipper, ResponseStatus.Success, RequestType.Reviews);
+            }
+        }
+
+        [HttpGet]
+        [Route("reviews/getnumberofreviews/{id}")]
+        public ResponseData GetNumberOfReviews(int id)
+        {
+            using (var entities = new ShippingEntities())
+            {
+                return
+                    new ResponseData(
+                        entities.ReviewsShippers.Join(entities.Orders.Where(o => o.SelectedShipperId == id),
+                                r => r.OrderId, o => o.OrderId, (r, o) => r)
+                            .Count(),
+                        ResponseStatus.Success,
+                        RequestType.Reviews);
             }
         }
 
@@ -57,13 +73,12 @@ namespace Shipping.API.Controllers
                 var shipper = entities.Users.FirstOrDefault(u => u.UserId == shipperId);
                 if (shipper == null) return null;
 
-                var listOrderIdByShipper =
-                    entities.Orders.Where(o => o.SelectedShipperId == shipperId && o.Status == (int)OrderStatus.Done)
-                        .Select(o => o.OrderId);
-                var shipperSore =
-                    entities.ReviewsShippers.Where(r => listOrderIdByShipper.Contains(r.OrderId)).Average(r => r.Score);
+                var shipperScore =
+                    entities.Orders.Where(o => o.SelectedShipperId == shipperId && o.Status == (int) OrderStatus.Done)
+                        .Join(entities.ReviewsShippers, o => o.OrderId, r => r.OrderId, (o, r) => r.Score)
+                        .Average();
 
-                shipper.Score = (decimal?)shipperSore;
+                shipper.Score = (decimal?)shipperScore;
 
                 entities.SaveChanges();
                 return new ResponseData(ResponseStatus.Success, RequestType.Reviews);

@@ -113,6 +113,7 @@
     <Content Include="Scripts\controllers\changePassword.js" />
     <Content Include="Scripts\controllers\profile.js" />
     <Content Include="Scripts\controllers\reviewsShipper.js" />
+    <Content Include="Scripts\controllers\shipperInfo.js" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-cookies.min.js.map" />
@@ -140,7 +141,7 @@
     <Content Include="Scripts\data.sql" />
     <Content Include="Scripts\SqlQuery.sql" />
     <Content Include="Styles\app.css" />
-    <Content Include="Templates\bottom-sheet-shipper-info.html" />
+    <Content Include="Templates\shipper-info.html" />
     <Content Include="Templates\order-item.html" />
     <Content Include="app\order-detail.html" />
     <Content Include="Templates\toast-template.html" />

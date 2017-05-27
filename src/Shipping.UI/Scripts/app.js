@@ -110,7 +110,7 @@ var $app = {
         if (!(dateTime instanceof Date)) dateTime = new Date(dateTime);
         return String.format('{0}-{1}-{2} {3}:{4}',
             dateTime.getDate().toString().padStart(2, '0'),
-            dateTime.getMonth().toString().padStart(2, '0'),
+            (dateTime.getMonth() + 1).toString().padStart(2, '0'),
             dateTime.getFullYear().toString(),
             dateTime.getHours().toString().padStart(2, '0'),
             dateTime.getMinutes().toString().padStart(2, '0'));
@@ -183,6 +183,10 @@ app.controller('signUp',
     .controller('reviewsShipper',
         function ($scope, request, $mdDialog, $timeout, $interval, order, shipper) {
             reviewsShipper($scope, request, $mdDialog, $timeout, $interval, order, shipper);
+        })
+    .controller('shipperInfo',
+        function ($scope, request, $mdDialog, shipper) {
+            shipperInfo($scope, request, $mdDialog, shipper);
         });
 
 
@@ -322,6 +326,11 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
+    function getNumberOfReviews(shipperId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REVIEWS + '/getnumberofreviews/' + shipperId)
+            .then(onSuccess, onError);
+    }
+
     return {
         getListOrders: getListOrders,
         getShopNameByUserId: getShopNameByUserId,
@@ -337,6 +346,7 @@ function request($http, cookies) {
         selectShipper: updateOrder,
         reviewsShipper: reviewsShipper,
         updateUserInfo: updateUserInfo,
-        updatePassword: updatePassword
+        updatePassword: updatePassword,
+        getNumberOfReviews: getNumberOfReviews
     }
 }
