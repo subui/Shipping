@@ -1,0 +1,20 @@
+﻿<md-list>
+  <md-list-item ng-repeat="review in listReviews"
+                ng-init="bgItemReview = 'dialogTheme-grey-200-0'"
+                md-colors="{background: '{{bgItemReview}}'}"
+                ng-mouseover="bgItemReview = 'dialogTheme-grey-200'"
+                ng-mouseleave="bgItemReview = 'dialogTheme-grey-200-0'"
+                style="padding: 10px 16px">
+    <div layout="column">
+      <div>
+        <strong>{{review.shopName}}</strong>
+        <span class="md-caption" md-colors="{color: 'dialogTheme-grey'}">{{review.RevTime}}</span>
+      </div>
+      <div layout="row" md-colors="{color: 'dialogTheme-amber'}" style="width: 240px">
+        <md-icon ng-repeat="star in review.stars track by $index">{{star.icon}}</md-icon>
+        <md-tooltip md-direction="right">{{review.Score}}</md-tooltip>
+      </div>
+      <div><i>{{review.Content}}</i></div>
+    </div>
+  </md-list-item>
+</md-list>

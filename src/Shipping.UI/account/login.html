@@ -4,27 +4,8 @@
   <title>{{consts.title.LOGIN}}</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- GoogleApis fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-  <!-- Angular Material style sheet -->
-  <link href="/Vendors/angular-material-1.1.4/angular-material.min.css" rel="stylesheet" />
-  <!-- Angular libaries -->
-  <script src="/Vendors/angular-1.6.3/angular.min.js"></script>
-  <script src="/Vendors/angular-1.6.3/angular-animate.min.js"></script>
-  <script src="/Vendors/angular-1.6.3/angular-aria.min.js"></script>
-  <script src="/Vendors/angular-1.6.3/angular-cookies.min.js"></script>
-  <script src="/Vendors/angular-1.6.3/angular-messages.min.js"></script>
-  <script src="/Vendors/angular-1.6.3/angular-sanitize.min.js"></script>
-  <!-- Angular Material libary -->
-  <script src="/Vendors/angular-material-1.1.4/angular-material.min.js"></script>
-  
-  <!-- Style -->
-  <link href="../Styles/app.css" rel="stylesheet" />
-  <!-- JavaScript app -->
-  <script src="/Scripts/constants.js"></script>
+  <link rel="import" href="/Templates/include-libs.html" />
   <script src="/Scripts/controllers/login.js"></script>
-  <script src="/Scripts/app.js"></script>
-  <script src="/Vendors/sha256.js"></script>
 </head>
 <body>
   <ng-include src="'/Templates/waiting.html'"></ng-include>
@@ -35,7 +16,7 @@
       <md-input-container>
         <label>{{consts.lbl.USERNAME}}</label>
         <input id="username" type="text" name="username" ng-model="username" required autofocus
-               ng-change="form.login.login.$setValidity('incorrect', true)" />
+               ng-change="form.login.username.$setValidity('incorrect', true)" />
         <div ng-messages="form.login.username.$error">
           <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
           <div ng-message="incorrect">{{consts.lbl.ERROR_USERNAME_NOT_EXIST}}</div>
@@ -53,8 +34,8 @@
       </md-input-container>
       <md-button type="submit" class="md-primary md-raised" md-colors="{background: 'blue'}" ng-click="login()">{{consts.btn.LOGIN}}</md-button>
       <div layout="row">
-        <a href="#" flex>{{consts.lbl.FORGOT_PASSWORD}}</a>
-        <a href="sign-up.html">{{consts.lbl.SIGN_UP}}</a>
+        <a href="reset-password.html" flex>{{consts.lbl.FORGOT_PASSWORD}}</a>
+        <div ng-bind-html="consts.lbl.DONT_HAVE_ACCOUNT"></div>
       </div>
     </form>
   </md-content>

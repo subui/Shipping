@@ -1,4 +1,4 @@
-﻿function selectShipper($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered) {
+﻿function selectShipper($scope, request, $mdDialog, mdToast, order) {
     $scope.title = String.format(constants.title.SELECT_SHIPPER, order.OrderName);
     $scope.selectedShipperId = order.SelectedShipperId;
 
@@ -44,6 +44,7 @@
             if (data.RequestType === type.Order) {
                 var selectedShipper = $scope.shippers.find(s => s.UserId === parseInt($scope.selectedShipperId));
                 mdToast.show(String.format(constants.lbl.SELECTED, selectedShipper.FullName, order.OrderName), 5000);
+                $mdDialog.hide();
             }
         }
     }

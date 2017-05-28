@@ -63,7 +63,8 @@ var $app = {
             User: 3,
             Order: 4,
             Register: 5,
-            Reviews: 6
+            Reviews: 6,
+            ResetPassword: 7
         },
         userType: {
             Admin: 0,
@@ -152,6 +153,10 @@ app.controller('signUp',
         function ($rootScope, $scope, request, $window, mdToast, cookies) {
             login($rootScope, $scope, request, $window, mdToast, cookies);
         })
+    .controller('resetPassword',
+        function ($rootScope, $scope, request, $window, mdToast) {
+            resetPassword($rootScope, $scope, request, $window, mdToast);
+        })
     .controller('main',
         function ($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
             main($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies);
@@ -177,8 +182,8 @@ app.controller('signUp',
             orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
         })
     .controller('selectShipper',
-        function ($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered) {
-            selectShipper($scope, request, $mdDialog, mdToast, $mdBottomSheet, order, userId, isRegistered);
+        function ($scope, request, $mdDialog, mdToast, order) {
+            selectShipper($scope, request, $mdDialog, mdToast, order);
         })
     .controller('reviewsShipper',
         function ($scope, request, $mdDialog, $timeout, $interval, order, shipper) {
@@ -275,8 +280,13 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function getListReviews(onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REVIEWS + '/' + userId)
+    function getListReviews(shipperId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REVIEWS + '/' + (shipperId || userId))
+            .then(onSuccess, onError);
+    }
+
+    function getNumberOfReviews(shipperId, onSuccess, onError) {
+        $http.get($app.apiUrl + constants.req.REVIEWS + '/getnumberofreviews/' + shipperId)
             .then(onSuccess, onError);
     }
 
@@ -287,6 +297,11 @@ function request($http, cookies) {
 
     function login(user, onSuccess, onError) {
         $http.post($app.apiUrl + constants.req.LOGIN, user)
+            .then(onSuccess, onError);
+    }
+
+    function checkUsername(username, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.RESET_PASSWORD, '"' + username + '"')
             .then(onSuccess, onError);
     }
 
@@ -305,7 +320,7 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function unRegisterOrder(orderId, shipperId, onSuccess, onError) {
+    function unregisterOrder(orderId, shipperId, onSuccess, onError) {
         $http.delete($app.apiUrl + constants.req.REGISTER + '/' + orderId + '/' + shipperId)
             .then(onSuccess, onError);
     }
@@ -326,27 +341,23 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function getNumberOfReviews(shipperId, onSuccess, onError) {
-        $http.get($app.apiUrl + constants.req.REVIEWS + '/getnumberofreviews/' + shipperId)
-            .then(onSuccess, onError);
-    }
-
     return {
         getListOrders: getListOrders,
         getShopNameByUserId: getShopNameByUserId,
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
         getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
         getListReviews: getListReviews,
+        getNumberOfReviews: getNumberOfReviews,
         createNewUser: createNewUser,
         login: login,
+        checkUsername: checkUsername,
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,
-        unRegisterOrder: unRegisterOrder,
+        unregisterOrder: unregisterOrder,
         selectShipper: updateOrder,
         reviewsShipper: reviewsShipper,
         updateUserInfo: updateUserInfo,
-        updatePassword: updatePassword,
-        getNumberOfReviews: getNumberOfReviews
+        updatePassword: updatePassword
     }
 }

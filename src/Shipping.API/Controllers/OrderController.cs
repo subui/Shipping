@@ -11,7 +11,7 @@ namespace Shipping.API.Controllers
     public class OrderController : ApiController
     {
         [HttpGet]
-        public ResponseData Get(int id)
+        public ResponseData GetListOrdersByUserId(int id)
         {
             using (var entities = new ShippingEntities())
             {
@@ -69,7 +69,7 @@ namespace Shipping.API.Controllers
         }
 
         [HttpPost]
-        public ResponseData Post(Order order)
+        public ResponseData CreateOrder(Order order)
         {
             using (var entities = new ShippingEntities())
             {
@@ -81,7 +81,7 @@ namespace Shipping.API.Controllers
         }
 
         [HttpPut]
-        public ResponseData Put(int id, Order order)
+        public ResponseData UpdateOrder(int id, Order order)
         {
             using (var entities = new ShippingEntities())
             {

@@ -9,7 +9,7 @@ namespace Shipping.API.Controllers
 {
     public class SignUpController : ApiController
     {
-        public ResponseData Post(User user)
+        public ResponseData CreateNewUser(User user)
         {
             using (var entities = new ShippingEntities())
             {

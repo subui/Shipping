@@ -9,7 +9,8 @@ namespace Shipping.API.Controllers
 {
     public class LoginController : ApiController
     {
-        public ResponseData Post(User user)
+        [HttpPost]
+        public ResponseData Login(User user)
         {
             using (var entities = new ShippingEntities())
             {

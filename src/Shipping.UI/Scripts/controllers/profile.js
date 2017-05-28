@@ -13,7 +13,7 @@
         }
     ];
 
-    request.getListReviews(onSuccess, onError);
+    request.getListReviews(null, onSuccess, onError);
 
     $scope.save = function() {
         if ($scope.form.profile.$invalid) return;

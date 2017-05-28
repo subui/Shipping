@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="account\reset-password.html" />
     <Content Include="account\login.html" />
     <Content Include="account\sign-up.html" />
     <Content Include="app\change-password.html" />
@@ -111,9 +112,12 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="Scripts\controllers\changePassword.js" />
+    <Content Include="Scripts\controllers\resetPassword.js" />
     <Content Include="Scripts\controllers\profile.js" />
     <Content Include="Scripts\controllers\reviewsShipper.js" />
     <Content Include="Scripts\controllers\shipperInfo.js" />
+    <Content Include="Templates\include-libs.html" />
+    <Content Include="Templates\review-item.html" />
     <Content Include="Vendors\angular-1.6.3\angular-animate.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-aria.min.js.map" />
     <Content Include="Vendors\angular-1.6.3\angular-cookies.min.js.map" />

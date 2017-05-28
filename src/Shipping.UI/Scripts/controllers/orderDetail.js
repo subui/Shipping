@@ -19,7 +19,7 @@
 
     $scope.unRegister = function () {
         $scope.waiting = true;
-        request.unRegisterOrder(order.OrderId, userId, onSuccess, onError);
+        request.unregisterOrder(order.OrderId, userId, onSuccess, onError);
     };
 
     function onSuccess(response) {

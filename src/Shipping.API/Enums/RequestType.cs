@@ -7,6 +7,7 @@
         User = 3,
         Order = 4,
         Register = 5,
-        Reviews = 6
+        Reviews = 6,
+        ResetPassword = 7
     }
 }

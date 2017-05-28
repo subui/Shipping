@@ -64,7 +64,7 @@ namespace Shipping.API.Controllers
         }
 
         [HttpPost]
-        public ResponseData Post(ShippingRegistration reg)
+        public ResponseData RegisterOrder(ShippingRegistration reg)
         {
             using (var entities = new ShippingEntities())
             {
@@ -77,7 +77,7 @@ namespace Shipping.API.Controllers
 
         [HttpDelete]
         [Route("register/{orderId}/{shipperId}")]
-        public ResponseData Delete(int orderId, int shipperId)
+        public ResponseData UnregisterOrder(int orderId, int shipperId)
         {
             using (var entities = new ShippingEntities())
             {

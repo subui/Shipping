@@ -83,8 +83,7 @@
                     userId: $scope.userId,
                     isRegistered: $scope.isRegistered
                 }
-            })
-            .then(function () {
+            }).then(function () {
                 var message;
                 var index;
 
@@ -111,7 +110,7 @@
 
     $scope.showShipper = function (event, order) {
         event.stopPropagation();
-        $app.loadScript('/Scripts/controllers/selectShipper.js', null, function() {
+        $app.loadScript('/Scripts/controllers/selectShipper.js', null, function () {
             $mdDialog.show({
                 targetEvent: event,
                 templateUrl: 'select-shipper.html',

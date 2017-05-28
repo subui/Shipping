@@ -26,15 +26,10 @@
     }
 }
 
-@media screen and (min-width: 700px) {
-    .show-reviews {
-        min-width: 700px;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .show-reviews {
-        width: 100%;
+@media screen and (min-width: 600px) {
+    #list-reviews {
+        max-height: calc(100vh * 0.8 - 150px);
+        overflow-y: scroll;
     }
 }
 
@@ -94,7 +89,7 @@ md-card {
 }
 
 [md-colors] md-icon {
-  color: inherit;
+    color: inherit;
 }
 
 .big {
@@ -106,7 +101,7 @@ md-card {
     width: 70px;
     height: 70px;
     padding: 10px;
-    margin: auto;
+    margin: 10px auto;
     font-size: 3em;
     font-weight: bold;
     line-height: 1.5;
@@ -119,6 +114,14 @@ md-list {
     padding: 0;
 }
 
-.shipper-info {
-    transition: all linear 1s;
+form[name="form.profile"] h1 {
+    margin: 0;
 }
+
+form[name="form.resetPassword"] md-progress-circular {
+    margin: 2px;
+}
+
+    form[name="form.resetPassword"] md-progress-circular svg path {
+        stroke: white;
+    }
