@@ -45,6 +45,11 @@ var $app = {
             this.UserId = userId;
             this.CurrentPassword = sha256_digest(currentPassword);
             this.NewPassword = sha256_digest(newPassword);
+        },
+        ResetPassword: function (username, email, password) {
+            this.UserName = username;
+            this.Email = email;
+            this.Password = sha256_digest(password);
         }
     },
     enums: {
@@ -55,7 +60,8 @@ var $app = {
             ErrorUsernameNotExist: 2,
             ErrorEmailExist: 3,
             ErrorPasswordIncorrect: 4,
-            ErrorOrderNotExist: 5
+            ErrorOrderNotExist: 5,
+            ErrorEmailIncorrect: 6
         },
         requestType: {
             Login: 1,
@@ -132,9 +138,7 @@ var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngSanitize', 'ngCo
 
 app.run(function ($rootScope) {
     $rootScope.consts = constants;
-    $rootScope.typeOf = function (obj) {
-        return typeof obj;
-    };
+    $rootScope.isDevMode = true;
 });
 
 app.factory('cookies', cookies)
@@ -154,8 +158,8 @@ app.controller('signUp',
             login($rootScope, $scope, request, $window, mdToast, cookies);
         })
     .controller('resetPassword',
-        function ($rootScope, $scope, request, $window, mdToast) {
-            resetPassword($rootScope, $scope, request, $window, mdToast);
+        function ($scope, request, $window, $mdDialog, mdToast) {
+            resetPassword($scope, request, $window, $mdDialog, mdToast);
         })
     .controller('main',
         function ($scope, request, $window, $mdSidenav, $mdDialog, mdToast, cookies) {
@@ -178,20 +182,20 @@ app.controller('signUp',
             changePassword($scope, request, mdToast);
         })
     .controller('orderDetail',
-        function ($scope, request, $mdDialog, order, userId, isRegistered) {
-            orderDetail($scope, request, $mdDialog, order, userId, isRegistered);
+        function ($scope, request, $mdDialog, mdToast, order, userId, isRegistered) {
+            orderDetail($scope, request, $mdDialog, mdToast, order, userId, isRegistered);
         })
     .controller('selectShipper',
         function ($scope, request, $mdDialog, mdToast, order) {
             selectShipper($scope, request, $mdDialog, mdToast, order);
         })
     .controller('reviewsShipper',
-        function ($scope, request, $mdDialog, $timeout, $interval, order, shipper) {
-            reviewsShipper($scope, request, $mdDialog, $timeout, $interval, order, shipper);
+        function ($scope, request, $mdDialog, mdToast, $timeout, $interval, order, shipperId) {
+            reviewsShipper($scope, request, $mdDialog, mdToast, $timeout, $interval, order, shipperId);
         })
     .controller('shipperInfo',
-        function ($scope, request, $mdDialog, shipper) {
-            shipperInfo($scope, request, $mdDialog, shipper);
+        function ($scope, request, $mdDialog, mdToast, shipper) {
+            shipperInfo($scope, request, $mdDialog, mdToast, shipper);
         });
 
 
@@ -265,7 +269,7 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function getShopNameByUserId(userId, onSuccess, onError) {
+    function getNameByUserId(userId, onSuccess, onError) {
         $http.get($app.apiUrl + constants.req.USER + '/' + userId)
             .then(onSuccess, onError);
     }
@@ -301,7 +305,17 @@ function request($http, cookies) {
     }
 
     function checkUsername(username, onSuccess, onError) {
-        $http.post($app.apiUrl + constants.req.RESET_PASSWORD, '"' + username + '"')
+        $http.post($app.apiUrl + constants.req.RESET_PASSWORD + '/checkusername', String.format('"{0}"', username))
+            .then(onSuccess, onError);
+    }
+
+    function checkEmail(username, email, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.RESET_PASSWORD + '/checkemail', String.format('"{0} {1}"', username, email))
+            .then(onSuccess, onError);
+    }
+
+    function resetPassword(rp, onSuccess, onError) {
+        $http.post($app.apiUrl + constants.req.RESET_PASSWORD + '/reset', rp)
             .then(onSuccess, onError);
     }
 
@@ -335,15 +349,16 @@ function request($http, cookies) {
             .then(onSuccess, onError);
     }
 
-    function updatePassword(password, onSuccess, onError) {
-        password.UserId = userId;
-        $http.post($app.apiUrl + constants.req.USER, password)
+    function updatePassword(up, onSuccess, onError) {
+        up.UserId = userId;
+        $http.post($app.apiUrl + constants.req.USER, up)
             .then(onSuccess, onError);
     }
 
     return {
         getListOrders: getListOrders,
-        getShopNameByUserId: getShopNameByUserId,
+        getShopNameByUserId: getNameByUserId,
+        getShipperNameByUserId: getNameByUserId,
         getOrderRegisteredByShipperId: getOrderRegisteredByShipperId,
         getShipperRegisteredByOrderId: getShipperRegisteredByOrderId,
         getListReviews: getListReviews,
@@ -351,6 +366,8 @@ function request($http, cookies) {
         createNewUser: createNewUser,
         login: login,
         checkUsername: checkUsername,
+        checkEmail: checkEmail,
+        resetPassword: resetPassword,
         createOrder: createOrder,
         updateOrder: updateOrder,
         registerOrder: registerOrder,

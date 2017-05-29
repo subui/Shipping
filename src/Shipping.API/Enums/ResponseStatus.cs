@@ -8,6 +8,7 @@
         ErrorUsernameNotExist = 2,
         ErrorEmailExist = 3,
         ErrorPasswordIncorrect = 4,
-        ErrorOrderNotExist = 5
+        ErrorOrderNotExist = 5,
+        ErrorEmailIncorrect = 6
     }
 }

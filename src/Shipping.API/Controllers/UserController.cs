@@ -10,7 +10,7 @@ namespace Shipping.API.Controllers
     public class UserController : ApiController
     {
         [HttpGet]
-        public ResponseData GetShopNameByUserId(int id)
+        public ResponseData GetNameByUserId(int id)
         {
             using (var entities = new ShippingEntities())
             {
@@ -20,20 +20,20 @@ namespace Shipping.API.Controllers
         }
 
         [HttpPost]
-        public ResponseData ChangePassword(UpdatePassword password)
+        public ResponseData ChangePassword(UpdatePassword up)
         {
             using (var entities = new ShippingEntities())
             {
-                var userUpdate = entities.Users.FirstOrDefault(u => u.UserId == password.UserId);
+                var userUpdate = entities.Users.FirstOrDefault(u => u.UserId == up.UserId);
 
                 if (userUpdate == null) return new ResponseData(ResponseStatus.ErrorNullValue, RequestType.User);
 
-                var currentPassword = App.GetSHA256String(password.CurrentPassword);
+                var currentPassword = App.GetSHA256String(up.CurrentPassword);
 
                 if (!currentPassword.Equals(userUpdate.Password))
                     return new ResponseData(ResponseStatus.ErrorPasswordIncorrect, RequestType.User);
 
-                userUpdate.Password = App.GetSHA256String(password.NewPassword);
+                userUpdate.Password = App.GetSHA256String(up.NewPassword);
                 entities.SaveChanges();
 
                 return new ResponseData(ResponseStatus.Success, RequestType.User);

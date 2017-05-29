@@ -45,7 +45,7 @@ values (
 	2
 );
 
-update [dbo].[Order] set ShopId = 4 where OrderId = 9
+update [dbo].[Order] set "Status" = 2 where OrderId = 1027
 
 SELECT 
     [Extent1].[OrderId] AS [OrderId]

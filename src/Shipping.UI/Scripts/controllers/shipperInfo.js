@@ -1,4 +1,4 @@
-﻿function shipperInfo($scope, request, $mdDialog, shipper) {
+﻿function shipperInfo($scope, request, $mdDialog, mdToast, shipper) {
     $scope.shipper = shipper;
     $scope.title = String.format(constants.title.SHIPPER_INFO, shipper.FullName);
     $scope.gender = shipper.Gender === $app.enums.gender.Male ? constants.lbl.MALE : constants.lbl.FEMALE;
@@ -58,7 +58,7 @@
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
         console.error(response.data);
     }
 }

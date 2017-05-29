@@ -45,7 +45,7 @@
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.show('An error has occurred.', 10000, 'top right');
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
         console.error(response.data);
     }
 }

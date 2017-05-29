@@ -8,8 +8,7 @@ namespace Shipping.API.Controllers
 {
     public class RegisterController : ApiController
     {
-        [HttpGet]
-        [Route("register/getorder/{id}")]
+        [HttpGet, Route("register/getorder/{id}")]
         // getOrderRegisteredByShipperId
         public ResponseData GetOrder(int id)
         {
@@ -37,8 +36,7 @@ namespace Shipping.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("register/getshipper/{id}")]
+        [HttpGet, Route("register/getshipper/{id}")]
         // getShipperRegisteredByOrderId
         public ResponseData GetShipper(int id)
         {
@@ -75,8 +73,7 @@ namespace Shipping.API.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("register/{orderId}/{shipperId}")]
+        [HttpDelete, Route("register/{orderId}/{shipperId}")]
         public ResponseData UnregisterOrder(int orderId, int shipperId)
         {
             using (var entities = new ShippingEntities())

@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="resetPassword" ng-cloak>
+<head>
+  <title>{{consts.title.RESET_PASSWORD}}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="import" href="/Templates/include-libs.html" />
+  <script src="/Scripts/controllers/resetPassword.js"></script>
+</head>
+<body>
+  <md-content md-colors="{background: 'amber-50'}" layout="column" layout-align="center center" ng-hide="isLogin">
+    <h1 align="center">{{consts.lbl.RESET_PASSWORD}}</h1>
+    <div layout="row">
+      <form name="form.resetPassword" layout="column" layout-padding ng-include="stepContent"></form>
+    </div>
+  </md-content>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿<div>{{consts.lbl.ENTER_EMAIL}}</div>
+<md-input-container>
+  <label>{{consts.lbl.EMAIL}}</label>
+  <input id="email" type="email" name="email" ng-model="email" required autofocus
+         ng-change="form.resetPassword.email.$setValidity('incorrect', true)" />
+  <div ng-messages="form.resetPassword.email.$error">
+    <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+    <div ng-message="email">{{consts.lbl.INVALID_EMAIL}}</div>
+    <div ng-message="incorrect">{{consts.lbl.ERROR_EMAIL_INCORRECT}}</div>
+  </div>
+</md-input-container>
+<div layout="row">
+  <md-button type="button" class="md-raised" md-colors="{background: 'blue'}" ng-click="back()">
+    <md-icon md-colors="{color: 'grey-A100'}">chevron_left</md-icon>
+    {{consts.btn.BACK}}
+  </md-button>
+  <span flex></span>
+  <md-button type="submit" class="md-raised" md-colors="{background: '{{waiting ? 'blue-300' : 'blue'}}', color: 'grey-A100'}" layout="row" ng-click="nextToStep3()" ng-disabled="waiting">
+    {{consts.btn.NEXT}}
+    <md-icon md-colors="{color: 'grey-A100'}" ng-hide="waiting">chevron_right</md-icon>
+    <md-progress-circular md-diameter="20" ng-show="waiting"></md-progress-circular>
+  </md-button>
+</div>

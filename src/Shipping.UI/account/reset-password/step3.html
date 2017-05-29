@@ -1,0 +1,23 @@
+﻿<div>{{consts.lbl.ENTER_NEW_PASSWORD.replace('{0}', username)}}</div>
+<md-input-container>
+  <label>{{consts.lbl.PASSWORD}}</label>
+  <input id="password" type="password" name="password" ng-model="password" required autofocus />
+  <div ng-messages="form.resetPassword.password.$error">
+    <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+  </div>
+</md-input-container>
+<md-input-container>
+  <label>{{consts.lbl.RE_PASSWORD}}</label>
+  <input id="rePassword" type="password" name="rePassword" ng-model="rePassword" required ng-pattern="password" />
+  <div ng-messages="form.resetPassword.rePassword.$error">
+    <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+    <div ng-message="pattern">{{consts.lbl.ERROR_PASSWORD_NOT_MATCH}}</div>
+  </div>
+</md-input-container>
+<div layout="row" layout-align="center">
+  <md-button type="submit" class="md-raised" md-colors="{background: '{{waiting ? 'blue-300' : 'blue'}}', color: 'grey-A100'}" layout="row" ng-click="reset()" ng-disabled="waiting">
+    <md-icon md-colors="{color: 'grey-A100'}">check_circle</md-icon>
+    {{consts.btn.RESET_PASSWORD}}
+    <md-progress-circular md-diameter="20" ng-show="waiting"></md-progress-circular>
+  </md-button>
+</div>

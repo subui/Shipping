@@ -110,26 +110,31 @@
         if (data.RequestType === type.Order) {
             if (data.ResponseStatus === status.Success) {
                 $rootScope.$broadcast('createOrUpdateOrder');
-                $app.loadScript('/Scripts/controllers/reviewsShipper.js', null, function () {
-                    $mdDialog.show({
-                        templateUrl: 'reviews-shipper.html',
-                        controller: 'reviewsShipper',
-                        locals: {
-                            order: $scope.order,
-                            shipper: {
-                                id: $scope.order.SelectedShipperId,
-                                name: 'abc'
+                $mdDialog.show(
+                    $mdDialog.confirm()
+                        .title(constants.title.NOTIFY)
+                        .textContent(String.format(constants.lbl.ORDER_COMPLETED, $scope.order.OrderName))
+                        .ok(constants.btn.OK)
+                        .cancel(constants.btn.CANCEL)
+                ).then(function() {
+                    $app.loadScript('/Scripts/controllers/reviewsShipper.js', null, function () {
+                        $mdDialog.show({
+                            templateUrl: 'reviews-shipper.html',
+                            controller: 'reviewsShipper',
+                            locals: {
+                                order: $scope.order,
+                                shipperId: $scope.order.SelectedShipperId
                             }
-                        }
-                    }).then(function () { mdToast.show('ngu') }, function () { });
-                });
+                        });
+                    });
+                }, function () { });
             }
         }
     }
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
         console.error(response.data);
     }
 }

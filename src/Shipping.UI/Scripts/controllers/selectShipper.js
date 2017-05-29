@@ -51,7 +51,7 @@
 
     function onError(response) {
         $scope.waiting = false;
-        mdToast.show(constants.lbl.ERROR, 1000, 'top right');
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
         console.error(response.data);
     }
 }

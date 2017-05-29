@@ -43,8 +43,7 @@ namespace Shipping.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("reviews/getnumberofreviews/{id}")]
+        [HttpGet, Route("reviews/getnumberofreviews/{id}")]
         public ResponseData GetNumberOfReviews(int id)
         {
             using (var entities = new ShippingEntities())

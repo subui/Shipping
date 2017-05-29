@@ -1,5 +1,5 @@
-﻿function reviewsShipper($scope, request, $mdDialog, $timeout, $interval, order, shipper) {
-    $scope.title = String.format(constants.title.REVIEWS_SHIPPER, shipper.name);
+﻿function reviewsShipper($scope, request, $mdDialog, mdToast, $timeout, $interval, order, shipperId) {
+    request.getShipperNameByUserId(shipperId, onSuccess, onError);
 
     $scope.closeDialog = function () {
         $mdDialog.cancel();
@@ -65,6 +65,8 @@
                     }, 100);
                 }, 100);
             }, 600);
+
+            return;
         }
 
         $scope.waiting = true;
@@ -74,10 +76,27 @@
     }
 
     function onSuccess(response) {
-        $mdDialog.hide();
+        $scope.waiting = false;
+
+        var status = $app.enums.responseStatus;
+        var type = $app.enums.requestType;
+        var data = response.data;
+
+        if (data.ResponseStatus === status.Success) {
+            if (data.RequestType === type.User)
+                $scope.shipperName = data.Data;
+                $scope.title = String.format(constants.title.REVIEWS_SHIPPER, data.Data, order.OrderName);
+
+            if (data.RequestType === type.Reviews) {
+                mdToast.show(String.format(constants.lbl.REVIEWS_SUCCESS, $scope.shipperName), 3000);
+                $mdDialog.hide();
+            }
+        }
     }
 
     function onError(response) {
-        
+        $scope.waiting = false;
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
+        console.error(response.data);
     }
 }

@@ -1,4 +1,4 @@
-﻿function orderDetail($scope, request, $mdDialog, order, userId, isRegistered) {
+﻿function orderDetail($scope, request, $mdDialog, mdToast, order, userId, isRegistered) {
     $scope.order = order;
     $scope.isRegistered = isRegistered;
     $scope.isSelected = order.SelectedShipperId === userId;
@@ -39,6 +39,8 @@
     }
 
     function onError() {
-        
+        $scope.waiting = false;
+        mdToast.show(response.data.ExceptionMessage, 10000, 'top right');
+        console.error(response.data);
     }
 }

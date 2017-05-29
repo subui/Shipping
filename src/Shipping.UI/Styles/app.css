@@ -118,6 +118,10 @@ form[name="form.profile"] h1 {
     margin: 0;
 }
 
+form[name="form.resetPassword"] {
+    width: 400px;
+}
+
 form[name="form.resetPassword"] md-progress-circular {
     margin: 2px;
 }

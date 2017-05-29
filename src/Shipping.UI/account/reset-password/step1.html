@@ -1,0 +1,22 @@
+﻿<div>{{consts.lbl.ENTER_USERNAME}}</div>
+<md-input-container>
+  <label>{{consts.lbl.USERNAME}}</label>
+  <input id="username" type="text" name="username" ng-model="username" required autofocus
+         ng-change="form.resetPassword.username.$setValidity('incorrect', true)" />
+  <div ng-messages="form.resetPassword.username.$error">
+    <div ng-message="required">{{consts.lbl.REQUIRED}}</div>
+    <div ng-message="incorrect">{{consts.lbl.ERROR_USERNAME_NOT_EXIST}}</div>
+  </div>
+</md-input-container>
+<div layout="row">
+  <a href="../login.html" style="margin: auto" flex>
+    <md-icon>chevron_left</md-icon>
+    {{consts.lbl.BACK}}
+  </a>
+  <md-button type="submit" class="md-raised" md-colors="{background: '{{waiting ? 'blue-300' : 'blue'}}', color: 'grey-A100'}" layout="row" ng-click="nextToStep2()" ng-disabled="waiting">
+    {{consts.btn.NEXT}}
+    <md-icon md-colors="{color: 'grey-A100'}" ng-hide="waiting">chevron_right</md-icon>
+    <md-progress-circular md-diameter="20" ng-show="waiting"></md-progress-circular>
+  </md-button>
+</div>
+<div ng-bind-html="consts.lbl.DONT_HAVE_ACCOUNT"></div>

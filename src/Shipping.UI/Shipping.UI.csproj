@@ -94,8 +94,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="account\reset-password.html" />
+    <Content Include="account\reset-password\index.html" />
     <Content Include="account\login.html" />
+    <Content Include="account\reset-password\step1.html" />
+    <Content Include="account\reset-password\step2.html" />
+    <Content Include="account\reset-password\step3.html" />
     <Content Include="account\sign-up.html" />
     <Content Include="app\change-password.html" />
     <Content Include="app\create-order.html" />
