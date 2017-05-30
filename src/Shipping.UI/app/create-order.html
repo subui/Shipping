@@ -13,33 +13,34 @@
     <md-dialog-content layout="column" layout-padding>
       <md-input-container>
         <label>{{$root.consts.lbl.ORDER_NAME}}</label>
-        <input type="text" name="orderName" ng-model="order.OrderName" ng-disabled="!isEdit" required md-autofocus />
+        <input type="text" name="orderName" ng-model="order.OrderName" ng-readonly="!isEdit" required md-autofocus />
         <div ng-messages="form.createOrder.orderName.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container>
         <label>{{$root.consts.lbl.STARTING_POINT}}</label>
-        <input type="text" name="startingPoint" ng-model="order.StartingPoint" ng-disabled="!isEdit" required />
+        <input type="text" name="startingPoint" ng-model="order.StartingPoint" ng-readonly="!isEdit" required />
         <div ng-messages="form.createOrder.startingPoint.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <md-input-container><label>{{$root.consts.lbl.DESTINATION}}</label>
-        <input type="text" name="destination" ng-model="order.Destination" ng-disabled="!isEdit" required />
+        <input type="text" name="destination" ng-model="order.Destination" ng-readonly="!isEdit" required />
         <div ng-messages="form.createOrder.destination.$error">
           <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
         </div>
       </md-input-container>
       <div layout="row" ng-init="hour = currentHour; minute = currentMinute" style="min-height: 79px">
         <md-input-container>
-          <label style="left: 0">{{$root.consts.lbl.START_TIME}}</label>
+          <label style="left: 0; overflow: initial; text-overflow: initial">{{$root.consts.lbl.START_TIME}}</label>
           <md-datepicker name="startTime" ng-model="startTime" md-min-date="today"
                          md-open-on-focus aria-label="{{$root.consts.lbl.START_TIME}}"
                          ng-change="onDateChange()" ng-disabled="!isEdit">
           </md-datepicker>
           <div ng-messages="form.createOrder.startTime.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
+            <div ng-message="mindate" style="position: fixed">{{$root.consts.lbl.ERROR_MIN_DATE}}</div>
           </div>
         </md-input-container>
         <md-input-container>
@@ -64,14 +65,14 @@
       <div layout="row" style="min-height: 79px">
         <md-input-container flex="70">
           <label>{{$root.consts.lbl.RECIPIENTS_NAME}}</label>
-          <input type="text" name="recipientsName" ng-model="order.RecipientsName" ng-disabled="!isEdit" required />
+          <input type="text" name="recipientsName" ng-model="order.RecipientsName" ng-readonly="!isEdit" required />
           <div ng-messages="form.createOrder.recipientsName.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.RECIPIENTS_PHONE_NUMBER}}</label>
-          <input type="text" name="recipientsPhoneNumber" ng-model="order.RecipientsPhoneNumber" ng-disabled="!isEdit" required />
+          <input type="text" name="recipientsPhoneNumber" ng-model="order.RecipientsPhoneNumber" ng-readonly="!isEdit" required />
           <div ng-messages="form.createOrder.recipientsPhoneNumber.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
@@ -80,14 +81,14 @@
       <div layout="row" style="min-height: 79px">
         <md-input-container flex>
           <label>{{$root.consts.lbl.ADVANCE_DEPOSIT}}</label>
-          <input type="text" name="advanceDeposit" ng-model="order.AdvanceDeposit" ng-disabled="!isEdit" required />
+          <input type="text" name="advanceDeposit" ng-model="order.AdvanceDeposit" ng-readonly="!isEdit" required />
           <div ng-messages="form.createOrder.advanceDeposit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>{{$root.consts.lbl.PROFIT}}</label>
-          <input type="text" name="profit" ng-model="order.Profit" ng-disabled="!isEdit" required />
+          <input type="text" name="profit" ng-model="order.Profit" ng-readonly="!isEdit" required />
           <div ng-messages="form.createOrder.profit.$error">
             <div ng-message="required">{{$root.consts.lbl.REQUIRED}}</div>
           </div>
@@ -99,16 +100,16 @@
         <md-icon style="color: white">save</md-icon>
         {{$root.consts.btn.SAVE}}
       </md-button>
-      <md-button class="md-raised" md-colors="{background: 'dialogTheme-blue-grey'}" ng-click="cancel()" ng-if="isEdit && !isCreate">
-        <md-icon style="color: white">cancel</md-icon>
+      <md-button class="md-raised" ng-click="cancel()" ng-if="isEdit && !isCreate">
+        <md-icon>cancel</md-icon>
         {{$root.consts.btn.CANCEL}}
       </md-button>
-      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="edit()" ng-if="!(isEdit || isShipping || isDone)">
+      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="edit()" ng-if="!(isEdit || isShipping || isDone || isCanceled)">
         <md-icon>edit</md-icon>
         {{$root.consts.btn.EDIT}}
       </md-button>
-      <md-button class="md-raised" md-colors="{background: 'dialogTheme-amber'}" ng-click="cancelOrder()" ng-if="!isEdit && isWaiting">
-        <md-icon>edit</md-icon>
+      <md-button class="md-raised md-warn" ng-click="cancelOrder()" ng-if="!isEdit && isWaiting">
+        <md-icon>cancel</md-icon>
         {{$root.consts.btn.CANCEL_ORDER}}
       </md-button>
       <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="done()" ng-if="!isEdit && isShipping">

@@ -1,4 +1,5 @@
 ﻿function selectShipper($scope, request, $mdDialog, mdToast, order) {
+    $scope.waiting = true;
     $scope.title = String.format(constants.title.SELECT_SHIPPER, order.OrderName);
     $scope.selectedShipperId = order.SelectedShipperId;
 
@@ -7,6 +8,7 @@
     };
 
     $scope.select = function () {
+        $scope.waiting = true;
         order.SelectedShipperId = parseInt($scope.selectedShipperId);
         request.selectShipper(order, onSuccess, onError);
     }

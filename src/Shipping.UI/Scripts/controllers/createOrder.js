@@ -69,8 +69,18 @@
     };
 
     $scope.cancelOrder = function () {
-        $scope.order.Status = $app.enums.orderStatus.Canceled;
-        request.updateOrder($scope.order, onSuccess, onError);
+        $mdDialog.show(
+            $mdDialog
+                .confirm()
+                .multiple(true)
+                .title(constants.title.CONFIRM_CANCEL_ORDER)
+                .textContent(String.format(constants.lbl.CONFIRM_CANCEL_ORDER, $scope.order.OrderName))
+                .ok(constants.btn.YES)
+                .cancel(constants.btn.NO)
+        ).then(function() {
+            $scope.order.Status = $app.enums.orderStatus.Canceled;
+            request.updateOrder($scope.order, onSuccess, onError);
+        }, function () { });
     };
 
     $scope.closeDialog = function () {

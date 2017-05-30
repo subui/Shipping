@@ -20,13 +20,13 @@
     </md-radio-group>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="select()">
+    <md-button class="md-raised" md-colors="{background: 'dialogTheme-green'}" ng-click="select()" ng-if="shippers.length">
       <md-icon md-colors="{color: 'dialogTheme-grey-A100'}">done</md-icon>
       {{$root.consts.btn.SELECT}}
     </md-button>
     <md-button class="md-raised" ng-click="closeDialog()">
       <md-icon>close</md-icon>
-      {{$root.consts.btn.CANCEL}}
+      {{shippers.length ? $root.consts.btn.CANCEL : $root.consts.btn.CLOSE}}
     </md-button>
   </md-dialog-actions>
 </md-dialog>

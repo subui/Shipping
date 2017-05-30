@@ -1,7 +1,7 @@
 ﻿var constants = {
     btn: {
         ACCOUNT: 'Tài khoản',
-        ACCOUNT_MANAGEMENT: 'Quản ký tài khoản',
+        ACCOUNT_MANAGEMENT: 'Quản lý tài khoản',
         BACK: 'Quay lại',
         CANCEL: 'Hủy bỏ',
         CANCEL_ORDER: 'Hủy đơn hàng',
@@ -17,6 +17,7 @@
         LOGOUT: 'Thoát',
         MY_ORDERS: 'Đơn hàng của tôi',
         NEXT: 'Tiếp theo',
+        NO: 'Không',
         OK: 'OK',
         ORDER_MANAGEMENT: 'Quản lý đơn hàng',
         ORDER_REGISTER: 'Đăng ký đơn hàng',
@@ -31,7 +32,8 @@
         SHIPPER_INFO: 'Thông tin Shipper',
         SHOW_REVIEWS: 'Xem các đánh giá',
         SIGN_UP: 'Đăng ký',
-        UPDATE: 'Cập nhật'
+        UPDATE: 'Cập nhật',
+        YES: 'Có'
     },
     req: {
         LOGIN: 'login',
@@ -50,6 +52,7 @@
         BACK: 'Quay lại trang đăng nhập',
         BIRTH_DAY: 'Ngày sinh',
         CHANGE_PASSWORD: 'Thay đổi mật khẩu',
+        CONFIRM_CANCEL_ORDER: 'Bạn có chắc chắn muốn hủy đơn hàng {0}?',
         CREATE_ORDER_SUCCESS: 'Tạo mới đơn hàng {0} thành công.',
         CURRENT_PASSWORD: 'Mật khẩu hiện tại',
         DESTINATION: 'Nơi giao hàng',
@@ -61,6 +64,7 @@
         ERROR: 'An error has occurred.',
         ERROR_EMAIL_EXIST: 'Email đã tồn tại.',
         ERROR_EMAIL_INCORRECT: 'Email không đúng.',
+        ERROR_MIN_DATE: 'Thời gian giao hàng không được nhỏ hơn ngày hiện tại',
         ERROR_PASSWORD_INCORRECT: 'Mật khẩu không đúng.',
         ERROR_PASSWORD_NOT_MATCH: 'Mật khẩu không khớp.',
         ERROR_USERNAME_EXIST: 'Tài khoản đã tồn tại.',
@@ -131,6 +135,7 @@
     },
     title: {
         CHANGE_PASSWORD: 'Đổi mật khẩu',
+        CONFIRM_CANCEL_ORDER: 'Xác nhận hủy đơn hàng',
         CREATE_ORDER: 'Tạo mới đơn hàng',
         LIST_ORDERS: 'Danh sách đơn hàng',
         LOGIN: 'Đăng nhập',

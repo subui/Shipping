@@ -4,7 +4,7 @@
     $scope.gender = shipper.Gender === $app.enums.gender.Male ? constants.lbl.MALE : constants.lbl.FEMALE;
     $scope.birthDay = $app.formatDateTime(shipper.BirthDay).substring(0, 10);
 
-    $scope.btnShowOrHide = constants.btn.SHOW_REVIEWS;
+    $scope.btnShowHide = constants.btn.SHOW_REVIEWS;
 
     request.getNumberOfReviews(shipper.UserId, onSuccess, onError);
 
@@ -14,16 +14,18 @@
 
     $scope.showReviews = function () {
         $scope.isShowReviews = !$scope.isShowReviews;
-        $scope.unloadReviews = true;
         if ($scope.isShowReviews) {
             $scope.flex = 40;
-            $scope.btnShowOrHide = constants.btn.HIDE_REVIEWS;
+            $scope.btnShowHide = constants.btn.HIDE_REVIEWS;
         } else {
             $scope.flex = 100;
-            $scope.btnShowOrHide = constants.btn.SHOW_REVIEWS;
+            $scope.btnShowHide = constants.btn.SHOW_REVIEWS;
         }
 
-        if (!$scope.listReviews) request.getListReviews(shipper.UserId, onSuccess, onError);
+        if (!$scope.listReviews) {
+            $scope.unloadReviews = true;
+            request.getListReviews(shipper.UserId, onSuccess, onError);
+        }
     }
 
     function onSuccess(response) {
