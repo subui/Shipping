@@ -145,7 +145,6 @@
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\controllers\createOrder.js" />
     <Content Include="Scripts\controllers\main.js" />
-    <Content Include="Scripts\data.sql" />
     <Content Include="Scripts\SqlQuery.sql" />
     <Content Include="Styles\app.css" />
     <Content Include="Templates\shipper-info.html" />
