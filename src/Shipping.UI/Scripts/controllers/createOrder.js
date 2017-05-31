@@ -12,7 +12,7 @@
         $scope.isExpired = $scope.order.Status === $app.enums.orderStatus.Expired;
         $scope.isCanceled = $scope.order.Status === $app.enums.orderStatus.Canceled;
 
-        $scope.title = $scope.isShipping || $scope.isDone ? constants.title.ORDER_INFO : constants.title.UPDATE_ORDER;
+        $scope.title = $scope.isShipping || $scope.isDone || $scope.isCanceled ? constants.title.ORDER_INFO : constants.title.UPDATE_ORDER;
     }
 
     $scope.today = new Date();
@@ -32,6 +32,19 @@
     for (var m = 0; m < 60; m++) {
         $scope.minutes.push(m.toString().padStart(2, '0'));
     }
+
+    $scope.onDateChange = function () {
+        $scope.currentHour = new Date().getHours().toString().padStart(2, '0');
+        $scope.currentMinute = new Date().getMinutes().toString().padStart(2, '0');
+        if ($scope.startTime.toString() === $scope.today.toString()) {
+            if ($scope.hour < $scope.currentHour) {
+                $scope.hour = $scope.currentHour;
+                $scope.minute = $scope.currentMinute;
+            } else if ($scope.hour === $scope.currentHour && $scope.minute < $scope.currentMinute) {
+                $scope.minute = $scope.currentMinute;
+            }
+        }
+    };
 
     $scope.edit = function () {
         $scope.isEdit = !$scope.isEdit;

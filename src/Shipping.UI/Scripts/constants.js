@@ -148,6 +148,7 @@
         REVIEWS_SHIPPER: 'Đánh giá shipper {0} cho đơn hàng {1}',
         SELECT_SHIPPER: 'Lựa chọn shipper ({0})',
         SHIPPER_INFO: 'Thông tin shipper ({0})',
+        SHIPPING: 'SHIPPING',
         SIGN_UP: 'Đăng ký thành viên',
         UPDATE_ORDER: 'Cập nhật đơn hàng'
     }
